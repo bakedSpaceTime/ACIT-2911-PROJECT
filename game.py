@@ -38,6 +38,7 @@ class Game():
         self.charDown = pygame.image.load('images/pac-down.bmp')
 
         self.clock = pygame.time.Clock()
+        pygame.display.set_caption("Pandemic Run")
         self.run = True
 
     def redraw(self):
@@ -52,7 +53,6 @@ class Game():
         elif self.directions["down"]:
             self.window.blit(self.charDown, (self.x, self.y))
         pygame.display.update()
-        pygame.display.set_caption("Pandemic Run")
 
     def is_in_bounds(self, side: str):
         boundries = {
