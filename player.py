@@ -30,7 +30,7 @@ class Player():
             "down": False
         }
 
-        self.char = pygame.image.load('images/pac-up.bmp')
+        self.char = pygame.image.load('images/pac-right.bmp')
         self.charRight = pygame.image.load('images/pac-right.bmp')
         self.charLeft = pygame.image.load('images/pac-left.bmp')
         self.charUp = pygame.image.load('images/pac-up.bmp')
@@ -38,7 +38,7 @@ class Player():
 
     def redraw(self):
         self.game_ref.window.fill((0, 0, 0))
-        
+
         if self.directions["left"]:
             self.game_ref.window.blit(self.charLeft, (self.x_pos,self.y_pos))
         elif self.directions["right"]:
@@ -47,6 +47,9 @@ class Player():
             self.game_ref.window.blit(self.charUp, (self.x_pos,self.y_pos))
         elif self.directions["down"]:
             self.game_ref.window.blit(self.charDown, (self.x_pos, self.y_pos))
+        else:
+            self.game_ref.window.blit(self.char, (self.x_pos, self.y_pos))
+
         pygame.display.update()
 
     def update(self):
