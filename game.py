@@ -1,10 +1,11 @@
 import pygame
+from settings import GAME_SETTINGS
 
 class Game():
     def __init__(self):
 
         pygame.init()
-        self.window = pygame.display.set_mode((500, 500))
+        self.window = pygame.display.set_mode((GAME_SETTINGS['width'], GAME_SETTINGS['height']))
         self.x = 225
         self.y = 225
         self.width = 32
@@ -56,7 +57,7 @@ class Game():
                     self.up = False
                     self.down = False
             elif keys[pygame.K_RIGHT]:
-                if self.x < 500 - self.width - self.velocity:
+                if self.x < GAME_SETTINGS['width'] - self.width - self.velocity:
                     self.x += self.velocity
                     self.right = True
                     self.left = False
@@ -70,7 +71,7 @@ class Game():
                     self.up = True
                     self.down = False
             elif keys[pygame.K_DOWN]:
-                if self.y < 500 - self.height:
+                if self.y < GAME_SETTINGS['height'] - self.height:
                     self.y += self.velocity
                     self.right = False
                     self.left = False
@@ -78,7 +79,7 @@ class Game():
                     self.down = True
             else:
                 if self.right:
-                    if self.x < 500 - self.width - self.velocity:
+                    if self.x < GAME_SETTINGS['width'] - self.width - self.velocity:
                         self.x += self.velocity
                 elif self.left:
                     if self.x > 0 + self.velocity:
@@ -87,7 +88,7 @@ class Game():
                     if self.y > 0 + self.velocity:
                         self.y -= self.velocity
                 elif self.down:
-                    if self.y < 500 - self.height - self.velocity:
+                    if self.y < GAME_SETTINGS['height'] - self.height - self.velocity:
                         self.y += self.velocity
             print(self.x,self.y)
             self.redraw()
