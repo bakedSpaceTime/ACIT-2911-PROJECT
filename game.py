@@ -102,8 +102,3 @@ class Game():
             
             # print(self.x,self.y)
             self.redraw()
-
-
-# if __name__ == "__main__":
-#     main_game()
-#     pygame.quit()
