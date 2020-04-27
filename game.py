@@ -11,10 +11,12 @@ class Game():
         self.width = 32
         self.height = 32
         self.velocity = 10
-        self.left = False
-        self.right = False
-        self.up = False
-        self.down = False
+        self.directions = {
+            "left": False,
+            "right": False,
+            "up": False,
+            "down": False
+        }
 
         # self.bg = pygame.image.load('images/bg.jpg')
         self.char = pygame.image.load('images/pac-up.bmp')
@@ -29,13 +31,13 @@ class Game():
     def redraw(self):
         self.window.fill((0, 0, 0))
         # self.window.blit(bg, (0,0))
-        if self.left:
+        if self.directions["left"]:
             self.window.blit(self.charLeft, (self.x,self.y))
-        elif self.right:
+        elif self.directions["right"]:
             self.window.blit(self.charRight, (self.x,self.y))
-        elif self.up:
+        elif self.directions["up"]:
             self.window.blit(self.charUp, (self.x,self.y))
-        elif self.down:
+        elif self.directions["down"]:
             self.window.blit(self.charDown, (self.x, self.y))
         pygame.display.update()
         pygame.display.set_caption("Pandemic Run")
@@ -53,6 +55,39 @@ class Game():
 
         return boundries[side]
 
+    def switch_directions(self, key):
+        key_str = self.key_to_direction_str(key)
+        if key_str in self.directions.keys():
+            for direction in self.directions:
+                if direction == key_str:
+                    self.directions[direction] = True
+                else:
+                    self.directions[direction] = False
+
+    @staticmethod
+    def key_to_direction_str(key):
+        out_str = ""
+        if key == pygame.K_LEFT:
+            out_str = "left"
+        elif key == pygame.K_RIGHT:
+            out_str = "right"
+        elif key == pygame.K_UP:
+            out_str = "up"
+        elif key == pygame.K_DOWN:
+            out_str = "down"
+        return out_str
+
+    def move_player(self):
+
+        if self.directions["left"] and self.is_in_bounds("left"):
+            self.x -= self.velocity
+        elif self.directions["right"] and self.is_in_bounds("right"):
+            self.x += self.velocity
+        elif self.directions["up"] and self.is_in_bounds("up"):
+            self.y -= self.velocity
+        elif self.directions["down"] and self.is_in_bounds("down"):
+            self.y += self.velocity
+  
     def main_game(self):
         while True:
             self.clock.tick(30)
@@ -60,51 +95,12 @@ class Game():
             for e in pygame.event.get():
                 if e.type == pygame.QUIT:
                     pygame.quit()
-            
-            keys = pygame.key.get_pressed()
+                if e.type == pygame.KEYDOWN:
+                    self.switch_directions(e.key)
 
-            if keys[pygame.K_LEFT]:
-                if self.is_in_bounds("left"):
-                    self.x -= self.velocity
-                    self.left = True
-                    self.right = False
-                    self.up = False
-                    self.down = False
-            elif keys[pygame.K_RIGHT]:
-                if self.is_in_bounds("right"):
-                    self.x += self.velocity
-                    self.right = True
-                    self.left = False
-                    self.up = False
-                    self.down = False
-            elif keys[pygame.K_UP]:
-                if self.is_in_bounds("up"):
-                    self.y -= self.velocity
-                    self.right = False
-                    self.left = False
-                    self.up = True
-                    self.down = False
-            elif keys[pygame.K_DOWN]:
-                if self.is_in_bounds("down"):
-                    self.y += self.velocity
-                    self.right = False
-                    self.left = False
-                    self.up = False
-                    self.down = True
-            else:
-                if self.right:
-                    if self.x < GAME_SETTINGS['width'] - self.width - self.velocity:
-                        self.x += self.velocity
-                elif self.left:
-                    if self.x > 0 + self.velocity:
-                        self.x -= self.velocity
-                elif self.up:
-                    if self.y > 0 + self.velocity:
-                        self.y -= self.velocity
-                elif self.down:
-                    if self.y < GAME_SETTINGS['height'] - self.height - self.velocity:
-                        self.y += self.velocity
-            print(self.x,self.y)
+            self.move_player()
+            
+            # print(self.x,self.y)
             self.redraw()
 
 
