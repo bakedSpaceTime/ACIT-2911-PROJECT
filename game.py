@@ -47,10 +47,11 @@ class Game():
             for e in pygame.event.get():
                 if e.type == pygame.QUIT:
                     pygame.quit()
+            
             keys = pygame.key.get_pressed()
 
             if keys[pygame.K_LEFT]:
-                if self.x > 0 - self.velocity:
+                if self.x > 0 + self.velocity:
                     self.x -= self.velocity
                     self.left = True
                     self.right = False
@@ -64,14 +65,14 @@ class Game():
                     self.up = False
                     self.down = False
             elif keys[pygame.K_UP]:
-                if self.y > 0:
+                if self.y > 0 + self.velocity:
                     self.y -= self.velocity
                     self.right = False
                     self.left = False
                     self.up = True
                     self.down = False
             elif keys[pygame.K_DOWN]:
-                if self.y < GAME_SETTINGS['height'] - self.height:
+                if self.y < GAME_SETTINGS['height'] - self.height - self.velocity:
                     self.y += self.velocity
                     self.right = False
                     self.left = False
