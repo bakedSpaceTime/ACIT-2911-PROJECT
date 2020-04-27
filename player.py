@@ -11,24 +11,25 @@ Authors:
 """
 
 import pygame
-from settings import GAME_SETTINGS
+from settings import GAME_SETTINGS, PLAYER_SETTINS
 
 class Player():
     def __init__(self, game_ref):
 
         self.game_ref = game_ref
-
-        self.x_pos = 225
-        self.y_pos = 225
-        self.width = 32
-        self.height = 32
-        self.velocity = 10
+        
+        self.x_pos = PLAYER_SETTINS["starting_x"]
+        self.y_pos = PLAYER_SETTINS["starting_y"]
+        self.velocity = PLAYER_SETTINS["velocity"]
         self.directions = {
             "left": False,
             "right": False,
             "up": False,
             "down": False
         }
+
+        self.width = PLAYER_SETTINS["sprite_width"]
+        self.height = PLAYER_SETTINS["sprite_height"]
 
         self.char = pygame.image.load('images/pac-right.bmp')
         self.charRight = pygame.image.load('images/pac-right.bmp')
