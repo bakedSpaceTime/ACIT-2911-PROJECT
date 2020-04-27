@@ -1,101 +1,116 @@
+"""
+Pandemic Run
+Course: ACIT 2911, Agile Development
+Authors:
+- Jaskaran Saini, A01055847
+- Jeffery Law, A00864331
+- Ming Yen Hsieh, A01170219
+- Tushya Iyer, A01023434
+- Shivar Pillay, A01079978
+- Shivam Patel, A01185250
+"""
+
 import pygame
+from settings import GAME_SETTINGS
 
+class Game():
+    def __init__(self):
 
-def redraw():
-    window.fill((0, 0, 0))
-    # window.blit(bg, (0,0))
-    if left:
-        window.blit(charLeft, (x,y))
-    elif right:
-        window.blit(charRight, (x,y))
-    elif up:
-        window.blit(charUp, (x,y))
-    elif down:
-        window.blit(charDown, (x, y))
-    # else:
-    #     window.blit(charDown, (x, y))
-    pygame.display.update()
+        pygame.init()
+        self.window = pygame.display.set_mode((GAME_SETTINGS['width'], GAME_SETTINGS['height']))
+        self.x = 225
+        self.y = 225
+        self.width = 32
+        self.height = 32
+        self.velocity = 10
+        self.directions = {
+            "left": False,
+            "right": False,
+            "up": False,
+            "down": False
+        }
 
-# def main_game():
-pygame.init()
+        # self.bg = pygame.image.load('images/bg.jpg')
+        self.char = pygame.image.load('images/pac-up.bmp')
+        self.charRight = pygame.image.load('images/pac-right.bmp')
+        self.charLeft = pygame.image.load('images/pac-left.bmp')
+        self.charUp = pygame.image.load('images/pac-up.bmp')
+        self.charDown = pygame.image.load('images/pac-down.bmp')
 
-window = pygame.display.set_mode((500, 500))
+        self.clock = pygame.time.Clock()
+        self.run = True
 
-pygame.display.set_caption("Maze")
+    def redraw(self):
+        self.window.fill((0, 0, 0))
+        # self.window.blit(bg, (0,0))
+        if self.directions["left"]:
+            self.window.blit(self.charLeft, (self.x,self.y))
+        elif self.directions["right"]:
+            self.window.blit(self.charRight, (self.x,self.y))
+        elif self.directions["up"]:
+            self.window.blit(self.charUp, (self.x,self.y))
+        elif self.directions["down"]:
+            self.window.blit(self.charDown, (self.x, self.y))
+        pygame.display.update()
+        pygame.display.set_caption("Pandemic Run")
 
-bg = pygame.image.load('images/bg.jpg')
-char = pygame.image.load('images/pac-up.bmp')
-charRight = pygame.image.load('images/pac-right.bmp')
-charLeft = pygame.image.load('images/pac-left.bmp')
-charUp = pygame.image.load('images/pac-up.bmp')
-charDown = pygame.image.load('images/pac-down.bmp')
+    def is_in_bounds(self, side: str):
+        boundries = {
+            "left": self.x > 0 + self.velocity,
+            "right": self.x < GAME_SETTINGS['width'] - self.width - self.velocity,
+            "up": self.y > 0 + self.velocity,
+            "down": self.y < GAME_SETTINGS['height'] - self.height - self.velocity,
+        }
 
-clock = pygame.time.Clock()
+        if side not in boundries.keys():
+            raise ValueError("Valid bountries are 'left', 'right', 'up', 'down'.")
 
-x = 225
-y = 225
-width = 32
-height = 32
-velocity = 10
-left = False
-right = False
-up = False
-down = False
+        return boundries[side]
 
+    def switch_directions(self, key):
+        key_str = self.key_to_direction_str(key)
+        if key_str in self.directions.keys():
+            for direction in self.directions:
+                if direction == key_str:
+                    self.directions[direction] = True
+                else:
+                    self.directions[direction] = False
 
-while True:
-    clock.tick(30)
-    # pygame.time.delay(50)
-    for e in pygame.event.get():
-        if e.type == pygame.QUIT:
-            pygame.quit()
-    keys = pygame.key.get_pressed()
+    @staticmethod
+    def key_to_direction_str(key):
+        out_str = ""
+        if key == pygame.K_LEFT:
+            out_str = "left"
+        elif key == pygame.K_RIGHT:
+            out_str = "right"
+        elif key == pygame.K_UP:
+            out_str = "up"
+        elif key == pygame.K_DOWN:
+            out_str = "down"
+        return out_str
 
-    if keys[pygame.K_LEFT]:
-        if x > 0 - velocity:
-            x -= velocity
-            left = True
-            right = False
-            up = False
-            down = False
-    elif keys[pygame.K_RIGHT]:
-        if x < 500 - width - velocity:
-            x += velocity
-            right = True
-            left = False
-            up = False
-            down = False
-    elif keys[pygame.K_UP]:
-        if y > 0:
-            y -= velocity
-            right = False
-            left = False
-            up = True
-            down = False
-    elif keys[pygame.K_DOWN]:
-        if y < 500 - height:
-            y += velocity
-            right = False
-            left = False
-            up = False
-            down = True
-    else:
-        if right:
-            if x < 500 - width - velocity:
-                x += velocity
-        elif left:
-            if x > 0 + velocity:
-                x -= velocity
-        elif up:
-            if y > 0 + velocity:
-                y -= velocity
-        elif down:
-            if y < 500 - height - velocity:
-                y += velocity
-    print(x,y)
-    redraw()
+    def move_player(self):
 
+        if self.directions["left"] and self.is_in_bounds("left"):
+            self.x -= self.velocity
+        elif self.directions["right"] and self.is_in_bounds("right"):
+            self.x += self.velocity
+        elif self.directions["up"] and self.is_in_bounds("up"):
+            self.y -= self.velocity
+        elif self.directions["down"] and self.is_in_bounds("down"):
+            self.y += self.velocity
+  
+    def main_game(self):
+        while True:
+            self.clock.tick(30)
+            # pygame.time.delay(50)
+            for e in pygame.event.get():
+                if e.type == pygame.QUIT:
+                    pygame.quit()
+                if e.type == pygame.KEYDOWN:
+                    self.switch_directions(e.key)
 
-# if __name__ == "__main__":
-#     main_game()
-#     pygame.quit()
+            self.move_player()
+            
+            # print(self.x,self.y)
+            self.redraw()
