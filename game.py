@@ -12,10 +12,14 @@ Authors:
 
 import pygame
 from settings import GAME_SETTINGS
+<<<<<<< HEAD
 from wall import Wall
 
 white = (255, 255, 255)
 black = (0, 0, 0)
+=======
+from player import Player
+>>>>>>> 7090180f2cdb5efbd3c26ff40fac0961902420ff
 
 
 class Game:
@@ -23,6 +27,7 @@ class Game:
         pygame.init()
         self.window = pygame.display.set_mode((GAME_SETTINGS['width'], GAME_SETTINGS['height']))
         self.clock = pygame.time.Clock()
+<<<<<<< HEAD
 
         pygame.display.set_caption("Pandemic Run")
         # self.game_intro()
@@ -166,3 +171,16 @@ class Game:
             elif self.down:
                 self.window.blit(self.charDown, (self.player.rect.x, self.player.rect.y))
             pygame.display.update()
+=======
+        pygame.display.set_caption("Pandemic Run")
+
+        self.player = Player(self)
+
+        self.run = True
+  
+    def main_game(self):
+        while True:
+            self.clock.tick(30)
+            self.player.update()
+            
+>>>>>>> 7090180f2cdb5efbd3c26ff40fac0961902420ff
