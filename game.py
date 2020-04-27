@@ -40,6 +40,19 @@ class Game():
         pygame.display.update()
         pygame.display.set_caption("Pandemic Run")
 
+    def is_in_bounds(self, side: str):
+        boundries = {
+            "left": self.x > 0 + self.velocity,
+            "right": self.x < GAME_SETTINGS['width'] - self.width - self.velocity,
+            "up": self.y > 0 + self.velocity,
+            "down": self.y < GAME_SETTINGS['height'] - self.height - self.velocity,
+        }
+
+        if side not in boundries.keys():
+            raise ValueError("Valid bountries are 'left', 'right', 'up', 'down'.")
+
+        return boundries[side]
+
     def main_game(self):
         while True:
             self.clock.tick(30)
@@ -51,28 +64,28 @@ class Game():
             keys = pygame.key.get_pressed()
 
             if keys[pygame.K_LEFT]:
-                if self.x > 0 + self.velocity:
+                if self.is_in_bounds("left"):
                     self.x -= self.velocity
                     self.left = True
                     self.right = False
                     self.up = False
                     self.down = False
             elif keys[pygame.K_RIGHT]:
-                if self.x < GAME_SETTINGS['width'] - self.width - self.velocity:
+                if self.is_in_bounds("right"):
                     self.x += self.velocity
                     self.right = True
                     self.left = False
                     self.up = False
                     self.down = False
             elif keys[pygame.K_UP]:
-                if self.y > 0 + self.velocity:
+                if self.is_in_bounds("up"):
                     self.y -= self.velocity
                     self.right = False
                     self.left = False
                     self.up = True
                     self.down = False
             elif keys[pygame.K_DOWN]:
-                if self.y < GAME_SETTINGS['height'] - self.height - self.velocity:
+                if self.is_in_bounds("down"):
                     self.y += self.velocity
                     self.right = False
                     self.left = False
