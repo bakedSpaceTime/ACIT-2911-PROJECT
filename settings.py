@@ -17,7 +17,7 @@ GAME_SETTINGS = {
     "height": 500,
 
     # window width
-    "width": 600,
+    "width": 500,
 }
 
 PLAYER_SETTINS = {
