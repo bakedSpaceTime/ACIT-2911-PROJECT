@@ -51,8 +51,6 @@ class Player():
         else:
             self.game_ref.window.blit(self.char, (self.x_pos, self.y_pos))
 
-        pygame.display.update()
-
     def update(self):
 
         for e in pygame.event.get():
