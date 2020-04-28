@@ -34,6 +34,8 @@ class Game():
   
     def main_game(self):
         while True:
+            self.window.fill((0, 0, 0))
+
             self.clock.tick(30)
             self.player.update()
             self.all_sprite_list.update()

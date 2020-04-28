@@ -36,7 +36,6 @@ class Player(pygame.sprite.Sprite):
         self.rect.y = PLAYER_SETTINS["starting_y"]
 
     def redraw(self):
-        self.game_ref.window.fill((0, 0, 0))
 
         for direction in self.directions:
             if self.directions[direction]:
@@ -74,7 +73,6 @@ class Player(pygame.sprite.Sprite):
             velocity = self.velocity
         
         temp_sprite = pygame.sprite.Sprite()
-        # temp_sprite.image = pygame.Surface([32,32])
         temp_sprite.image = PLAYER_SPRITES['down']
         temp_sprite.rect = temp_sprite.image.get_rect()
 
