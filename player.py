@@ -67,6 +67,34 @@ class Player(pygame.sprite.Sprite):
 
         return boundries[side]
 
+    def will_hit_wall(self, side: str):
+        if side in ["left", "up"]:
+            velocity = -self.velocity
+        else:
+            velocity = self.velocity
+        
+        temp_sprite = pygame.sprite.Sprite()
+        # temp_sprite.image = pygame.Surface([32,32])
+        temp_sprite.image = PLAYER_SPRITES['down']
+        temp_sprite.rect = temp_sprite.image.get_rect()
+
+        temp_sprite.rect = self.rect.copy()
+        if side in ["left", "right"]:
+        
+            temp_sprite.rect.x += velocity
+
+            block_hit_list = pygame.sprite.spritecollide(temp_sprite, self.game_ref.wall_list, False)
+            if len(block_hit_list) > 0:
+                return True
+
+        temp_sprite.rect = self.rect.copy()
+        if side in ["up", "down"]:
+            temp_sprite.rect.y += velocity
+
+            block_hit_list = pygame.sprite.spritecollide(temp_sprite, self.game_ref.wall_list, False)
+            if len(block_hit_list) > 0:
+                return True
+
     def switch_directions(self, key):
         key_str = self.key_to_direction_str(key)
         if key_str in self.directions.keys():
@@ -78,15 +106,16 @@ class Player(pygame.sprite.Sprite):
 
     def move_player(self):
 
-        if self.directions["left"] and self.is_in_bounds("left"):
+        if self.directions["left"] and self.is_in_bounds("left") and not self.will_hit_wall("left"):
             self.rect.x -= self.velocity
-        elif self.directions["right"] and self.is_in_bounds("right"):
+        elif self.directions["right"] and self.is_in_bounds("right") and not self.will_hit_wall("right"):
             self.rect.x += self.velocity
-        elif self.directions["up"] and self.is_in_bounds("up"):
+        elif self.directions["up"] and self.is_in_bounds("up") and not self.will_hit_wall("up"):
             self.rect.y -= self.velocity
-        elif self.directions["down"] and self.is_in_bounds("down"):
+        elif self.directions["down"] and self.is_in_bounds("down") and not self.will_hit_wall("down"):
             self.rect.y += self.velocity
-    
+        print(self.rect.x, self.rect.y)
+
     @staticmethod
     def key_to_direction_str(key):
         out_str = ""
