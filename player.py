@@ -83,6 +83,7 @@ class Player(pygame.sprite.Sprite):
 
             block_hit_list = pygame.sprite.spritecollide(temp_sprite, self.game_ref.wall_list, False)
             if len(block_hit_list) > 0:
+                self.align_with_wall(side, block_hit_list[0])
                 return True
 
         temp_sprite.rect = self.rect.copy()
@@ -91,7 +92,18 @@ class Player(pygame.sprite.Sprite):
 
             block_hit_list = pygame.sprite.spritecollide(temp_sprite, self.game_ref.wall_list, False)
             if len(block_hit_list) > 0:
+                self.align_with_wall(side, block_hit_list[0])
                 return True
+
+    def align_with_wall(self, side, wall):
+        if side == "left":
+            self.rect.left = wall.rect.right
+        elif side == "right":
+            self.rect.right = wall.rect.left
+        elif side == "up":
+            self.rect.top = wall.rect.bottom
+        elif side == "down":
+            self.rect.bottom = wall.rect.top
 
     def switch_directions(self, key):
         key_str = self.key_to_direction_str(key)
