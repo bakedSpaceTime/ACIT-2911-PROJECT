@@ -13,6 +13,7 @@ Authors:
 import pygame
 from settings import GAME_SETTINGS
 from player import Player
+from wall import Wall
 
 class Game():
     def __init__(self):
@@ -25,9 +26,46 @@ class Game():
         self.player = Player(self)
 
         self.run = True
+
+        self.all_sprite_list = pygame.sprite.Group()
+        self.wall_list = pygame.sprite.Group()
+
+        self.create_walls()
   
     def main_game(self):
         while True:
             self.clock.tick(30)
             self.player.update()
+            self.all_sprite_list.update()
+            self.all_sprite_list.draw(self.window)
+            pygame.display.update()
             
+
+    def create_walls(self):
+        wall = Wall(0, 0, 10, 500)
+        self.wall_list.add(wall)
+        self.all_sprite_list.add(wall)
+
+        wall = Wall(0, 490, 500, 10)
+        self.wall_list.add(wall)
+        self.all_sprite_list.add(wall)
+
+        wall = Wall(490, 0, 10, 500)
+        self.wall_list.add(wall)
+        self.all_sprite_list.add(wall)
+
+        wall = Wall(0, 0, 500, 10)
+        self.wall_list.add(wall)
+        self.all_sprite_list.add(wall)
+
+        wall = Wall(450, 450, 400, 10)
+        self.wall_list.add(wall)
+        self.all_sprite_list.add(wall)
+
+        wall = Wall(50, 100, 400, 10)
+        self.wall_list.add(wall)
+        self.all_sprite_list.add(wall)
+
+        wall = Wall(50, 100, 10, 400)
+        self.wall_list.add(wall)
+        self.all_sprite_list.add(wall)
