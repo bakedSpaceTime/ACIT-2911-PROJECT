@@ -11,15 +11,14 @@ Authors:
 """
 
 import pygame
-from settings import GAME_SETTINGS, PLAYER_SETTINS
+from settings import GAME_SETTINGS, PLAYER_SETTINS, PLAYER_SPRITES
 
-class Player():
+class Player(pygame.sprite.Sprite):
     def __init__(self, game_ref):
+        super().__init__()
 
         self.game_ref = game_ref
-        
-        self.x_pos = PLAYER_SETTINS["starting_x"]
-        self.y_pos = PLAYER_SETTINS["starting_y"]
+
         self.velocity = PLAYER_SETTINS["velocity"]
         self.directions = {
             "left": False,
@@ -31,51 +30,68 @@ class Player():
         self.width = PLAYER_SETTINS["sprite_width"]
         self.height = PLAYER_SETTINS["sprite_height"]
 
-        self.char = pygame.image.load('images/pac-right.bmp')
-        self.charRight = pygame.image.load('images/pac-right.bmp')
-        self.charLeft = pygame.image.load('images/pac-left.bmp')
-        self.charUp = pygame.image.load('images/pac-up.bmp')
-        self.charDown = pygame.image.load('images/pac-down.bmp')
+        self.image = PLAYER_SPRITES['left']
+        self.rect = self.image.get_rect()
+        self.rect.x = PLAYER_SETTINS["starting_x"]
+        self.rect.y = PLAYER_SETTINS["starting_y"]
 
     def redraw(self):
-        self.game_ref.window.fill((0, 0, 0))
 
-        if self.directions["left"]:
-            self.game_ref.window.blit(self.charLeft, (self.x_pos,self.y_pos))
-        elif self.directions["right"]:
-            self.game_ref.window.blit(self.charRight, (self.x_pos,self.y_pos))
-        elif self.directions["up"]:
-            self.game_ref.window.blit(self.charUp, (self.x_pos,self.y_pos))
-        elif self.directions["down"]:
-            self.game_ref.window.blit(self.charDown, (self.x_pos, self.y_pos))
-        else:
-            self.game_ref.window.blit(self.char, (self.x_pos, self.y_pos))
-
-        pygame.display.update()
+        for direction in self.directions:
+            if self.directions[direction]:
+                self.image = PLAYER_SPRITES[direction]
+        self.game_ref.window.blit(self.image, (self.rect.x, self.rect.y))
 
     def update(self):
 
         for e in pygame.event.get():
-                if e.type == pygame.QUIT:
-                    pygame.quit()
-                if e.type == pygame.KEYDOWN:
-                    self.switch_directions(e.key)
+            if e.type == pygame.QUIT:
+                pygame.quit()
+            if e.type == pygame.KEYDOWN:
+                self.switch_directions(e.key)
 
         self.move_player()
         self.redraw()
 
     def is_in_bounds(self, side: str):
         boundries = {
-            "left": self.x_pos > 0 + self.velocity,
-            "right": self.x_pos < GAME_SETTINGS['width'] - self.width - self.velocity,
-            "up": self.y_pos > 0 + self.velocity,
-            "down": self.y_pos < GAME_SETTINGS['height'] - self.height - self.velocity,
+            "left": self.rect.x > 0 + self.velocity,
+            "right": self.rect.x < GAME_SETTINGS['width'] - self.width - self.velocity,
+            "up": self.rect.y > 0 + self.velocity,
+            "down": self.rect.y < GAME_SETTINGS['height'] - self.height - self.velocity,
         }
 
         if side not in boundries.keys():
             raise ValueError("Valid bountries are 'left', 'right', 'up', 'down'.")
 
         return boundries[side]
+
+    def will_hit_wall(self, side: str):
+        if side in ["left", "up"]:
+            velocity = -self.velocity
+        else:
+            velocity = self.velocity
+        
+        temp_sprite = pygame.sprite.Sprite()
+        temp_sprite.image = PLAYER_SPRITES['down']
+        temp_sprite.rect = temp_sprite.image.get_rect()
+
+        temp_sprite.rect = self.rect.copy()
+        if side in ["left", "right"]:
+        
+            temp_sprite.rect.x += velocity
+
+            block_hit_list = pygame.sprite.spritecollide(temp_sprite, self.game_ref.wall_list, False)
+            if len(block_hit_list) > 0:
+                return True
+
+        temp_sprite.rect = self.rect.copy()
+        if side in ["up", "down"]:
+            temp_sprite.rect.y += velocity
+
+            block_hit_list = pygame.sprite.spritecollide(temp_sprite, self.game_ref.wall_list, False)
+            if len(block_hit_list) > 0:
+                return True
 
     def switch_directions(self, key):
         key_str = self.key_to_direction_str(key)
@@ -88,15 +104,16 @@ class Player():
 
     def move_player(self):
 
-        if self.directions["left"] and self.is_in_bounds("left"):
-            self.x_pos -= self.velocity
-        elif self.directions["right"] and self.is_in_bounds("right"):
-            self.x_pos += self.velocity
-        elif self.directions["up"] and self.is_in_bounds("up"):
-            self.y_pos -= self.velocity
-        elif self.directions["down"] and self.is_in_bounds("down"):
-            self.y_pos += self.velocity
-    
+        if self.directions["left"] and self.is_in_bounds("left") and not self.will_hit_wall("left"):
+            self.rect.x -= self.velocity
+        elif self.directions["right"] and self.is_in_bounds("right") and not self.will_hit_wall("right"):
+            self.rect.x += self.velocity
+        elif self.directions["up"] and self.is_in_bounds("up") and not self.will_hit_wall("up"):
+            self.rect.y -= self.velocity
+        elif self.directions["down"] and self.is_in_bounds("down") and not self.will_hit_wall("down"):
+            self.rect.y += self.velocity
+        print(self.rect.x, self.rect.y)
+
     @staticmethod
     def key_to_direction_str(key):
         out_str = ""
