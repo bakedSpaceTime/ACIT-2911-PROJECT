@@ -10,6 +10,8 @@ Authors:
 - Shivam Patel, A01185250
 """
 
+import pygame
+
 GAME_SETTINGS = {
     # window height
     "height": 500,
@@ -24,4 +26,11 @@ PLAYER_SETTINS = {
     "starting_x": 225,
     "starting_y": 300,
     "velocity": 10,
+}
+
+PLAYER_SPRITES = {
+    "right": pygame.image.load('images/pac-right.bmp'),
+    "left": pygame.image.load('images/pac-left.bmp'),
+    "up": pygame.image.load('images/pac-up.bmp'),
+    "down": pygame.image.load('images/pac-down.bmp'),
 }
