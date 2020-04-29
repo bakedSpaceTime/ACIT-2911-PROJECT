@@ -23,8 +23,8 @@ GAME_SETTINGS = {
 PLAYER_SETTINS = {
     "sprite_height": 32,
     "sprite_width": 32,
-    "starting_x": 225,
-    "starting_y": 300,
+    "starting_x": 450,
+    "starting_y": 450,
     "velocity": 10,
 }
 

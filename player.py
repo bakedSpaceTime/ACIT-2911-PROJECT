@@ -34,6 +34,7 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = PLAYER_SETTINS["starting_x"]
         self.rect.y = PLAYER_SETTINS["starting_y"]
+        self.score = 0
 
     def redraw(self):
 
@@ -115,6 +116,15 @@ class Player(pygame.sprite.Sprite):
                     self.directions[direction] = False
 
     def move_player(self):
+        item_hit_list = pygame.sprite.spritecollide(self, self.game_ref.toilet_list, False)
+        for toilet_paper in item_hit_list:
+            self.game_ref.toilet_list.remove(toilet_paper)
+            self.game_ref.all_sprite_list.remove(toilet_paper)
+            self.score += 1
+            print("item", toilet_paper)
+            print("item_hit_list", len(self.game_ref.toilet_list))
+            print("score: ", self.score)
+
 
         if self.directions["left"] and self.is_in_bounds("left") and not self.will_hit_wall("left"):
             self.rect.x -= self.velocity
@@ -124,7 +134,8 @@ class Player(pygame.sprite.Sprite):
             self.rect.y -= self.velocity
         elif self.directions["down"] and self.is_in_bounds("down") and not self.will_hit_wall("down"):
             self.rect.y += self.velocity
-        print(self.rect.x, self.rect.y)
+
+        #print(self.rect.x, self.rect.y)
 
     @staticmethod
     def key_to_direction_str(key):
