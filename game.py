@@ -24,6 +24,9 @@ class Game():
         self.clock = pygame.time.Clock()
         pygame.display.set_caption("Pandemic Run")
 
+        pygame.mixer.music.load('audio/bg.mp3')
+        pygame.mixer.music.play(-1)
+
         self.player = Player(self)
 
         self.run = True
