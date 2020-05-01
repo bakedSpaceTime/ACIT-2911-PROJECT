@@ -11,10 +11,16 @@ Authors:
 """
 
 import pygame
+import game
 from settings import GAME_SETTINGS, PLAYER_SETTINS, PLAYER_SPRITES
+
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, game_ref):
+
+        if type(game_ref) is not game.Game:
+            raise TypeError("invalid reference")
+
         super().__init__()
 
         self.game_ref = game_ref
