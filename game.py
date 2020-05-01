@@ -11,7 +11,7 @@ Authors:
 """
 
 import pygame
-from settings import GAME_SETTINGS
+from settings import GAME_SETTINGS, BACKGROUND
 from player import Player
 from wall import Wall
 from loot import ToiletPaper
@@ -41,6 +41,7 @@ class Game():
     def main_game(self):
         while True:
             self.window.fill((0, 0, 0))
+            self.window.blit(BACKGROUND, (0,0))
 
             self.clock.tick(30)
             self.player.update()

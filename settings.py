@@ -40,3 +40,5 @@ PLAYER_SPRITES = {
 LOOT_SPRITES = {
     "toilet_paper": pygame.image.load(path_join('images','Toilet Paper.png'))
 }
+
+BACKGROUND = pygame.image.load(path_join('images','background.png'))
