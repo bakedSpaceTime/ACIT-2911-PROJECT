@@ -11,6 +11,7 @@ Authors:
 """
 
 import pygame
+from os.path import join as path_join
 
 GAME_SETTINGS = {
     # window height
@@ -29,8 +30,13 @@ PLAYER_SETTINS = {
 }
 
 PLAYER_SPRITES = {
-    "right": pygame.image.load('images/pac-right.bmp'),
-    "left": pygame.image.load('images/pac-left.bmp'),
-    "up": pygame.image.load('images/pac-up.bmp'),
-    "down": pygame.image.load('images/pac-down.bmp'),
+    "right": pygame.image.load(path_join('images','Character', 'Right', 'Right Running 1.png')),
+    "left": pygame.image.load(path_join('images','Character', 'Left', 'Left Running 1.png')),
+    "up": pygame.image.load(path_join('images','Character', 'Backward', 'Backward Running 1.png')),
+    "down": pygame.image.load(path_join('images','Character', 'Forward', 'Forward Running 1.png')),
+    "standind_down": pygame.image.load(path_join('images','Character', 'Forward', 'Standing Forward.png'))
+}
+
+LOOT_SPRITES = {
+    "toilet_paper": pygame.image.load(path_join('images','Toilet Paper.png'))
 }
