@@ -36,7 +36,7 @@ class Player(pygame.sprite.Sprite):
         self.width = PLAYER_SETTINS["sprite_width"]
         self.height = PLAYER_SETTINS["sprite_height"]
 
-        self.image = PLAYER_SPRITES['left']
+        self.image = PLAYER_SPRITES['standind_down']
         self.rect = self.image.get_rect()
         self.rect.x = PLAYER_SETTINS["starting_x"]
         self.rect.y = PLAYER_SETTINS["starting_y"]
