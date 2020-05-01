@@ -34,7 +34,7 @@ PLAYER_SPRITES = {
     "left": pygame.image.load(path_join('images','Character', 'Left', 'Left Running 1.png')),
     "up": pygame.image.load(path_join('images','Character', 'Backward', 'Backward Running 1.png')),
     "down": pygame.image.load(path_join('images','Character', 'Forward', 'Forward Running 1.png')),
-    "standind_down": pygame.image.load(path_join('images','Character', 'Forward', 'Standing Forward.png'))
+    "standing_down": pygame.image.load(path_join('images','Character', 'Forward', 'Standing Forward.png'))
 }
 
 LOOT_SPRITES = {
