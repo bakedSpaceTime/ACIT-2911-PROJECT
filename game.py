@@ -34,6 +34,9 @@ class Game():
 
         self.create_walls()
         self.create_toilets()
+
+        pygame.mixer.music.load('audio/bg.mp3')
+        pygame.mixer.music.play(-1)
   
     def main_game(self):
         while True:
