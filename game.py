@@ -13,6 +13,7 @@ Authors:
 import pygame
 from settings import GAME_SETTINGS, BACKGROUND, WALL_LIST
 from player import Player
+from virus import Virus
 from wall import Wall
 from loot import ToiletPaper
 
@@ -34,6 +35,7 @@ class Game():
 
         self.create_walls()
         self.create_toilets()
+        self.create_virus()
 
         pygame.mixer.music.load('audio/bg.mp3')
         pygame.mixer.music.play(-1)
@@ -67,3 +69,7 @@ class Game():
             wall = Wall(wall_rect[0], wall_rect[1], wall_rect[2], wall_rect[3], )
             self.wall_list.add(wall.shelf_list)
             self.all_sprite_list.add(wall.shelf_list)
+
+    def create_virus(self):
+        virus = Virus(self)
+        self.all_sprite_list.add(virus)
