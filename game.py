@@ -32,6 +32,7 @@ class Game():
         self.all_sprite_list = pygame.sprite.Group()
         self.wall_list = pygame.sprite.Group()
         self.toilet_list = pygame.sprite.Group()
+        self.virus_list = pygame.sprite.Group()
 
         self.create_walls()
         self.create_toilets()
@@ -72,4 +73,5 @@ class Game():
 
     def create_virus(self):
         virus = Virus(self)
+        self.virus_list.add(virus)
         self.all_sprite_list.add(virus)
