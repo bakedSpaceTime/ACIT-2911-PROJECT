@@ -37,6 +37,19 @@ PLAYER_SPRITES = {
     "standing_down": pygame.image.load(path_join('images','Character', 'Forward', 'Standing Forward.png'))
 }
 
+VIRUS_SETTINS = {
+    "starting_x": 30,
+    "starting_y": 150,
+    "velocity": 12,
+}
+
+VIRUS_SPRITES = {
+    "right": pygame.image.load(path_join('images','pac-right.bmp')),
+    "left": pygame.image.load(path_join('images','pac-left.bmp')),
+    "up": pygame.image.load(path_join('images','pac-up.bmp')),
+    "down": pygame.image.load(path_join('images','pac-down.bmp')),
+}
+
 OTHER_SPRITES = {
     "toilet_paper": pygame.image.load(path_join('images','Toilet Paper.png')),
     "shelf_front": pygame.image.load(path_join('images','Shelf', 'Front.png'))
