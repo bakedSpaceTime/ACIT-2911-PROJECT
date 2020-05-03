@@ -11,17 +11,40 @@ Authors:
 """
 
 import pygame
-BROWN = (142, 65, 11)
+from math import ceil
+from os.path import join as path_join
+from settings import OTHER_SPRITES
 
 
-class Wall(pygame.sprite.Sprite):
+class Wall():
 
     def __init__(self, x, y, width, height):
+
+        temp_image = pygame.image.load(path_join('images','Shelf', 'Front.png'))
+        temp_image_rect = temp_image.get_rect()
+        
+        self.num_width = ceil(width / temp_image_rect.width)
+        self.num_height = ceil(height / temp_image_rect.height)
+        print(self.num_width, self.num_height, "num width, height")
+
+        self.shelf_list = pygame.sprite.Group()
+
+        for i in range(self.num_width):
+            for j in range(self.num_height):
+                new_shelf = Shelf(i * temp_image_rect.height + x, j * temp_image_rect.height + y)
+                self.shelf_list.add(new_shelf)
+
+        self.rect = pygame.Rect(x, y, width, height)
+        print(self.rect, "wall rect")
+
+class Shelf(pygame.sprite.Sprite):
+
+    def __init__(self, x, y):
         super().__init__()
 
-        self.image = pygame.Surface([width, height])
-        self.image.fill(BROWN)
-
+        self.image = OTHER_SPRITES["shelf_front"]
         self.rect = self.image.get_rect()
+
+        # print(x, y, self.rect.width, self.rect.height, "shelf x, y, width, hieght")
         self.rect.y = y
         self.rect.x = x

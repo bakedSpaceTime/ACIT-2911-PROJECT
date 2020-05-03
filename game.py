@@ -11,7 +11,7 @@ Authors:
 """
 
 import pygame
-from settings import GAME_SETTINGS, BACKGROUND
+from settings import GAME_SETTINGS, BACKGROUND, WALL_LIST
 from player import Player
 from wall import Wall
 from loot import ToiletPaper
@@ -50,11 +50,11 @@ class Game():
             pygame.display.update()
 
     def create_toilets(self):
-        i = 20
+        i = 30
 
-        while i < 450:
-            j = 20
-            while j < 450:
+        while i < 480:
+            j = 30
+            while j < 480:
                 paper = ToiletPaper(i, j)
                 self.toilet_list.add(paper)
                 self.all_sprite_list.add(paper)
@@ -62,54 +62,8 @@ class Game():
             i += 60
 
     def create_walls(self):
-        wall = Wall(0, 0, 10, 500)
-        self.wall_list.add(wall)
-        self.all_sprite_list.add(wall)
 
-        wall = Wall(0, 490, 500, 10)
-        self.wall_list.add(wall)
-        self.all_sprite_list.add(wall)
-
-        wall = Wall(490, 0, 10, 500)
-        self.wall_list.add(wall)
-        self.all_sprite_list.add(wall)
-
-        wall = Wall(0, 0, 500, 10)
-        self.wall_list.add(wall)
-        self.all_sprite_list.add(wall)
-
-        wall = Wall(0, 50, 450, 10)
-        self.wall_list.add(wall)
-        self.all_sprite_list.add(wall)
-
-        wall = Wall(0, 100, 450, 10)
-        self.wall_list.add(wall)
-        self.all_sprite_list.add(wall)
-
-        wall = Wall(50, 150, 10, 450)
-        self.wall_list.add(wall)
-        self.all_sprite_list.add(wall)
-
-        wall = Wall(110, 150, 10, 450)
-        self.wall_list.add(wall)
-        self.all_sprite_list.add(wall)
-
-        wall = Wall(170, 150, 10, 450)
-        self.wall_list.add(wall)
-        self.all_sprite_list.add(wall)
-
-        wall = Wall(230, 150, 10, 450)
-        self.wall_list.add(wall)
-        self.all_sprite_list.add(wall)
-
-        wall = Wall(290, 150, 10, 450)
-        self.wall_list.add(wall)
-        self.all_sprite_list.add(wall)
-
-        wall = Wall(350, 150, 10, 450)
-        self.wall_list.add(wall)
-        self.all_sprite_list.add(wall)
-
-        wall = Wall(410, 150, 10, 450)
-        self.wall_list.add(wall)
-        self.all_sprite_list.add(wall)
+        for wall_rect in WALL_LIST:
+            wall = Wall(wall_rect[0], wall_rect[1], wall_rect[2], wall_rect[3], )
+            self.wall_list.add(wall.shelf_list)
+            self.all_sprite_list.add(wall.shelf_list)
