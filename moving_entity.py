@@ -47,15 +47,15 @@ class MovingEntity(pygame.sprite.Sprite):
         self.game_ref.window.blit(self.image, (self.rect.x, self.rect.y))
 
     def update(self):
+        pass
+        # for e in pygame.event.get():
+        #     if e.type == pygame.QUIT:
+        #         pygame.quit()
+        #     if e.type == pygame.KEYDOWN:
+        #         self.switch_directions(e.key)
 
-        for e in pygame.event.get():
-            if e.type == pygame.QUIT:
-                pygame.quit()
-            if e.type == pygame.KEYDOWN:
-                self.switch_directions(e.key)
-
-        self.move()
-        self.redraw()
+        # self.move()
+        # self.redraw()
 
     def is_in_bounds(self, side: str):
         boundries = {
@@ -98,6 +98,9 @@ class MovingEntity(pygame.sprite.Sprite):
             if len(block_hit_list) > 0:
                 self.align_with_wall(side, block_hit_list[0])
                 return True
+
+    def is_valid_direction(self, move_direction):
+        return self.directions[move_direction] and self.is_in_bounds(move_direction) and not self.will_hit_wall(move_direction)
 
     def align_with_wall(self, side, wall):
         if side == "left":

@@ -24,6 +24,17 @@ class Player(MovingEntity):
 
         super().__init__(game_ref, PLAYER_SPRITES, PLAYER_SETTINS)
 
+    def update(self):
+
+        for e in pygame.event.get():
+            if e.type == pygame.QUIT:
+                pygame.quit()
+            if e.type == pygame.KEYDOWN:
+                self.switch_directions(e.key)
+
+        self.move()
+        self.redraw()
+
     def move(self):
         item_hit_list = pygame.sprite.spritecollide(self, self.game_ref.toilet_list, False)
         for toilet_paper in item_hit_list:
@@ -34,11 +45,11 @@ class Player(MovingEntity):
             print("item_hit_list", len(self.game_ref.toilet_list))
             print("score: ", self.score)
 
-        if self.directions["left"] and self.is_in_bounds("left") and not self.will_hit_wall("left"):
+        if self.is_valid_direction("left"):
             self.rect.x -= self.velocity
-        elif self.directions["right"] and self.is_in_bounds("right") and not self.will_hit_wall("right"):
+        elif self.is_valid_direction("right"):
             self.rect.x += self.velocity
-        elif self.directions["up"] and self.is_in_bounds("up") and not self.will_hit_wall("up"):
+        elif self.is_valid_direction("up"):
             self.rect.y -= self.velocity
-        elif self.directions["down"] and self.is_in_bounds("down") and not self.will_hit_wall("down"):
+        elif self.is_valid_direction("down"):
             self.rect.y += self.velocity
