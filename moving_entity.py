@@ -44,7 +44,6 @@ class MovingEntity(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = self.entity_settings["starting_x"]
         self.rect.y = self.entity_settings["starting_y"]
-        self.score = 0
 
     def redraw(self):
         for direction in self.directions:

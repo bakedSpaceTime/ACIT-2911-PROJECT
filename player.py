@@ -25,6 +25,8 @@ class Player(MovingEntity):
         super().__init__(game_ref, PLAYER_SPRITES, PLAYER_SETTINS, "standing_down")
         
         self.lives = PLAYER_SETTINS["lives"]
+        self.score = 0
+
         # If hand sanitizer is picked up
         self.boosted = False
 
