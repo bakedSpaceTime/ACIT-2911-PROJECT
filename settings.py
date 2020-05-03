@@ -39,10 +39,16 @@ PLAYER_SPRITES = {
 }
 
 VIRUS_SETTINS = {
-    "starting_x": 30,
-    "starting_y": 150,
+    "starting_x": 0,
+    "starting_y": 0,
     "velocity": 12,
 }
+
+VIRUS_SPAWN_POINTS = [
+    # x postion, y position
+    (30, 150),
+    (450, 90),
+]
 
 VIRUS_SPRITES = {
     "right": pygame.image.load(path_join('images','pac-right.bmp')),

@@ -12,21 +12,25 @@ Authors:
 
 import pygame
 import game
-from settings import GAME_SETTINGS, VIRUS_SETTINS, VIRUS_SPRITES
+from settings import GAME_SETTINGS, VIRUS_SETTINS, VIRUS_SPRITES, VIRUS_SPAWN_POINTS
 from moving_entity import MovingEntity
 
 
 class Virus(MovingEntity):
-    def __init__(self, game_ref):
+    def __init__(self, game_ref, virus_num):
 
         if type(game_ref) is not game.Game:
             raise TypeError("invalid reference")
 
         super().__init__(game_ref, VIRUS_SPRITES, VIRUS_SETTINS, "right")
-
-        # These lines not needed once proper sprites are used
+        
+        #### These lines not needed once proper sprites are used
         self.image = pygame.transform.scale(self.image, (27,27))
-        self.rect.inflate_ip(-5,-5)
+        self.rect = self.image.get_rect()
+        #################
+
+        self.rect.x = VIRUS_SPAWN_POINTS[virus_num][0]
+        self.rect.y = VIRUS_SPAWN_POINTS[virus_num][1]
 
     def update(self):
         for e in pygame.event.get():
