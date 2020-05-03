@@ -22,7 +22,7 @@ class Player(MovingEntity):
         if type(game_ref) is not game.Game:
             raise TypeError("invalid reference")
 
-        super().__init__(game_ref, PLAYER_SPRITES, PLAYER_SETTINS)
+        super().__init__(game_ref, PLAYER_SPRITES, PLAYER_SETTINS, "standing_down")
 
     def update(self):
 

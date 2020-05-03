@@ -16,11 +16,12 @@ from settings import GAME_SETTINGS
 
 
 class MovingEntity(pygame.sprite.Sprite):
-    def __init__(self, game_ref, sprite_setting, entity_settings):
+    def __init__(self, game_ref, sprite_setting, entity_settings, default_sprite: str = None):
 
         if type(game_ref) is not game.Game:
             raise TypeError("invalid reference")
 
+        super().__init__()
 
         self.game_ref = game_ref
         self.sprite_setting = sprite_setting
@@ -34,7 +35,12 @@ class MovingEntity(pygame.sprite.Sprite):
             "down": False
         }
 
-        self.image = self.sprite_setting['standing_down']
+        if default_sprite == None:
+            self.image = self.sprite_setting['down']
+        elif default_sprite not in sprite_setting:
+            raise ValueError("Invalid default sprite")
+        else:
+            self.image = self.sprite_setting[default_sprite]
         self.rect = self.image.get_rect()
         self.rect.x = self.entity_settings["starting_x"]
         self.rect.y = self.entity_settings["starting_y"]
