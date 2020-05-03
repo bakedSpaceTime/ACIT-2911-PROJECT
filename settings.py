@@ -43,3 +43,21 @@ OTHER_SPRITES = {
 }
 
 BACKGROUND = pygame.image.load(path_join('images','background.png'))
+
+WALL_LIST = [
+    # x position, y position, width, height
+    # Ideally in multiples of 30 to match sprite size
+    (0, 0, 30, 500),
+    (0, 480, 500, 30),
+    (480, 0, 30, 500),
+    (0, 0, 500, 30),
+    (0, 60, 450, 30),
+    (0, 120, 450, 10),
+    (60, 180, 30, 300),
+    (120, 180, 10, 450),
+    (180, 180, 10, 450),
+    (240, 180, 10, 450),
+    (300, 180, 10, 450),
+    (360, 180, 10, 450),
+    (420, 180, 10, 450)
+]
