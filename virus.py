@@ -31,6 +31,8 @@ class Virus(MovingEntity):
 
         self.rect.x = VIRUS_SPAWN_POINTS[virus_num][0]
         self.rect.y = VIRUS_SPAWN_POINTS[virus_num][1]
+        # set default direction
+        self.directions["right"] = True
 
     def update(self):
         for e in pygame.event.get():

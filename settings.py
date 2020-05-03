@@ -47,7 +47,7 @@ VIRUS_SETTINS = {
 VIRUS_SPAWN_POINTS = [
     # x postion, y position
     (30, 150),
-    (450, 90),
+    (137, 90),
 ]
 
 VIRUS_SPRITES = {
