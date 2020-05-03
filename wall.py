@@ -13,6 +13,7 @@ Authors:
 import pygame
 from math import ceil
 from os.path import join as path_join
+from settings import OTHER_SPRITES
 
 
 class Wall():
@@ -41,7 +42,7 @@ class Shelf(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
 
-        self.image = pygame.image.load(path_join('images','Shelf', 'Front.png'))
+        self.image = OTHER_SPRITES["shelf_front"]
         self.rect = self.image.get_rect()
 
         # print(x, y, self.rect.width, self.rect.height, "shelf x, y, width, hieght")

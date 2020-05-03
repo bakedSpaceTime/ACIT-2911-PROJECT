@@ -37,8 +37,9 @@ PLAYER_SPRITES = {
     "standing_down": pygame.image.load(path_join('images','Character', 'Forward', 'Standing Forward.png'))
 }
 
-LOOT_SPRITES = {
-    "toilet_paper": pygame.image.load(path_join('images','Toilet Paper.png'))
+OTHER_SPRITES = {
+    "toilet_paper": pygame.image.load(path_join('images','Toilet Paper.png')),
+    "shelf_front": pygame.image.load(path_join('images','Shelf', 'Front.png'))
 }
 
 BACKGROUND = pygame.image.load(path_join('images','background.png'))
