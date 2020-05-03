@@ -11,7 +11,7 @@ Authors:
 """
 
 import pygame
-BLUE = (50, 50, 255)
+BROWN = (142, 65, 11)
 
 
 class Wall(pygame.sprite.Sprite):
@@ -20,7 +20,7 @@ class Wall(pygame.sprite.Sprite):
         super().__init__()
 
         self.image = pygame.Surface([width, height])
-        self.image.fill(BLUE)
+        self.image.fill(BROWN)
 
         self.rect = self.image.get_rect()
         self.rect.y = y
