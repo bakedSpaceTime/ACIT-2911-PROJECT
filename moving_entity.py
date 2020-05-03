@@ -48,14 +48,6 @@ class MovingEntity(pygame.sprite.Sprite):
 
     def update(self):
         pass
-        # for e in pygame.event.get():
-        #     if e.type == pygame.QUIT:
-        #         pygame.quit()
-        #     if e.type == pygame.KEYDOWN:
-        #         self.switch_directions(e.key)
-
-        # self.move()
-        # self.redraw()
 
     def is_in_bounds(self, side: str):
         boundries = {
@@ -126,13 +118,4 @@ class MovingEntity(pygame.sprite.Sprite):
 
     @staticmethod
     def key_to_direction_str(key):
-        out_str = ""
-        if key == pygame.K_LEFT:
-            out_str = "left"
-        elif key == pygame.K_RIGHT:
-            out_str = "right"
-        elif key == pygame.K_UP:
-            out_str = "up"
-        elif key == pygame.K_DOWN:
-            out_str = "down"
-        return out_str
+        pass

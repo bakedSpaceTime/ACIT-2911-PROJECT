@@ -53,3 +53,16 @@ class Player(MovingEntity):
             self.rect.y -= self.velocity
         elif self.is_valid_direction("down"):
             self.rect.y += self.velocity
+    
+    @staticmethod
+    def key_to_direction_str(key):
+        out_str = ""
+        if key == pygame.K_LEFT:
+            out_str = "left"
+        elif key == pygame.K_RIGHT:
+            out_str = "right"
+        elif key == pygame.K_UP:
+            out_str = "up"
+        elif key == pygame.K_DOWN:
+            out_str = "down"
+        return out_str
