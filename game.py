@@ -11,7 +11,7 @@ Authors:
 """
 
 import pygame
-from settings import GAME_SETTINGS, BACKGROUND, WALL_LIST, VIRUS_SPAWN_POINTS
+from settings import GAME_SETTINGS, BACKGROUND, WALL_LIST, VIRUS_SETTINS
 from player import Player
 from virus import Virus
 from wall import Wall
@@ -72,7 +72,7 @@ class Game():
             self.all_sprite_list.add(wall.shelf_list)
 
     def create_virus(self):
-        for i in range(len(VIRUS_SPAWN_POINTS)):
+        for i in range(len(VIRUS_SETTINS)):
             virus = Virus(self, i)
             self.virus_list.add(virus)
             self.all_sprite_list.add(virus)

@@ -38,16 +38,17 @@ PLAYER_SPRITES = {
     "standing_down": pygame.image.load(path_join('images','Character', 'Forward', 'Standing Forward.png'))
 }
 
-VIRUS_SETTINS = {
-    "starting_x": 0,
-    "starting_y": 0,
-    "velocity": 12,
-}
-
-VIRUS_SPAWN_POINTS = [
-    # x postion, y position
-    (30, 150),
-    (137, 90),
+VIRUS_SETTINS = [
+    {
+        "starting_x": 30,
+        "starting_y": 150,
+        "velocity": 12,
+    },
+    {
+        "starting_x": 138,
+        "starting_y": 90,
+        "velocity": 10,
+    },
 ]
 
 VIRUS_SPRITES = {
