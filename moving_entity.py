@@ -117,5 +117,5 @@ class MovingEntity(pygame.sprite.Sprite):
         pass
 
     @staticmethod
-    def key_to_direction_str(key):
+    def key_to_direction_str():
         pass
