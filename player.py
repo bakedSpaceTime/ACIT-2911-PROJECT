@@ -23,6 +23,10 @@ class Player(MovingEntity):
             raise TypeError("invalid reference")
 
         super().__init__(game_ref, PLAYER_SPRITES, PLAYER_SETTINS, "standing_down")
+        
+        self.lives = PLAYER_SETTINS["lives"]
+        # If hand sanitizer is picked up
+        self.boosted = False
 
     def update(self):
 
@@ -36,14 +40,7 @@ class Player(MovingEntity):
         self.redraw()
 
     def move(self):
-        item_hit_list = pygame.sprite.spritecollide(self, self.game_ref.toilet_list, False)
-        for toilet_paper in item_hit_list:
-            self.game_ref.toilet_list.remove(toilet_paper)
-            self.game_ref.all_sprite_list.remove(toilet_paper)
-            self.score += 1
-            print("item", toilet_paper)
-            print("item_hit_list", len(self.game_ref.toilet_list))
-            print("score: ", self.score)
+        self.collision_handler()
 
         if self.is_valid_direction("left"):
             self.rect.x -= self.velocity
@@ -75,3 +72,23 @@ class Player(MovingEntity):
         elif key == pygame.K_DOWN:
             out_str = "down"
         return out_str
+
+    def collision_handler(self):
+        self.collect_toilet_paper()
+        self.check_virus()
+
+    def collect_toilet_paper(self):
+        item_hit_list = pygame.sprite.spritecollide(self, self.game_ref.toilet_list, False)
+        for toilet_paper in item_hit_list:
+            self.game_ref.toilet_list.remove(toilet_paper)
+            self.game_ref.all_sprite_list.remove(toilet_paper)
+            self.score += 1
+
+    def check_virus(self):
+        item_hit_list = pygame.sprite.spritecollide(self, self.game_ref.virus_list, False)
+        if not self.boosted and len(item_hit_list) != 0:
+            self.loose_life()
+
+    def loose_life(self):
+        self.lives -= 1
+        # print(f"Lives: {self.lives}")

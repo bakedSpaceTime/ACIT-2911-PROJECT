@@ -27,6 +27,7 @@ PLAYER_SETTINS = {
     "starting_x": 450,
     "starting_y": 450,
     "velocity": 10,
+    "lives": 10,
 }
 
 PLAYER_SPRITES = {
