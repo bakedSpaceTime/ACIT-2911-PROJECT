@@ -108,3 +108,4 @@ class MovingEntity(pygame.sprite.Sprite):
         pass
     
     def switch_directions(self, key):
+        pass
