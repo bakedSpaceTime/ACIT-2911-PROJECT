@@ -104,18 +104,7 @@ class MovingEntity(pygame.sprite.Sprite):
         elif side == "down":
             self.rect.bottom = wall.rect.top
 
-    def switch_directions(self, key):
-        key_str = self.key_to_direction_str(key)
-        if key_str in self.directions.keys():
-            for direction in self.directions:
-                if direction == key_str:
-                    self.directions[direction] = True
-                else:
-                    self.directions[direction] = False
-
     def move(self):
         pass
-
-    @staticmethod
-    def key_to_direction_str():
-        pass
+    
+    def switch_directions(self, key):

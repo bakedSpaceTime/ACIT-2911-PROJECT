@@ -51,9 +51,18 @@ class Player(MovingEntity):
             self.rect.x += self.velocity
         elif self.is_valid_direction("up"):
             self.rect.y -= self.velocity
-        elif self.is_valid_direction("down"):
+        elif self.is_valid_direction():
             self.rect.y += self.velocity
     
+    def switch_directions(self, key):
+        key_str = self.key_to_direction_str(key)
+        if key_str in self.directions.keys():
+            for direction in self.directions:
+                if direction == key_str:
+                    self.directions[direction] = True
+                else:
+                    self.directions[direction] = False
+
     @staticmethod
     def key_to_direction_str(key):
         out_str = ""
