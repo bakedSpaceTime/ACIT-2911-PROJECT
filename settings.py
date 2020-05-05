@@ -27,6 +27,7 @@ PLAYER_SETTINS = {
     "starting_x": 450,
     "starting_y": 450,
     "velocity": 10,
+    "lives": 10,
 }
 
 PLAYER_SPRITES = {
@@ -35,6 +36,26 @@ PLAYER_SPRITES = {
     "up": pygame.image.load(path_join('images','Character', 'Backward', 'Backward Running 1.png')),
     "down": pygame.image.load(path_join('images','Character', 'Forward', 'Forward Running 1.png')),
     "standing_down": pygame.image.load(path_join('images','Character', 'Forward', 'Standing Forward.png'))
+}
+
+VIRUS_SETTINS = [
+    {
+        "starting_x": 30,
+        "starting_y": 150,
+        "velocity": 12,
+    },
+    {
+        "starting_x": 138,
+        "starting_y": 90,
+        "velocity": 10,
+    },
+]
+
+VIRUS_SPRITES = {
+    "right": pygame.image.load(path_join('images','pac-right.bmp')),
+    "left": pygame.image.load(path_join('images','pac-left.bmp')),
+    "up": pygame.image.load(path_join('images','pac-up.bmp')),
+    "down": pygame.image.load(path_join('images','pac-down.bmp')),
 }
 
 OTHER_SPRITES = {

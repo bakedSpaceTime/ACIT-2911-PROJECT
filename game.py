@@ -11,8 +11,9 @@ Authors:
 """
 
 import pygame
-from settings import GAME_SETTINGS, BACKGROUND, WALL_LIST
+from settings import GAME_SETTINGS, BACKGROUND, WALL_LIST, VIRUS_SETTINS
 from player import Player
+from virus import Virus
 from wall import Wall
 from loot import ToiletPaper
 
@@ -31,9 +32,11 @@ class Game():
         self.all_sprite_list = pygame.sprite.Group()
         self.wall_list = pygame.sprite.Group()
         self.toilet_list = pygame.sprite.Group()
+        self.virus_list = pygame.sprite.Group()
 
         self.create_walls()
         self.create_toilets()
+        self.create_virus()
 
         pygame.mixer.music.load('audio/bg.mp3')
         pygame.mixer.music.play(-1)
@@ -67,3 +70,9 @@ class Game():
             wall = Wall(wall_rect[0], wall_rect[1], wall_rect[2], wall_rect[3], )
             self.wall_list.add(wall.shelf_list)
             self.all_sprite_list.add(wall.shelf_list)
+
+    def create_virus(self):
+        for i in range(len(VIRUS_SETTINS)):
+            virus = Virus(self, i)
+            self.virus_list.add(virus)
+            self.all_sprite_list.add(virus)

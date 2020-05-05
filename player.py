@@ -12,42 +12,26 @@ Authors:
 
 import pygame
 import game
+import threading
+import time
 from settings import GAME_SETTINGS, PLAYER_SETTINS, PLAYER_SPRITES
+from moving_entity import MovingEntity
 
 
-class Player(pygame.sprite.Sprite):
+class Player(MovingEntity):
     def __init__(self, game_ref):
 
         if type(game_ref) is not game.Game:
             raise TypeError("invalid reference")
 
-        super().__init__()
+        super().__init__(game_ref, PLAYER_SPRITES, PLAYER_SETTINS, "standing_down")
 
-        self.game_ref = game_ref
-
-        self.velocity = PLAYER_SETTINS["velocity"]
-        self.directions = {
-            "left": False,
-            "right": False,
-            "up": False,
-            "down": False
-        }
-
-        self.width = PLAYER_SETTINS["sprite_width"]
-        self.height = PLAYER_SETTINS["sprite_height"]
-
-        self.image = PLAYER_SPRITES['standing_down']
-        self.rect = self.image.get_rect()
-        self.rect.x = PLAYER_SETTINS["starting_x"]
-        self.rect.y = PLAYER_SETTINS["starting_y"]
+        self.lives = PLAYER_SETTINS["lives"]
         self.score = 0
 
-    def redraw(self):
-
-        for direction in self.directions:
-            if self.directions[direction]:
-                self.image = PLAYER_SPRITES[direction]
-        self.game_ref.window.blit(self.image, (self.rect.x, self.rect.y))
+        # If hand sanitizer is picked up
+        self.boosted = False
+        self.vulnerable = True
 
     def update(self):
 
@@ -57,60 +41,20 @@ class Player(pygame.sprite.Sprite):
             if e.type == pygame.KEYDOWN:
                 self.switch_directions(e.key)
 
-        self.move_player()
+        self.move()
         self.redraw()
 
-    def is_in_bounds(self, side: str):
-        boundries = {
-            "left": self.rect.x > 0 + self.velocity,
-            "right": self.rect.x < GAME_SETTINGS['width'] - self.width - self.velocity,
-            "up": self.rect.y > 0 + self.velocity,
-            "down": self.rect.y < GAME_SETTINGS['height'] - self.height - self.velocity,
-        }
+    def move(self):
+        self.collision_handler()
 
-        if side not in boundries.keys():
-            raise ValueError("Valid bountries are 'left', 'right', 'up', 'down'.")
-
-        return boundries[side]
-
-    def will_hit_wall(self, side: str):
-        if side in ["left", "up"]:
-            velocity = -self.velocity
-        else:
-            velocity = self.velocity
-        
-        temp_sprite = pygame.sprite.Sprite()
-        temp_sprite.image = PLAYER_SPRITES['down']
-        temp_sprite.rect = temp_sprite.image.get_rect()
-
-        temp_sprite.rect = self.rect.copy()
-        if side in ["left", "right"]:
-        
-            temp_sprite.rect.x += velocity
-
-            block_hit_list = pygame.sprite.spritecollide(temp_sprite, self.game_ref.wall_list, False)
-            if len(block_hit_list) > 0:
-                self.align_with_wall(side, block_hit_list[0])
-                return True
-
-        temp_sprite.rect = self.rect.copy()
-        if side in ["up", "down"]:
-            temp_sprite.rect.y += velocity
-
-            block_hit_list = pygame.sprite.spritecollide(temp_sprite, self.game_ref.wall_list, False)
-            if len(block_hit_list) > 0:
-                self.align_with_wall(side, block_hit_list[0])
-                return True
-
-    def align_with_wall(self, side, wall):
-        if side == "left":
-            self.rect.left = wall.rect.right
-        elif side == "right":
-            self.rect.right = wall.rect.left
-        elif side == "up":
-            self.rect.top = wall.rect.bottom
-        elif side == "down":
-            self.rect.bottom = wall.rect.top
+        if self.is_valid_direction("left"):
+            self.rect.x -= self.velocity
+        elif self.is_valid_direction("right"):
+            self.rect.x += self.velocity
+        elif self.is_valid_direction("up"):
+            self.rect.y -= self.velocity
+        elif self.is_valid_direction("down"):
+            self.rect.y += self.velocity
 
     def switch_directions(self, key):
         key_str = self.key_to_direction_str(key)
@@ -120,28 +64,6 @@ class Player(pygame.sprite.Sprite):
                     self.directions[direction] = True
                 else:
                     self.directions[direction] = False
-
-    def move_player(self):
-        item_hit_list = pygame.sprite.spritecollide(self, self.game_ref.toilet_list, False)
-        for toilet_paper in item_hit_list:
-            self.game_ref.toilet_list.remove(toilet_paper)
-            self.game_ref.all_sprite_list.remove(toilet_paper)
-            self.score += 1
-            print("item", toilet_paper)
-            print("item_hit_list", len(self.game_ref.toilet_list))
-            print("score: ", self.score)
-
-
-        if self.directions["left"] and self.is_in_bounds("left") and not self.will_hit_wall("left"):
-            self.rect.x -= self.velocity
-        elif self.directions["right"] and self.is_in_bounds("right") and not self.will_hit_wall("right"):
-            self.rect.x += self.velocity
-        elif self.directions["up"] and self.is_in_bounds("up") and not self.will_hit_wall("up"):
-            self.rect.y -= self.velocity
-        elif self.directions["down"] and self.is_in_bounds("down") and not self.will_hit_wall("down"):
-            self.rect.y += self.velocity
-
-        #print(self.rect.x, self.rect.y)
 
     @staticmethod
     def key_to_direction_str(key):
@@ -155,3 +77,36 @@ class Player(pygame.sprite.Sprite):
         elif key == pygame.K_DOWN:
             out_str = "down"
         return out_str
+
+    def collision_handler(self):
+        self.collect_toilet_paper()
+        self.check_virus()
+
+    def collect_toilet_paper(self):
+        item_hit_list = pygame.sprite.spritecollide(self, self.game_ref.toilet_list, False)
+        for toilet_paper in item_hit_list:
+            self.game_ref.toilet_list.remove(toilet_paper)
+            self.game_ref.all_sprite_list.remove(toilet_paper)
+            self.score += 1
+
+    def check_virus(self):
+        item_hit_list = pygame.sprite.spritecollide(self, self.game_ref.virus_list, False)
+        if not self.boosted and len(item_hit_list) != 0 and self.vulnerable:
+            self.vulnerable = False
+            self.loose_life()
+            t = threading.Timer(2, self.back_to_vulnerable)
+            t.start()
+        if self.boosted:
+            for virus in item_hit_list:
+                self.game_ref.virus_list.remove(virus)
+                self.game_ref.all_sprite_list.remove(virus)
+
+    def loose_life(self):
+        if self.lives == 1:
+            print("You ran out of lives!")
+            time.sleep(5)
+        self.lives -= 1
+        print(f"Lives: {self.lives}")
+
+    def back_to_vulnerable(self):
+        self.vulnerable = True
