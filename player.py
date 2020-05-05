@@ -12,6 +12,8 @@ Authors:
 
 import pygame
 import game
+import threading
+import time
 from settings import GAME_SETTINGS, PLAYER_SETTINS, PLAYER_SPRITES
 from moving_entity import MovingEntity
 
@@ -23,12 +25,13 @@ class Player(MovingEntity):
             raise TypeError("invalid reference")
 
         super().__init__(game_ref, PLAYER_SPRITES, PLAYER_SETTINS, "standing_down")
-        
+
         self.lives = PLAYER_SETTINS["lives"]
         self.score = 0
 
         # If hand sanitizer is picked up
         self.boosted = False
+        self.vulnerable = True
 
     def update(self):
 
@@ -52,7 +55,7 @@ class Player(MovingEntity):
             self.rect.y -= self.velocity
         elif self.is_valid_direction("down"):
             self.rect.y += self.velocity
-    
+
     def switch_directions(self, key):
         key_str = self.key_to_direction_str(key)
         if key_str in self.directions.keys():
@@ -88,9 +91,22 @@ class Player(MovingEntity):
 
     def check_virus(self):
         item_hit_list = pygame.sprite.spritecollide(self, self.game_ref.virus_list, False)
-        if not self.boosted and len(item_hit_list) != 0:
+        if not self.boosted and len(item_hit_list) != 0 and self.vulnerable:
+            self.vulnerable = False
             self.loose_life()
+            t = threading.Timer(2, self.back_to_vulnerable)
+            t.start()
+        if self.boosted:
+            for virus in item_hit_list:
+                self.game_ref.virus_list.remove(virus)
+                self.game_ref.all_sprite_list.remove(virus)
 
     def loose_life(self):
+        if self.lives == 1:
+            print("You ran out of lives!")
+            time.sleep(5)
         self.lives -= 1
-        # print(f"Lives: {self.lives}")
+        print(f"Lives: {self.lives}")
+
+    def back_to_vulnerable(self):
+        self.vulnerable = True
