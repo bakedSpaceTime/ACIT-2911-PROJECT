@@ -15,7 +15,8 @@ from settings import GAME_SETTINGS, BACKGROUND, WALL_LIST, VIRUS_SETTINS
 from player import Player
 from virus import Virus
 from wall import Shelf
-from loot import ToiletPaper
+from loot import ToiletPaper, HandSanitizer
+
 
 class Game():
     def __init__(self):
@@ -33,10 +34,12 @@ class Game():
         self.wall_list = pygame.sprite.Group()
         self.toilet_list = pygame.sprite.Group()
         self.virus_list = pygame.sprite.Group()
+        self.sanitizer_list = pygame.sprite.Group()
 
         self.create_walls()
         self.create_toilets()
         self.create_virus()
+        self.create_sanitizer()
 
         pygame.mixer.music.load('audio/bg.mp3')
         pygame.mixer.music.play(-1)
@@ -54,13 +57,15 @@ class Game():
 
     def create_toilets(self):
         i = 30
-
         while i < 480:
             j = 30
             while j < 480:
-                paper = ToiletPaper(i, j)
-                self.toilet_list.add(paper)
-                self.all_sprite_list.add(paper)
+                ################################
+                if j != 210 or i != 210:
+                    paper = ToiletPaper(i, j)
+                    self.toilet_list.add(paper)
+                    self.all_sprite_list.add(paper)
+                ################################
                 j += 60
             i += 60
 
@@ -79,3 +84,8 @@ class Game():
             virus = Virus(self, i)
             self.virus_list.add(virus)
             self.all_sprite_list.add(virus)
+
+    def create_sanitizer(self):
+        sanitizer = HandSanitizer(210, 210)
+        self.sanitizer_list.add(sanitizer)
+        self.all_sprite_list.add(sanitizer)
