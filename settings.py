@@ -28,6 +28,8 @@ PLAYER_SETTINS = {
     "starting_y": 450,
     "velocity": 10,
     "lives": 10,
+    "boosted_duration": 5,
+    "invincible_duration": 2,
 }
 
 PLAYER_SPRITES = {
@@ -60,7 +62,8 @@ VIRUS_SPRITES = {
 
 OTHER_SPRITES = {
     "toilet_paper": pygame.image.load(path_join('images','Toilet Paper.png')),
-    "shelf_front": pygame.image.load(path_join('images','Shelf', 'Front.png'))
+    "shelf_front": pygame.image.load(path_join('images','Shelf', 'Front.png')),
+    "hand_sanitizer": pygame.image.load(path_join('images','sanitizer-sprite.png'))
 }
 
 BACKGROUND = pygame.image.load(path_join('images','background.png'))

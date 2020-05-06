@@ -80,6 +80,7 @@ class Player(MovingEntity):
 
     def collision_handler(self):
         self.collect_toilet_paper()
+        self.collect_hand_sanitizer()
         self.check_virus()
 
     def collect_toilet_paper(self):
@@ -89,12 +90,21 @@ class Player(MovingEntity):
             self.game_ref.all_sprite_list.remove(toilet_paper)
             self.score += 1
 
+    def collect_hand_sanitizer(self):
+        item_hit_list = pygame.sprite.spritecollide(self, self.game_ref.sanitizer_list, False)
+        for sanitizer in item_hit_list:
+            self.boosted = True
+            self.game_ref.sanitizer_list.remove(sanitizer)
+            self.game_ref.all_sprite_list.remove(sanitizer)
+            t = threading.Timer(PLAYER_SETTINS["boosted_duration"], self.back_to_normal)
+            t.start()
+
     def check_virus(self):
         item_hit_list = pygame.sprite.spritecollide(self, self.game_ref.virus_list, False)
         if not self.boosted and len(item_hit_list) != 0 and self.vulnerable:
             self.vulnerable = False
             self.loose_life()
-            t = threading.Timer(2, self.back_to_vulnerable)
+            t = threading.Timer(PLAYER_SETTINS["invincible_duration"], self.back_to_vulnerable)
             t.start()
         if self.boosted:
             for virus in item_hit_list:
@@ -110,3 +120,6 @@ class Player(MovingEntity):
 
     def back_to_vulnerable(self):
         self.vulnerable = True
+
+    def back_to_normal(self):
+        self.boosted = False
