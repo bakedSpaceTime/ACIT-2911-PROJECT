@@ -14,7 +14,7 @@ import pygame
 from settings import GAME_SETTINGS, BACKGROUND, WALL_LIST, VIRUS_SETTINS
 from player import Player
 from virus import Virus
-from wall import Wall
+from wall import Wall, Shelf
 from loot import ToiletPaper
 
 class Game():
@@ -66,10 +66,17 @@ class Game():
 
     def create_walls(self):
 
-        for wall_rect in WALL_LIST:
-            wall = Wall(wall_rect[0], wall_rect[1], wall_rect[2], wall_rect[3], )
-            self.wall_list.add(wall.shelf_list)
-            self.all_sprite_list.add(wall.shelf_list)
+        for y, line in enumerate(WALL_LIST):
+            for x, char in enumerate(line):
+                if char == '#':
+                    wall = Wall(x*30, y*30, 30, 30)
+                    self.wall_list.add(wall.shelf_list)
+                    self.all_sprite_list.add(wall.shelf_list)
+
+        #for wall_rect in WALL_LIST:
+        #    wall = Wall(wall_rect[0], wall_rect[1], wall_rect[2], wall_rect[3], )
+        #    self.wall_list.add(wall.shelf_list)
+        #    self.all_sprite_list.add(wall.shelf_list)
 
     def create_virus(self):
         for i in range(len(VIRUS_SETTINS)):
