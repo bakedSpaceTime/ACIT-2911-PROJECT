@@ -12,6 +12,7 @@ Authors:
 from collections import deque
 from settings import GAME_SETTINGS, WALL_LIST
 import pygame
+from math import sqrt
 
 class RouteMap():
 
@@ -154,6 +155,24 @@ class RouteMap():
 
         return [path, [count, len(path), completed]]
 
+    def find_closest_node(self, position_to_check: tuple):
+        x_pos = position_to_check[0]
+        y_pos = position_to_check[1]
+
+        closest_node = None
+        min_distance = float("inf")
+
+        for node in self.node_graph:
+            delta_x = x_pos - node.rect.x
+            delta_y = y_pos - node.rect.y
+            dist_mag = sqrt( delta_x**2 + delta_y**2)
+
+            if dist_mag < min_distance:
+                min_distance = dist_mag
+                closest_node = node
+
+        return closest_node
+
 if __name__ == "__main__":
 
     mappy = RouteMap(WALL_LIST)
@@ -163,3 +182,4 @@ if __name__ == "__main__":
     #     print(f"node:{node},\nneighbours: {node.neighbours}\n")
     results = mappy.solve(mappy.node_graph[0], mappy.node_graph[-1])
     print(results)
+    print(list(results[0]))
