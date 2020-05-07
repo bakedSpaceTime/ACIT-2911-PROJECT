@@ -11,10 +11,10 @@ Authors:
 """
 
 import pygame
-from settings import GAME_SETTINGS, BACKGROUND, WALL_LIST, VIRUS_SETTINS
+from settings import GAME_SETTINGS, BACKGROUND, WALL_LIST_1ST_FLOOR, VIRUS_SETTINS
 from player import Player
 from virus import Virus
-from wall import Shelf
+from wall import Wall, Shelf
 from loot import ToiletPaper, HandSanitizer
 
 
@@ -37,9 +37,8 @@ class Game():
         self.sanitizer_list = pygame.sprite.Group()
 
         self.create_walls()
-        self.create_toilets()
+        self.create_loots()
         self.create_virus()
-        self.create_sanitizer()
 
         pygame.mixer.music.load('audio/bg.mp3')
         pygame.mixer.music.play(-1)
@@ -55,37 +54,36 @@ class Game():
             self.all_sprite_list.draw(self.window)
             pygame.display.update()
 
-    def create_toilets(self):
-        i = 30
-        while i < 480:
-            j = 30
-            while j < 480:
-                ################################
-                if j != 210 or i != 210:
-                    paper = ToiletPaper(i, j)
+    def create_loots(self):
+        for y, line in enumerate(WALL_LIST_1ST_FLOOR):
+            for x, char in enumerate(line):
+                if char == '=':
+                    paper = ToiletPaper(x * 30, y * 30)
                     self.toilet_list.add(paper)
                     self.all_sprite_list.add(paper)
-                ################################
-                j += 60
-            i += 60
+                if char == 'H':
+                    sanitizer = HandSanitizer(x * 30, y * 30)
+                    self.sanitizer_list.add(sanitizer)
+                    self.all_sprite_list.add(sanitizer)
 
     def create_walls(self):
-
-        for y, line in enumerate(WALL_LIST):
+        for y, line in enumerate(WALL_LIST_1ST_FLOOR):
             for x, char in enumerate(line):
                 if char == '#':
                     shelf = Shelf(x * 30, y * 30)
                     self.wall_list.add(shelf)
                     self.all_sprite_list.add(shelf)
-
+                if char == 'S':
+                    shelf = Shelf(x * 30, y * 30, 'side')
+                    self.wall_list.add(shelf)
+                    self.all_sprite_list.add(shelf)
+                if char == 'W':
+                    wall = Wall(x * 30, y * 30)
+                    self.wall_list.add(wall)
+                    self.all_sprite_list.add(wall)
 
     def create_virus(self):
         for i in range(len(VIRUS_SETTINS)):
             virus = Virus(self, i)
             self.virus_list.add(virus)
             self.all_sprite_list.add(virus)
-
-    def create_sanitizer(self):
-        sanitizer = HandSanitizer(210, 210)
-        self.sanitizer_list.add(sanitizer)
-        self.all_sprite_list.add(sanitizer)
