@@ -36,13 +36,22 @@ from settings import OTHER_SPRITES
 
 #         self.rect = pygame.Rect(x, y, width, height)
 #         print(self.rect, "wall rect")
+class Wall(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        super().__init__()
+        self.image = OTHER_SPRITES["wall"]
+        self.rect = self.image.get_rect()
+        self.rect.y = y
+        self.rect.x = x
 
 class Shelf(pygame.sprite.Sprite):
 
-    def __init__(self, x, y):
+    def __init__(self, x, y, dir = None):
         super().__init__()
-
-        self.image = OTHER_SPRITES["shelf_front"]
+        if dir == 'side':
+            self.image = OTHER_SPRITES["shelf_side"]
+        else:
+            self.image = OTHER_SPRITES["shelf_front"]
         self.rect = self.image.get_rect()
 
         # print(x, y, self.rect.width, self.rect.height, "shelf x, y, width, hieght")
