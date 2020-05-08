@@ -53,6 +53,11 @@ VIRUS_SETTINS = [
         "starting_y": 570,
         "velocity": 12,
     },
+    {
+        "starting_x": 510,
+        "starting_y": 360,
+        "velocity": 10,
+    },
 ]
 
 VIRUS_SPRITES = {
