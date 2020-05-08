@@ -61,7 +61,7 @@ VIRUS_SPRITES = {
     "up": pygame.image.load(path_join('images','pac-up.bmp')),
     "down": pygame.image.load(path_join('images','pac-down.bmp')),
 }
-
+# car sprite from https://www.pinterest.ca/pin/233624299398167646/
 OTHER_SPRITES = {
     "toilet_paper": pygame.image.load(path_join('images','Toilet Paper.png')),
     "shelf_front": pygame.image.load(path_join('images','Shelf', 'Front.png')),
@@ -69,7 +69,11 @@ OTHER_SPRITES = {
     "wall": pygame.image.load(path_join('images','Shelf', 'wall.png')),
     "hand_sanitizer": pygame.image.load(path_join('images','sanitizer-sprite.png')),
     "railing_front": pygame.image.load(path_join('images', 'Shelf', 'railing_front2.png')),
-"railing_side": pygame.image.load(path_join('images', 'Shelf', 'railing_side3.png')),
+    "railing_side": pygame.image.load(path_join('images', 'Shelf', 'railing_side3.png')),
+    "tree": pygame.image.load(path_join('images', 'tree.png')),
+    "car1": pygame.image.load(path_join('images', 'cars', 'car1.png')),
+    "car2": pygame.image.load(path_join('images', 'cars', 'car2.png')),
+    "car3": pygame.image.load(path_join('images', 'cars', 'car3.png')),
 }
 
 BACKGROUND = pygame.image.load(path_join('images','background.png'))
@@ -103,12 +107,12 @@ WALL_LIST_1ST_FLOOR = [
 
 WALL_LIST_PARKING_LOT = [
     "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
-    "TC==========R=======R===========R======T",
+    "TC==========R=======R==========HR======T",
     "T=C==========CC===============C=C======T",
     "T===RRRRRRR======RRR=RRRRRRRRRr====RRRRT",
     "T==C======C==C=====C==========r========T",
     "T====r=Rr====C=====C=========CrC=======T",
-    "T==r=r==r==RRRRR==CC====RRRR==r==rRRRRRT",
+    "T==r=r=Hr==RRRRR==CC====RRRR==r==rRRRRRT",
     "T==r=rR=r====C============C===r==r=C===T",
     "T==r======C=======C==RRRRRRR==r==r===C=T",
     "T==r======R===C===RRRR=====C==r=====C==T",
@@ -118,14 +122,14 @@ WALL_LIST_PARKING_LOT = [
     "T===============CCCC==C===C==r==r=rRRR=T",
     "T========C=C==C===C===RRRRR==r====r====T",
     "T==rRRRRRR==RR==C============rC===rRR==T",
-    "T==r==r==C==RR==C==RRRRRR==RRRRR====C==T",
+    "T==rH=r==C==RR==C==RRRRRR==RRRRR====C==T",
     "T==r==r====C==C====R=============RR====T",
     "T==r===============C==C=====C==rRRRRrRRT",
     "T==rRRRRRC===RRr======rRRRRRR==r====r==T",
-    "T==r==========Cr==C===r========r=C==r==T",
+    "T==r==========Cr==C===r========r=C=Hr==T",
     "T=====RRR===C==r===C==r=C=CRC==rRR=CrC=T",
     "T====C======C=====C=====C==============T",
-    "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
+    "TTTTTTTTTTTTTTTTTTT==TTTTTTTTTTTTTTTTTTT",
 ]
 
 WALL_LIST = [
