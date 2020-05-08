@@ -67,7 +67,9 @@ OTHER_SPRITES = {
     "shelf_front": pygame.image.load(path_join('images','Shelf', 'Front.png')),
     "shelf_side": pygame.image.load(path_join('images', 'Shelf', 'Sides.png')),
     "wall": pygame.image.load(path_join('images','Shelf', 'wall.png')),
-    "hand_sanitizer": pygame.image.load(path_join('images','sanitizer-sprite.png'))
+    "hand_sanitizer": pygame.image.load(path_join('images','sanitizer-sprite.png')),
+    "railing_front": pygame.image.load(path_join('images', 'Shelf', 'railing_front2.png')),
+"railing_side": pygame.image.load(path_join('images', 'Shelf', 'railing_side3.png')),
 }
 
 BACKGROUND = pygame.image.load(path_join('images','background.png'))
@@ -97,6 +99,33 @@ WALL_LIST_1ST_FLOOR = [
     "W=================W==W=================W",
     "WH================W==W=================W",
     "WWWWWWWWWWWWWWWWWWW==WWWWWWWWWWWWWWWWWWW",
+]
+
+WALL_LIST_PARKING_LOT = [
+    "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
+    "TC==========R=======R===========R======T",
+    "T=C==========CC===============C=C======T",
+    "T===RRRRRRR======RRR=RRRRRRRRRr====RRRRT",
+    "T==C======C==C=====C==========r========T",
+    "T====r=Rr====C=====C=========CrC=======T",
+    "T==r=r==r==RRRRR==CC====RRRR==r==rRRRRRT",
+    "T==r=rR=r====C============C===r==r=C===T",
+    "T==r======C=======C==RRRRRRR==r==r===C=T",
+    "T==r======R===C===RRRR=====C==r=====C==T",
+    "T=====CC==RRRR==========R==========R===T",
+    "T==C=========r=====C===RCR==Cr==r==RRRRT",
+    "T==RRRRRRRRRRR===C======R====r==r======T",
+    "T===============CCCC==C===C==r==r=rRRR=T",
+    "T========C=C==C===C===RRRRR==r====r====T",
+    "T==rRRRRRR==RR==C============rC===rRR==T",
+    "T==r==r==C==RR==C==RRRRRR==RRRRR====C==T",
+    "T==r==r====C==C====R=============RR====T",
+    "T==r===============C==C=====C==rRRRRrRRT",
+    "T==rRRRRRC===RRr======rRRRRRR==r====r==T",
+    "T==r==========Cr==C===r========r=C==r==T",
+    "T=====RRR===C==r===C==r=C=CRC==rRR=CrC=T",
+    "T====C======C=====C=====C==============T",
+    "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
 ]
 
 WALL_LIST = [

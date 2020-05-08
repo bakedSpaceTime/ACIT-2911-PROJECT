@@ -11,10 +11,10 @@ Authors:
 """
 
 import pygame
-from settings import GAME_SETTINGS, BACKGROUND, WALL_LIST_1ST_FLOOR, VIRUS_SETTINS
+from settings import GAME_SETTINGS, BACKGROUND, WALL_LIST_1ST_FLOOR, VIRUS_SETTINS, WALL_LIST_PARKING_LOT
 from player import Player
 from virus import Virus
-from wall import Wall, Shelf
+from wall import Wall, Shelf, Railing
 from loot import ToiletPaper, HandSanitizer
 
 
@@ -55,7 +55,8 @@ class Game():
             pygame.display.update()
 
     def create_loots(self):
-        for y, line in enumerate(WALL_LIST_1ST_FLOOR):
+        for y, line in enumerate(WALL_LIST_PARKING_LOT):
+        #for y, line in enumerate(WALL_LIST_1ST_FLOOR):
             for x, char in enumerate(line):
                 if char == '=':
                     paper = ToiletPaper(x * 30, y * 30)
@@ -67,7 +68,8 @@ class Game():
                     self.all_sprite_list.add(sanitizer)
 
     def create_walls(self):
-        for y, line in enumerate(WALL_LIST_1ST_FLOOR):
+        for y, line in enumerate(WALL_LIST_PARKING_LOT):
+        #for y, line in enumerate(WALL_LIST_1ST_FLOOR):
             for x, char in enumerate(line):
                 if char == '#':
                     shelf = Shelf(x * 30, y * 30)
@@ -81,6 +83,14 @@ class Game():
                     wall = Wall(x * 30, y * 30)
                     self.wall_list.add(wall)
                     self.all_sprite_list.add(wall)
+                if char == 'R':
+                    railing = Railing(x * 30, y * 30)
+                    self.wall_list.add(railing)
+                    self.all_sprite_list.add(railing)
+                if char == 'r':
+                    railing = Railing(x * 30, y * 30, 'side')
+                    self.wall_list.add(railing)
+                    self.all_sprite_list.add(railing)
 
     def create_virus(self):
         for i in range(len(VIRUS_SETTINS)):

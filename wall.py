@@ -57,3 +57,15 @@ class Shelf(pygame.sprite.Sprite):
         # print(x, y, self.rect.width, self.rect.height, "shelf x, y, width, hieght")
         self.rect.y = y
         self.rect.x = x
+
+class Railing(pygame.sprite.Sprite):
+    def __init__(self, x, y, dir = None):
+        super().__init__()
+        if dir == 'side':
+            self.image = OTHER_SPRITES["railing_side"]
+        else:
+            self.image = OTHER_SPRITES["railing_front"]
+        self.rect = self.image.get_rect()
+
+        self.rect.y = y
+        self.rect.x = x
