@@ -10,7 +10,7 @@ Authors:
 - Shivam Patel, A01185250
 """
 from collections import deque
-from settings import GAME_SETTINGS, WALL_LIST
+from settings import GAME_SETTINGS
 import pygame
 from math import sqrt
 
