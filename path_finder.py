@@ -78,7 +78,8 @@ class RouteMap():
                     surroundings = [(x, y + 1), (x + 1, y), (x, y - 1), (x - 1, y)]
                     for i, point in enumerate(surroundings):
                         # print(f"node: {node}, surrounding point: {point}")
-                        if self.level_map[point[1]][point[0]] == "l":
+                        current_char =  self.level_map[point[1]][point[0]]
+                        if current_char == "l" or current_char == "+":
                             neighbour = self.determine_neighbour(y, x, i)
                             # print(f"node: ({node}), direction: {i}, neighbour: ({neighbour})")
                             node.neighbours[i] = neighbour
