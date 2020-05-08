@@ -61,10 +61,10 @@ VIRUS_SETTINS = [
 ]
 
 VIRUS_SPRITES = {
-    "right": pygame.image.load(path_join('images','pac-right.bmp')),
-    "left": pygame.image.load(path_join('images','pac-left.bmp')),
-    "up": pygame.image.load(path_join('images','pac-up.bmp')),
-    "down": pygame.image.load(path_join('images','pac-down.bmp')),
+    "right": pygame.image.load(path_join('images','Virus.png')),
+    "left": pygame.image.load(path_join('images','Virus.png')),
+    "up": pygame.image.load(path_join('images','Virus.png')),
+    "down": pygame.image.load(path_join('images','Virus.png')),
 }
 # car sprite from https://www.pinterest.ca/pin/233624299398167646/
 OTHER_SPRITES = {
@@ -75,7 +75,7 @@ OTHER_SPRITES = {
     "hand_sanitizer": pygame.image.load(path_join('images','sanitizer-sprite.png')),
     "railing_front": pygame.image.load(path_join('images', 'Shelf', 'railing_front2.png')),
     "railing_side": pygame.image.load(path_join('images', 'Shelf', 'railing_side3.png')),
-    "tree": pygame.image.load(path_join('images', 'tree.png')),
+    "tree": pygame.image.load(path_join('images', 'Tree.png')),
     "car1": pygame.image.load(path_join('images', 'cars', 'car1.png')),
     "car2": pygame.image.load(path_join('images', 'cars', 'car2.png')),
     "car3": pygame.image.load(path_join('images', 'cars', 'car3.png')),
