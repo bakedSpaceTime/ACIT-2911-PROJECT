@@ -26,6 +26,8 @@ class Game():
         self.window = pygame.display.set_mode((GAME_SETTINGS['width'], GAME_SETTINGS['height']))
         self.clock = pygame.time.Clock()
         pygame.display.set_caption("Pandemic Run")
+        self.level = WALL_LIST_1ST_FLOOR
+        # self.level = WALL_LIST_1ST_FLOOR
 
         self.player = Player(self)
 
@@ -56,7 +58,7 @@ class Game():
             pygame.display.update()
 
     def create_loots(self):
-        for y, line in enumerate(WALL_LIST_1ST_FLOOR["loot"]):
+        for y, line in enumerate(self.level["loot"]):
             for x, char in enumerate(line):
                 if char == '=':
                     paper = ToiletPaper(x * 30, y * 30)
@@ -68,7 +70,7 @@ class Game():
                     self.all_sprite_list.add(sanitizer)
 
     def create_walls(self):
-        for y, line in enumerate(WALL_LIST_1ST_FLOOR["loot"]):
+        for y, line in enumerate(self.level["loot"]):
             for x, char in enumerate(line):
                 if char == '#':
                     obstacle = Obstacle(x * 30, y * 30, "shelf_front")
@@ -90,6 +92,6 @@ class Game():
 
     def create_virus(self):
         for i in range(len(VIRUS_SETTINS)):
-            virus = Virus(self, i)
+            virus = Virus(self, i, self.level["virus"])
             self.virus_list.add(virus)
             self.all_sprite_list.add(virus)
