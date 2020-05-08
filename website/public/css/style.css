@@ -1,0 +1,35 @@
+.mb-0 {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+h1 {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+form {
+  margin: 20px;
+}
+
+#logo:hover {
+  transform: scale(1.2);
+}
+
+a.menu-link:hover {
+  transform: scale(1.1);
+}
+
+#animation {
+  width: 30px;
+  height: 30px;
+  background: url('/images/spritesheet.png') left center;
+  background-size: cover;
+  animation: play 1s steps(6) infinite;
+  display: inline-block;
+}
+
+@keyframes play {
+  100% { background-position: -180px;}
+}

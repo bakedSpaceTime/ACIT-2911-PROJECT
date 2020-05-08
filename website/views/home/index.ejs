@@ -1,0 +1,22 @@
+<% layout('../layouts/mainlayout.ejs') -%>
+<h1 class="text-center">Highscores <i class="fa fa-trophy"></i>
+</h1>
+
+<table class="scoreboard table-sm table-light table-hover table-striped container" style="width: 50%;">
+  <thead>
+    <tr style="width: 50%;">
+      <th scope="col" style="width: 69px;">Rank</th>
+      <th scope="col">Name</th>
+      <th scope="col">Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for (var i=0; i < scores.length; i++) { %>
+      <tr>
+        <th scope="row"><%= i+1 %></th>
+        <td scope="row"><%= scores[i].name %></td>
+        <td scope="row"><%= scores[i].score %></td>
+      </tr>
+    <% } %>
+  </tbody>
+</table>
