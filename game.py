@@ -11,10 +11,11 @@ Authors:
 """
 
 import pygame
-from settings import GAME_SETTINGS, BACKGROUND, WALL_LIST_1ST_FLOOR, VIRUS_SETTINS
+import random
+from settings import GAME_SETTINGS, BACKGROUND, WALL_LIST_1ST_FLOOR, VIRUS_SETTINS, WALL_LIST_PARKING_LOT
 from player import Player
 from virus import Virus
-from wall import Wall, Shelf
+from wall import Obstacle
 from loot import ToiletPaper, HandSanitizer
 
 
@@ -70,17 +71,22 @@ class Game():
         for y, line in enumerate(WALL_LIST_1ST_FLOOR["loot"]):
             for x, char in enumerate(line):
                 if char == '#':
-                    shelf = Shelf(x * 30, y * 30)
-                    self.wall_list.add(shelf)
-                    self.all_sprite_list.add(shelf)
+                    obstacle = Obstacle(x * 30, y * 30, "shelf_front")
                 if char == 'S':
-                    shelf = Shelf(x * 30, y * 30, 'side')
-                    self.wall_list.add(shelf)
-                    self.all_sprite_list.add(shelf)
+                    obstacle = Obstacle(x * 30, y * 30, "shelf_side")
                 if char == 'W':
-                    wall = Wall(x * 30, y * 30)
-                    self.wall_list.add(wall)
-                    self.all_sprite_list.add(wall)
+                    obstacle = Obstacle(x * 30, y * 30)
+                if char == 'R':
+                    obstacle = Obstacle(x * 30, y * 30, "railing_front")
+                if char == 'r':
+                    obstacle = Obstacle(x * 30, y * 30, "railing_side")
+                if char == 'T':
+                    obstacle = Obstacle(x * 30, y * 30, "tree")
+                if char == 'C':
+                    obstacle = Obstacle(x * 30, y * 30, f"car{random.randint(1, 3)}")
+                self.wall_list.add(obstacle)
+                self.all_sprite_list.add(obstacle)
+
 
     def create_virus(self):
         for i in range(len(VIRUS_SETTINS)):
