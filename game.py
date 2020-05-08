@@ -56,8 +56,7 @@ class Game():
             pygame.display.update()
 
     def create_loots(self):
-        for y, line in enumerate(WALL_LIST_PARKING_LOT):
-        #for y, line in enumerate(WALL_LIST_1ST_FLOOR):
+        for y, line in enumerate(WALL_LIST_1ST_FLOOR["loot"]):
             for x, char in enumerate(line):
                 if char == '=':
                     paper = ToiletPaper(x * 30, y * 30)
@@ -69,8 +68,7 @@ class Game():
                     self.all_sprite_list.add(sanitizer)
 
     def create_walls(self):
-        for y, line in enumerate(WALL_LIST_PARKING_LOT):
-        #for y, line in enumerate(WALL_LIST_1ST_FLOOR):
+        for y, line in enumerate(WALL_LIST_1ST_FLOOR["loot"]):
             for x, char in enumerate(line):
                 if char == '#':
                     obstacle = Obstacle(x * 30, y * 30, "shelf_front")
