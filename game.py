@@ -22,6 +22,7 @@ from button import Button
 from send_score import send_score
 from tkinter import messagebox, Tk
 import webbrowser
+from start_menu import StartMenu
 from end_menu import EndMenu
 
 
@@ -52,15 +53,18 @@ class Game:
         pygame.mixer.music.load('audio/bg.mp3')
         pygame.mixer.music.play(-1)
         
+        self.start_menu = StartMenu(self)
         self.game_over = EndMenu(self)
-        self.state = "game"
+        self.state = "start"
 
     def main_game(self):
         while True:
             self.window.fill((0, 0, 0))
             self.clock.tick(30)
 
-            if self.state == "game":
+            if self.state == "start":
+                self.start_menu.update()
+            elif self.state == "game":
                 self.window.blit(BACKGROUND, (0, 0))
                 self.player.update()
                 self.all_sprite_list.update()
