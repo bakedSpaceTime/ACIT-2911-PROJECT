@@ -7,7 +7,7 @@ import webbrowser
 from send_score import send_score
 
 
-class GameOver():
+class EndMenu():
 
     def __init__(self, game_ref):
         self.game_ref = game_ref
