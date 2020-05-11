@@ -103,7 +103,6 @@ class Virus(MovingEntity):
 
     def snap_to_node(self, node):
         if self.can_snap_to_node():
-            print("snap")
             self.prev_node = node
             self.prev_node_i = self.path.index(node)
             self.rect.center = node.rect.center
@@ -144,7 +143,7 @@ class Virus(MovingEntity):
         
             reference_node = self.prev_node
             
-            print("index", self.prev_node_i + 1)
+            # print("index", self.prev_node_i + 1)
             next_node = self.path[self.prev_node_i + 1]
             dir_int = None
             # print(reference_node.neighbours)

@@ -41,7 +41,7 @@ class Player(MovingEntity):
             if e.type == pygame.KEYDOWN:
                 self.switch_directions(e.key)
                 if e.key == pygame.K_ESCAPE:
-                    return 1
+                    self.game_ref.state = "pause"
 
         self.move()
         self.redraw()
@@ -115,8 +115,7 @@ class Player(MovingEntity):
 
     def loose_life(self):
         if self.lives == 1:
-            print("You ran out of lives!")
-            time.sleep(5)
+            self.game_ref.state = "game_over"
         self.lives -= 1
         print(f"Lives: {self.lives}")
 
