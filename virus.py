@@ -35,6 +35,7 @@ class Virus(MovingEntity):
         # set default direction
         # self.directions["right"] = True
         self.route_map = RouteMap(level_map)
+        self.force_new_path = False
         self.path = None
         self.prev_node = None
         self.prev_node_i = None
@@ -67,9 +68,17 @@ class Virus(MovingEntity):
             current_node = self.route_map.node_graph[collide_i]
             rect_contains_center = current_node.rect.collidepoint(self.rect.center)
             if rect_contains_center == 1:
-                if current_node == self.end_node:
-                    print("end reached")
+                # print(f"before!:\n\tcurrent node: {current_node}\n\tnd node:{self.end_node}\n\t{self.path}\n")
+
+                while current_node == self.end_node or self.force_new_path:
+                    # print("end reached")
                     self.update_path()
+                    # print(f"\nafter!:\n\tend node:{self.end_node}\n\t{self.path}\n")
+
+                    if current_node not in self.path:
+                        self.path.appendleft(current_node)
+                    # print(f"\tafter again\n\t\t{self.path}")
+                    
                 self.snap_to_node(current_node)
                 self.switch_directions() 
 
@@ -95,11 +104,11 @@ class Virus(MovingEntity):
         while len(self.path) <= 1:
             node_closest_to_me = self.route_map.find_closest_node(self.rect.center)
             rand_index = randint(0, len(self.route_map.node_graph) - 1)
-            print("random i ", rand_index)
+            # print("random i ", rand_index)
             random_node = self.route_map.node_graph[rand_index]
             result = self.route_map.solve(node_closest_to_me, random_node)
             self.path = result[0]
-        print("end random", self.path)
+        # print("end random")
 
     def snap_to_node(self, node):
         if self.can_snap_to_node():
@@ -137,6 +146,10 @@ class Virus(MovingEntity):
                     self.directions[direction] = True
                 else:
                     self.directions[direction] = False
+        else:
+            self.force_new_path = True
+            for direction in self.directions:
+                self.directions[direction] = False
 
     def direction_of_next_node(self):
         if len(self.path) > 1:
