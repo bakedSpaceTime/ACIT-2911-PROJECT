@@ -15,6 +15,7 @@ class EndMenu():
         self.info_font = pygame.font.Font('freesansbold.ttf', 30)
         self.name_input = TextBox(500, 500, 200, 50, 12, 20)
         self.submit_button = Button(550, 550, 100, 50, 'Submit', (25,25,166), (255,255,255), 20)
+        self.start_button = Button(550, 650, 100, 50, 'Exit', (25,25,166), (255,255,255), 20)
         
 
     def update(self):
@@ -24,13 +25,13 @@ class EndMenu():
                 exit()
             if event.type == pygame.KEYDOWN:
                 self.name_input.add_text(event.key)
-                if event.key == pygame.K_ESCAPE:
-                    self.game_ref.state = "game"
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mx, my = pygame.mouse.get_pos()
                 if self.submit_button.clicked(mx, my) and self.name_input.return_text():
                         # pygame.event.set_blocked(pygame.MOUSEBUTTONDOWN)
                         self.submit_score()
+                elif self.start_button.clicked(mx, my):
+                    self.game_ref.state = "start"
         self.draw()
 
     def draw(self):
@@ -48,6 +49,7 @@ class EndMenu():
         self.game_ref.window.blit(text_surface, text_rect)
 
         self.submit_button.draw(self.game_ref.window)
+        self.start_button.draw(self.game_ref.window)
         self.name_input.draw(self.game_ref.window)
         # self.clock.tick(30)
         # pygame.display.update()
@@ -61,8 +63,7 @@ class EndMenu():
             score = self.game_ref.player.score
             r = send_score(self.name_input.return_text(), score)
             webbrowser.open('http://rocky-river-43342.herokuapp.com/')
-            # pygame.quit()
-            # quit()
+            self.game_ref.state = "start"
         except Exception as e:
             print(e)
             Tk().wm_withdraw()
