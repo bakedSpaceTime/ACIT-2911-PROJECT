@@ -30,7 +30,6 @@ class StartMenu():
                 # if event.key == pygame.K_ESCAPE:
                 #     self.game_ref.state = "game"
             if event.type == pygame.MOUSEBUTTONDOWN:
-                pass
                 mx, my = pygame.mouse.get_pos()
                 if self.game_button.clicked(mx, my):
                     self.game_ref.state = "game"
