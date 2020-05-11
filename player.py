@@ -41,7 +41,8 @@ class Player(MovingEntity):
             if e.type == pygame.KEYDOWN:
                 self.switch_directions(e.key)
                 if e.key == pygame.K_ESCAPE:
-                    return 1
+                    self.game_ref.state = "end_menu"
+        print(self.rect)
 
         self.move()
         self.redraw()
