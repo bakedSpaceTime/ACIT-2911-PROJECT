@@ -52,7 +52,7 @@ class Game:
         pygame.mixer.music.load('audio/bg.mp3')
         pygame.mixer.music.play(-1)
         
-        self.end_menu = EndMenu(self)
+        self.game_over = EndMenu(self)
         self.state = "game"
 
     def main_game(self):
@@ -65,8 +65,8 @@ class Game:
                 self.player.update()
                 self.all_sprite_list.update()
                 self.all_sprite_list.draw(self.window)
-            elif self.state == "end_menu":
-                self.end_menu.update()
+            elif self.state == "game_over":
+                self.game_over.update()
                 
             pygame.display.update()
 
