@@ -1,7 +1,7 @@
 import pygame
 from text_box import TextBox
 from button import Button
-from settings import GAME_SETTINGS
+from settings import GAME_SETTINGS, COLOURS
 from tkinter import messagebox, Tk
 import webbrowser
 from send_score import send_score
@@ -14,8 +14,8 @@ class EndMenu():
         self.header_font = pygame.font.Font('freesansbold.ttf', 60)
         self.info_font = pygame.font.Font('freesansbold.ttf', 30)
         self.name_input = TextBox(500, 500, 200, 50, 12, 20)
-        self.submit_button = Button(550, 550, 100, 50, 'Submit', (25,25,166), (255,255,255), 20)
-        self.start_button = Button(550, 650, 100, 50, 'Exit', (25,25,166), (255,255,255), 20)
+        self.submit_button = Button(550, 550, 100, 50, 'Submit', COLOURS["blue"], COLOURS["white"], 20)
+        self.start_button = Button(550, 650, 100, 50, 'Exit', COLOURS["blue"], COLOURS["white"], 20)
 
     def update(self):
         for event in pygame.event.get():
@@ -34,7 +34,7 @@ class EndMenu():
 
     def draw(self):
         score = self.game_ref.player.score
-        text_surface, text_rect = self.text_objects(f'Your score is {score}', self.info_font, (255,255,0))
+        text_surface, text_rect = self.text_objects(f'Your score is {score}', self.info_font, color=COLOURS["yellow"])
         text_rect.center = ((GAME_SETTINGS["width"] / 2), (GAME_SETTINGS["height"] / 2))
         self.game_ref.window.blit(text_surface, text_rect)
 
@@ -50,7 +50,7 @@ class EndMenu():
         self.start_button.draw(self.game_ref.window)
         self.name_input.draw(self.game_ref.window)
 
-    def text_objects(self, text, font, color=(255, 255, 255)):
+    def text_objects(self, text, font, color=COLOURS["white"]):
         text_surface = font.render(text, True, color)
         return text_surface, text_surface.get_rect()
 

@@ -23,6 +23,14 @@ GAME_SETTINGS = {
     "tile_side_length": 30,
 }
 
+COLOURS = {
+    "black": (0, 0, 0),
+    "white": (255, 255, 255),
+    "blue": (25, 25, 166),
+    "yellow": (255, 255, 0),
+    "red": (255, 0, 0),
+}
+
 PLAYER_SETTINS = {
     "sprite_height": 32,
     "sprite_width": 32,

@@ -1,10 +1,8 @@
 import pygame
 # from text_box import TextBox
 from button import Button
-from settings import GAME_SETTINGS
-# from tkinter import messagebox, Tk
+from settings import GAME_SETTINGS, COLOURS
 import webbrowser
-# from send_score import send_score
 
 
 class StartMenu():
@@ -15,9 +13,9 @@ class StartMenu():
         self.option_font = pygame.font.Font('freesansbold.ttf', 45)
         # self.name_input = TextBox(500, 500, 200, 50, 12, 20)
         # self.submit_button = Button(550, 550, 100, 50, 'Submit', (25,25,166), (255,255,255), 20)
-        self.game_button = Button(550, 345, 120, 50, 'Start Game', (0,0,0), (255,255,0), 45)
-        self.leaderboard_button = Button(550, 445, 120, 50, 'Leaderboard', (0,0,0), (255,255,0), 45)
-        self.exit_button = Button(550, 545, 120, 60, 'Exit', (255,255,255), (0,0,0), 45)
+        self.game_button = Button(550, 345, 120, 50, 'Start Game', COLOURS["black"], COLOURS["yellow"], 45)
+        self.leaderboard_button = Button(550, 445, 120, 50, 'Leaderboard', COLOURS["black"], COLOURS["yellow"], 45)
+        self.exit_button = Button(550, 545, 120, 60, 'Exit', COLOURS["white"], COLOURS["black"], 45)
         
 
     def update(self):
@@ -38,7 +36,7 @@ class StartMenu():
         self.draw()
 
     def draw(self):
-        text_surface, text_rect = self.text_objects('Pandemic Run', self.header_font, color=(255,0,0))
+        text_surface, text_rect = self.text_objects('Pandemic Run', self.header_font, color=COLOURS["red"])
         text_rect.center = ((GAME_SETTINGS["width"] / 2), (GAME_SETTINGS["height"] / 4))
         self.game_ref.window.blit(text_surface, text_rect)
 
@@ -46,6 +44,6 @@ class StartMenu():
         self.leaderboard_button.draw(self.game_ref.window)
         self.exit_button.draw(self.game_ref.window)
 
-    def text_objects(self, text, font, color=(255, 255, 255)):
+    def text_objects(self, text, font, color=COLOURS["white"]):
         text_surface = font.render(text, True, color)
         return text_surface, text_surface.get_rect()
