@@ -23,6 +23,7 @@ from send_score import send_score
 from tkinter import messagebox, Tk
 import webbrowser
 from start_menu import StartMenu
+from pause_menu import PauseMenu
 from end_menu import EndMenu
 
 
@@ -54,6 +55,7 @@ class Game:
         pygame.mixer.music.play(-1)
         
         self.start_menu = StartMenu(self)
+        self.pause_menu = PauseMenu(self)
         self.game_over = EndMenu(self)
         self.state = "start"
 
@@ -69,6 +71,8 @@ class Game:
                 self.player.update()
                 self.all_sprite_list.update()
                 self.all_sprite_list.draw(self.window)
+            elif self.state == "pause":
+                self.pause_menu.update()
             elif self.state == "game_over":
                 self.game_over.update()
                 

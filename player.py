@@ -41,7 +41,7 @@ class Player(MovingEntity):
             if e.type == pygame.KEYDOWN:
                 self.switch_directions(e.key)
                 if e.key == pygame.K_ESCAPE:
-                    self.game_ref.state = "game_over"
+                    self.game_ref.state = "pause"
         print(self.rect)
 
         self.move()
