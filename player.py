@@ -40,6 +40,8 @@ class Player(MovingEntity):
                 pygame.quit()
             if e.type == pygame.KEYDOWN:
                 self.switch_directions(e.key)
+                if e.key == pygame.K_ESCAPE:
+                    return 1
 
         self.move()
         self.redraw()

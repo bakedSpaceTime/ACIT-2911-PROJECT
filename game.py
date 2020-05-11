@@ -17,11 +17,16 @@ from player import Player
 from virus import Virus
 from wall import Obstacle
 from loot import ToiletPaper, HandSanitizer
+from text_box import TextBox
+from button import Button
+from send_score import send_score
+from tkinter import messagebox, Tk
+import webbrowser
 
 
-class Game():
+class Game:
+
     def __init__(self):
-
         pygame.init()
         self.window = pygame.display.set_mode((GAME_SETTINGS['width'], GAME_SETTINGS['height']))
         self.clock = pygame.time.Clock()
@@ -45,17 +50,20 @@ class Game():
 
         pygame.mixer.music.load('audio/bg.mp3')
         pygame.mixer.music.play(-1)
-  
+
     def main_game(self):
         while True:
             self.window.fill((0, 0, 0))
-            self.window.blit(BACKGROUND, (0,0))
+            self.window.blit(BACKGROUND, (0, 0))
 
             self.clock.tick(30)
-            self.player.update()
+            exit_code = self.player.update()
+            if exit_code == 1:
+                break
             self.all_sprite_list.update()
             self.all_sprite_list.draw(self.window)
             pygame.display.update()
+        self.end_menu()
 
     def create_loots(self):
         for y, line in enumerate(self.level["loot"]):
@@ -89,9 +97,59 @@ class Game():
                 self.wall_list.add(obstacle)
                 self.all_sprite_list.add(obstacle)
 
-
     def create_virus(self):
         for i in range(len(VIRUS_SETTINS)):
             virus = Virus(self, i, self.level["virus"])
             self.virus_list.add(virus)
             self.all_sprite_list.add(virus)
+
+    def end_menu(self):
+        header_font = pygame.font.Font('freesansbold.ttf', 60)
+        info_font = pygame.font.Font('freesansbold.ttf', 30)
+        name_input = TextBox(500, 500, 200, 50, 12, 20)
+        submit_button = Button(550, 550, 100, 50, 'Submit', (25,25,166), (255,255,255), 20)
+        while True:
+            self.window.fill((0, 0, 0))
+            mx, my = pygame.mouse.get_pos()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    exit()
+                if event.type == pygame.KEYDOWN:
+                    name_input.add_text(event.key)
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if submit_button.clicked(mx, my):
+                        if name_input.return_text():
+                            pygame.event.set_blocked(pygame.MOUSEBUTTONDOWN)
+                            try:
+                                r = send_score(name_input.return_text(), 500)
+                                webbrowser.open('http://rocky-river-43342.herokuapp.com/')
+                                pygame.quit()
+                                quit()
+                            except Exception as e:
+                                print(e)
+                                Tk().wm_withdraw()
+                                messagebox.showerror('Error', 'Could not connect to server')
+                                pygame.event.set_allowed(pygame.MOUSEBUTTONDOWN)
+
+            text_surface, text_rect = self.text_objects('Your score is 0.', info_font, (255,255,0))
+            text_rect.center = ((GAME_SETTINGS["width"] / 2), (GAME_SETTINGS["height"] / 2))
+            self.window.blit(text_surface, text_rect)
+
+            text_surface, text_rect = self.text_objects('Enter your name:', info_font)
+            text_rect.center = ((GAME_SETTINGS["width"] / 2), (GAME_SETTINGS["height"] / 1.5))
+            self.window.blit(text_surface, text_rect)
+
+            text_surface, text_rect = self.text_objects('Game Over', header_font)
+            text_rect.center = ((GAME_SETTINGS["width"] / 2), (GAME_SETTINGS["height"] / 4))
+            self.window.blit(text_surface, text_rect)
+
+            submit_button.draw(self.window)
+            name_input.draw(self.window)
+            self.clock.tick(30)
+            pygame.display.update()
+
+    def text_objects(self, text, font, color=(255, 255, 255)):
+        text_surface = font.render(text, True, color)
+        return text_surface, text_surface.get_rect()
+
