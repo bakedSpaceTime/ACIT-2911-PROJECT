@@ -12,14 +12,15 @@ Authors:
 
 import pygame
 import game
-from settings import GAME_SETTINGS, VIRUS_SETTINS, VIRUS_SPRITES, WALL_LIST_1ST_FLOOR
+from settings import GAME_SETTINGS, VIRUS_SETTINS, VIRUS_SPRITES
 from moving_entity import MovingEntity
 from path_finder import RouteMap
-from random import randint
+from random import randint, seed
+seed(17)
 
 
 class Virus(MovingEntity):
-    def __init__(self, game_ref, virus_num):
+    def __init__(self, game_ref, virus_num, level_map):
 
         if type(game_ref) is not game.Game:
             raise TypeError("invalid reference")
@@ -33,7 +34,7 @@ class Virus(MovingEntity):
 
         # set default direction
         # self.directions["right"] = True
-        self.route_map = RouteMap(WALL_LIST_1ST_FLOOR["virus"])
+        self.route_map = RouteMap(level_map)
         self.path = None
         self.prev_node = None
         self.prev_node_i = None
@@ -93,7 +94,8 @@ class Virus(MovingEntity):
     def random_path(self):
         while len(self.path) <= 1:
             node_closest_to_me = self.route_map.find_closest_node(self.rect.center)
-            rand_index = randint(0, len(self.route_map.node_graph))
+            rand_index = randint(0, len(self.route_map.node_graph) - 1)
+            print("random i ", rand_index)
             random_node = self.route_map.node_graph[rand_index]
             result = self.route_map.solve(node_closest_to_me, random_node)
             self.path = result[0]
@@ -101,7 +103,6 @@ class Virus(MovingEntity):
 
     def snap_to_node(self, node):
         if self.can_snap_to_node():
-            print("snap")
             self.prev_node = node
             self.prev_node_i = self.path.index(node)
             self.rect.center = node.rect.center
@@ -142,7 +143,7 @@ class Virus(MovingEntity):
         
             reference_node = self.prev_node
             
-            print("index", self.prev_node_i + 1)
+            # print("index", self.prev_node_i + 1)
             next_node = self.path[self.prev_node_i + 1]
             dir_int = None
             # print(reference_node.neighbours)
