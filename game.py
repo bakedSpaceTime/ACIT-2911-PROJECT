@@ -22,7 +22,7 @@ from button import Button
 from send_score import send_score
 from tkinter import messagebox, Tk
 import webbrowser
-from end_menu import EndMenu
+from game_over import GameOver
 
 
 class Game:
@@ -52,7 +52,7 @@ class Game:
         pygame.mixer.music.load('audio/bg.mp3')
         pygame.mixer.music.play(-1)
         
-        self.end_menu = EndMenu(self)
+        self.game_over = GameOver(self)
         self.state = "game"
 
     def main_game(self):
@@ -65,8 +65,8 @@ class Game:
                 self.player.update()
                 self.all_sprite_list.update()
                 self.all_sprite_list.draw(self.window)
-            elif self.state == "end_menu":
-                self.end_menu.update()
+            elif self.state == "game_over":
+                self.game_over.update()
                 
             pygame.display.update()
 
