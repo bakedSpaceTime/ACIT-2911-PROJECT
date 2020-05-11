@@ -34,7 +34,8 @@ class EndMenu():
         self.draw()
 
     def draw(self):
-        text_surface, text_rect = self.text_objects('Your score is 0.', self.info_font, (255,255,0))
+        score = self.game_ref.player.score
+        text_surface, text_rect = self.text_objects(f'Your score is {score}', self.info_font, (255,255,0))
         text_rect.center = ((GAME_SETTINGS["width"] / 2), (GAME_SETTINGS["height"] / 2))
         self.game_ref.window.blit(text_surface, text_rect)
 
@@ -57,7 +58,8 @@ class EndMenu():
 
     def submit_score(self):
         try:
-            r = send_score(self.name_input.return_text(), 500)
+            score = self.game_ref.player.score
+            r = send_score(self.name_input.return_text(), score)
             webbrowser.open('http://rocky-river-43342.herokuapp.com/')
             # pygame.quit()
             # quit()
