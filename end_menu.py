@@ -16,7 +16,6 @@ class EndMenu():
         self.name_input = TextBox(500, 500, 200, 50, 12, 20)
         self.submit_button = Button(550, 550, 100, 50, 'Submit', (25,25,166), (255,255,255), 20)
         self.start_button = Button(550, 650, 100, 50, 'Exit', (25,25,166), (255,255,255), 20)
-        
 
     def update(self):
         for event in pygame.event.get():
@@ -28,7 +27,6 @@ class EndMenu():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mx, my = pygame.mouse.get_pos()
                 if self.submit_button.clicked(mx, my) and self.name_input.return_text():
-                        # pygame.event.set_blocked(pygame.MOUSEBUTTONDOWN)
                         self.submit_score()
                 elif self.start_button.clicked(mx, my):
                     self.game_ref.state = "start"
@@ -51,8 +49,6 @@ class EndMenu():
         self.submit_button.draw(self.game_ref.window)
         self.start_button.draw(self.game_ref.window)
         self.name_input.draw(self.game_ref.window)
-        # self.clock.tick(30)
-        # pygame.display.update()
 
     def text_objects(self, text, font, color=(255, 255, 255)):
         text_surface = font.render(text, True, color)
