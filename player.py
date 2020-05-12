@@ -55,7 +55,7 @@ class Player(MovingEntity):
         text_rect.center = ((GAME_SETTINGS["width"] / 2), 30)
         self.game_ref.window.blit(text_surface, text_rect)
 
-        text_surface_lives, text_rect_lives = self.text_objects(f"Lives: {self.lives}", font, color=COLOURS["red"])
+        text_surface_lives, text_rect_lives = self.text_objects("Lives:", font, color=COLOURS["red"])
         text_rect_lives.center = (((GAME_SETTINGS["width"] / 5) * 4, 30))
         self.game_ref.window.blit(text_surface_lives, text_rect_lives)
 
@@ -127,6 +127,9 @@ class Player(MovingEntity):
         if not self.boosted and len(item_hit_list) != 0 and self.vulnerable:
             self.vulnerable = False
             self.loose_life()
+            heart = self.game_ref.heart_list[-1]
+            self.game_ref.all_sprite_list.remove(heart)
+            self.game_ref.heart_list.remove(heart)
             t = threading.Timer(PLAYER_SETTINS["invincible_duration"], self.back_to_vulnerable)
             t.start()
         if self.boosted:

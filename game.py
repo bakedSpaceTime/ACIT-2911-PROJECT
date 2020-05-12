@@ -12,7 +12,7 @@ Authors:
 
 import pygame
 import random
-from settings import GAME_SETTINGS, BACKGROUND, WALL_LIST_1ST_FLOOR, VIRUS_SETTINS, WALL_LIST_PARKING_LOT
+from settings import GAME_SETTINGS, BACKGROUND, WALL_LIST_1ST_FLOOR, VIRUS_SETTINS, WALL_LIST_PARKING_LOT, PLAYER_SPRITES
 from player import Player
 from virus import Virus
 from wall import Obstacle
@@ -46,10 +46,12 @@ class Game:
         self.toilet_list = pygame.sprite.Group()
         self.virus_list = pygame.sprite.Group()
         self.sanitizer_list = pygame.sprite.Group()
+        self.heart_list = []
 
         self.create_walls()
         self.create_loots()
         self.create_virus()
+        self.create_heart()
 
         pygame.mixer.music.load('audio/bg.mp3')
         pygame.mixer.music.play(-1)
@@ -117,3 +119,22 @@ class Game:
             virus = Virus(self, i, self.level["virus"])
             self.virus_list.add(virus)
             self.all_sprite_list.add(virus)
+
+    def create_heart(self):
+
+        for i in range(self.player.lives):
+            if i % 2 == 1:
+                heart = Heart((GAME_SETTINGS["width"] / 8) * 7 + ((i-1) * 15), 0 + 30)
+            else:
+                heart = Heart((GAME_SETTINGS["width"] / 8) * 7 + (i * 15), 0)
+            self.heart_list.append(heart)
+            self.all_sprite_list.add(heart)
+
+
+class Heart(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        super().__init__()
+        self.image = PLAYER_SPRITES["standing_down"]
+        self.rect = self.image.get_rect()
+        self.rect.y = y
+        self.rect.x = x
