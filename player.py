@@ -14,7 +14,7 @@ import pygame
 import game
 import threading
 import time
-from settings import GAME_SETTINGS, PLAYER_SETTINS, PLAYER_SPRITES
+from settings import GAME_SETTINGS, PLAYER_SETTINS, PLAYER_SPRITES, COLOURS
 from moving_entity import MovingEntity
 
 
@@ -38,13 +38,31 @@ class Player(MovingEntity):
         for e in pygame.event.get():
             if e.type == pygame.QUIT:
                 pygame.quit()
+                exit()
             if e.type == pygame.KEYDOWN:
                 self.switch_directions(e.key)
                 if e.key == pygame.K_ESCAPE:
                     self.game_ref.state = "pause"
 
+        font = pygame.font.Font('freesansbold.ttf', 50)
+
+        text_surface, text_rect = self.text_objects('Pandemic Run', font, color=COLOURS["red"])
+        text_rect.center = ((GAME_SETTINGS["width"] / 2), 30)
+        self.game_ref.window.blit(text_surface, text_rect)
+
+        text_surface_lives, text_rect_lives = self.text_objects(f"Lives: {self.lives}", font, color=COLOURS["red"])
+        text_rect_lives.center = (((GAME_SETTINGS["width"] / 5) * 4, 30))
+        self.game_ref.window.blit(text_surface_lives, text_rect_lives)
+
+        text_surface_scores, text_rect_scores = self.text_objects(f"Scores: {self.score}", font, color=COLOURS["red"])
+        text_rect_scores.center = (((GAME_SETTINGS["width"] / 5), 30))
+        self.game_ref.window.blit(text_surface_scores, text_rect_scores)
         self.move()
         self.redraw()
+
+    def text_objects(self, text, font, color=COLOURS["white"]):
+        text_surface = font.render(text, True, color)
+        return text_surface, text_surface.get_rect()
 
     def move(self):
         self.collision_handler()

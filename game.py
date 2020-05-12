@@ -67,7 +67,7 @@ class Game:
             if self.state == "start":
                 self.start_menu.update()
             elif self.state == "game":
-                self.window.blit(BACKGROUND, (0, 0))
+                self.window.blit(BACKGROUND.convert_alpha(), (0, 0))
                 self.player.update()
                 self.all_sprite_list.update()
                 self.all_sprite_list.draw(self.window)
@@ -92,6 +92,8 @@ class Game:
 
     def create_walls(self):
         for y, line in enumerate(self.level["loot"]):
+            if y <= 1:
+                continue
             for x, char in enumerate(line):
                 if char == '#':
                     obstacle = Obstacle(x * 30, y * 30, "shelf_front")

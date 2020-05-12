@@ -15,7 +15,7 @@ from os.path import join as path_join
 
 GAME_SETTINGS = {
     # window height
-    "height": 720,
+    "height": 780,
 
     # window width
     "width": 1200,
@@ -93,7 +93,8 @@ BACKGROUND = pygame.image.load(path_join('images','background.png'))
 
 WALL_LIST_1ST_FLOOR = {
     "loot":
-    [
+    [   "                                        ",
+        "                                        ",
         "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
         "W=================W====================W",
         "W==S===S===S======W=##################=W",
@@ -121,6 +122,8 @@ WALL_LIST_1ST_FLOOR = {
     ],
     "virus":
     [
+        "                                        ",
+        "                                        ",
         "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
         "W+ll+l+l+l+l+l+ll+W+l=======l+l======l+W",
         "Wl=Sl+lSl+lSl+l==lWl##################lW",
