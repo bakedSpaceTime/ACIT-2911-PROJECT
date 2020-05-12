@@ -44,6 +44,11 @@ class Player(MovingEntity):
                 if e.key == pygame.K_ESCAPE:
                     self.game_ref.state = "pause"
 
+        self.update_status()
+        self.move()
+        self.redraw()
+
+    def update_status(self):
         font = pygame.font.Font('freesansbold.ttf', 50)
 
         text_surface, text_rect = self.text_objects('Pandemic Run', font, color=COLOURS["red"])
@@ -55,10 +60,8 @@ class Player(MovingEntity):
         self.game_ref.window.blit(text_surface_lives, text_rect_lives)
 
         text_surface_scores, text_rect_scores = self.text_objects(f"Scores: {self.score}", font, color=COLOURS["red"])
-        text_rect_scores.center = (((GAME_SETTINGS["width"] / 5), 30))
+        text_rect_scores.center = (((GAME_SETTINGS["width"] / 5), 30))      
         self.game_ref.window.blit(text_surface_scores, text_rect_scores)
-        self.move()
-        self.redraw()
 
     def text_objects(self, text, font, color=COLOURS["white"]):
         text_surface = font.render(text, True, color)
