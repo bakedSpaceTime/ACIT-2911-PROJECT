@@ -38,6 +38,7 @@ class Player(MovingEntity):
         for e in pygame.event.get():
             if e.type == pygame.QUIT:
                 pygame.quit()
+                exit()
             if e.type == pygame.KEYDOWN:
                 self.switch_directions(e.key)
                 if e.key == pygame.K_ESCAPE:
