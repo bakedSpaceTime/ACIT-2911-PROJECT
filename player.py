@@ -59,7 +59,7 @@ class Player(MovingEntity):
         text_rect_lives.center = (((GAME_SETTINGS["width"] / 5) * 4, 30))
         self.game_ref.window.blit(text_surface_lives, text_rect_lives)
 
-        text_surface_scores, text_rect_scores = self.text_objects(f"Scores: {self.score}", font, color=COLOURS["red"])
+        text_surface_scores, text_rect_scores = self.text_objects(str(self.score), font, color=COLOURS["red"])
         text_rect_scores.center = (((GAME_SETTINGS["width"] / 5), 30))      
         self.game_ref.window.blit(text_surface_scores, text_rect_scores)
 

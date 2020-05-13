@@ -12,7 +12,7 @@ Authors:
 
 import pygame
 import random
-from settings import GAME_SETTINGS, BACKGROUND, WALL_LIST_1ST_FLOOR, VIRUS_SETTINS, WALL_LIST_PARKING_LOT, PLAYER_SPRITES
+from settings import GAME_SETTINGS, BACKGROUND, WALL_LIST_1ST_FLOOR, VIRUS_SETTINS, WALL_LIST_PARKING_LOT, PLAYER_SPRITES, OTHER_SPRITES
 from player import Player
 from virus import Virus
 from wall import Obstacle
@@ -51,7 +51,7 @@ class Game:
         self.create_walls()
         self.create_loots()
         self.create_virus()
-        self.create_heart()
+        self.create_status_icons()
 
         pygame.mixer.music.load('audio/bg.mp3')
         pygame.mixer.music.play(-1)
@@ -120,7 +120,9 @@ class Game:
             self.virus_list.add(virus)
             self.all_sprite_list.add(virus)
 
-    def create_heart(self):
+    def create_status_icons(self):
+        paper = PaperIcon((GAME_SETTINGS["width"] / 9), 0)
+        self.all_sprite_list.add(paper)
 
         for i in range(self.player.lives):
             if i % 2 == 1:
@@ -130,6 +132,13 @@ class Game:
             self.heart_list.append(heart)
             self.all_sprite_list.add(heart)
 
+class PaperIcon(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        super().__init__()
+        self.image = OTHER_SPRITES["paper_icon"]
+        self.rect = self.image.get_rect()
+        self.rect.y = y
+        self.rect.x = x
 
 class Heart(pygame.sprite.Sprite):
     def __init__(self, x, y):
