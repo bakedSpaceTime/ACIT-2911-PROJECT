@@ -10,6 +10,29 @@ on:
     branches: [ master ]
 
 jobs:
+  build_windows:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        python-version: [3.7, 3.8]
+    steps:
+        - uses: actions/checkout@v2
+        - name: Install dependencies
+          run: |
+            python -m pip install --upgrade pip
+
+            if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      
+        - name: Build Executable
+          run: python setup.py build
+      
+        - name: Upload a Build Artifact
+          uses: actions/upload-artifact@v2
+          with:
+            # Artifact name
+            name: Pandemic Run Excecutable
+            # A file, directory or wildcard pattern that describes what to upload
+            path: build/exe.*
   build:
 
     runs-on: ubuntu-latest
