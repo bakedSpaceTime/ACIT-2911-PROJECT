@@ -56,14 +56,15 @@ class Player(MovingEntity):
         self.game_ref.window.blit(text_surface, text_rect)
 
         text_surface_lives, text_rect_lives = self.text_objects("Lives:", font, color=COLOURS["red"])
-        text_rect_lives.center = (((GAME_SETTINGS["width"] / 5) * 4, 30))
+        text_rect_lives.center = ((GAME_SETTINGS["width"] / 5) * 4, 30)
         self.game_ref.window.blit(text_surface_lives, text_rect_lives)
 
         text_surface_scores, text_rect_scores = self.text_objects(str(self.score), font, color=COLOURS["red"])
-        text_rect_scores.center = (((GAME_SETTINGS["width"] / 5), 30))      
+        text_rect_scores.center = ((GAME_SETTINGS["width"] / 5), 30)
         self.game_ref.window.blit(text_surface_scores, text_rect_scores)
 
-    def text_objects(self, text, font, color=COLOURS["white"]):
+    @staticmethod
+    def text_objects(text, font, color=COLOURS["white"]):
         text_surface = font.render(text, True, color)
         return text_surface, text_surface.get_rect()
 
@@ -119,6 +120,7 @@ class Player(MovingEntity):
             self.boosted = True
             self.game_ref.sanitizer_list.remove(sanitizer)
             self.game_ref.all_sprite_list.remove(sanitizer)
+            self.game_ref.create_sanitizer_icon()
             t = threading.Timer(PLAYER_SETTINS["boosted_duration"], self.back_to_normal)
             t.start()
 
@@ -147,4 +149,5 @@ class Player(MovingEntity):
         self.vulnerable = True
 
     def back_to_normal(self):
+        self.game_ref.all_sprite_list.remove(self.game_ref.sanitizer_icon)
         self.boosted = False

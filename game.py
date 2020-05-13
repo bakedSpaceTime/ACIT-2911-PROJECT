@@ -47,6 +47,7 @@ class Game:
         self.virus_list = pygame.sprite.Group()
         self.sanitizer_list = pygame.sprite.Group()
         self.heart_list = []
+        self.sanitizer_icon = Icon((GAME_SETTINGS["width"] / 36), 0, "sanitizer_icon")
 
         self.create_walls()
         self.create_loots()
@@ -120,8 +121,11 @@ class Game:
             self.virus_list.add(virus)
             self.all_sprite_list.add(virus)
 
+    def create_sanitizer_icon(self):
+        self.all_sprite_list.add(self.sanitizer_icon)
+
     def create_status_icons(self):
-        paper = PaperIcon((GAME_SETTINGS["width"] / 9), 0)
+        paper = Icon((GAME_SETTINGS["width"] / 9), 5, "paper_icon")
         self.all_sprite_list.add(paper)
 
         for i in range(self.player.lives):
@@ -132,10 +136,10 @@ class Game:
             self.heart_list.append(heart)
             self.all_sprite_list.add(heart)
 
-class PaperIcon(pygame.sprite.Sprite):
-    def __init__(self, x, y):
+class Icon(pygame.sprite.Sprite):
+    def __init__(self, x, y, type):
         super().__init__()
-        self.image = OTHER_SPRITES["paper_icon"]
+        self.image = OTHER_SPRITES[type]
         self.rect = self.image.get_rect()
         self.rect.y = y
         self.rect.x = x

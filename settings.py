@@ -88,6 +88,7 @@ OTHER_SPRITES = {
     "car2": pygame.image.load(path_join('images', 'cars', 'car2.png')),
     "car3": pygame.image.load(path_join('images', 'cars', 'car3.png')),
     "paper_icon": pygame.image.load(path_join('images', 'toilet_big.png')),
+    "sanitizer_icon": pygame.image.load(path_join('images', 'sanitizer_icon.png')),
 }
 
 BACKGROUND = pygame.image.load(path_join('images','background.png'))
