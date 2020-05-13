@@ -32,6 +32,7 @@ class Player(MovingEntity):
         # If hand sanitizer is picked up
         self.boosted = False
         self.vulnerable = True
+        self.threads = []
 
     def update(self):
 
@@ -121,8 +122,12 @@ class Player(MovingEntity):
             self.game_ref.sanitizer_list.remove(sanitizer)
             self.game_ref.all_sprite_list.remove(sanitizer)
             self.game_ref.create_sanitizer_icon()
+            for thread in self.threads:
+                if thread.is_alive():
+                    thread.cancel()
             t = threading.Timer(PLAYER_SETTINS["boosted_duration"], self.back_to_normal)
-            t.start()
+            self.threads.append(t)
+            self.threads[-1].start()
 
     def check_virus(self):
         item_hit_list = pygame.sprite.spritecollide(self, self.game_ref.virus_list, False)
@@ -149,5 +154,8 @@ class Player(MovingEntity):
         self.vulnerable = True
 
     def back_to_normal(self):
+        print("-------------------------")
+        print(f"{self.threads}")
+        print("-------------------------")
         self.game_ref.all_sprite_list.remove(self.game_ref.sanitizer_icon)
         self.boosted = False
