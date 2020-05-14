@@ -8,8 +8,12 @@ from settings import GAME_SETTINGS, PLAYER_SETTINS, PLAYER_SPRITES
 
 
 class TestPlayer(unittest.TestCase):
+
+    def does_nothing(self):
+        pass
+
     @mock.patch('game.Game._initialize_music')
-    def setUp(self):
+    def setUp(self, does_nothing):
         self.game1 = Game()
         self.player = Player(self.game1)
         self.wall = Obstacle(0, 0)
