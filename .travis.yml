@@ -1,7 +1,7 @@
 os: windows
 language: sh
 python:
-- '3.8'
+- '3.7'
 before_install:
 - git config --local user.name "Ming Yen Hsieh"
 - git config --local user.email "mhsieh28@my.bcit.ca"
