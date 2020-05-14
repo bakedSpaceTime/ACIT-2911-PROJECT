@@ -15,7 +15,7 @@ from os.path import join as path_join
 
 GAME_SETTINGS = {
     # window height
-    "height": 720,
+    "height": 780,
 
     # window width
     "width": 1200,
@@ -87,13 +87,16 @@ OTHER_SPRITES = {
     "car1": pygame.image.load(path_join('images', 'cars', 'car1.png')),
     "car2": pygame.image.load(path_join('images', 'cars', 'car2.png')),
     "car3": pygame.image.load(path_join('images', 'cars', 'car3.png')),
+    "paper_icon": pygame.image.load(path_join('images', 'toilet_big.png')),
+    "sanitizer_icon": pygame.image.load(path_join('images', 'sanitizer_icon.png')),
 }
 
 BACKGROUND = pygame.image.load(path_join('images','background.png'))
 
 WALL_LIST_1ST_FLOOR = {
     "loot":
-    [
+    [   "                                        ",
+        "                                        ",
         "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
         "W=================W====================W",
         "W==S===S===S======W=##################=W",
@@ -121,6 +124,8 @@ WALL_LIST_1ST_FLOOR = {
     ],
     "virus":
     [
+        "                                        ",
+        "                                        ",
         "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
         "W+ll+l+l+l+l+l+ll+W+l=======l+l======l+W",
         "Wl=Sl+lSl+lSl+l==lWl##################lW",

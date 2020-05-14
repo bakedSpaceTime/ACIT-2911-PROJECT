@@ -14,7 +14,7 @@ import pygame
 import game
 import threading
 import time
-from settings import GAME_SETTINGS, PLAYER_SETTINS, PLAYER_SPRITES
+from settings import GAME_SETTINGS, PLAYER_SETTINS, PLAYER_SPRITES, COLOURS
 from moving_entity import MovingEntity
 
 
@@ -32,6 +32,7 @@ class Player(MovingEntity):
         # If hand sanitizer is picked up
         self.boosted = False
         self.vulnerable = True
+        self.threads = []
 
     def update(self):
 
@@ -44,8 +45,29 @@ class Player(MovingEntity):
                 if e.key == pygame.K_ESCAPE:
                     self.game_ref.state = "pause"
 
+        self.update_status()
         self.move()
         self.redraw()
+
+    def update_status(self):
+        font = pygame.font.Font('freesansbold.ttf', 50)
+
+        text_surface, text_rect = self.text_objects('Pandemic Run', font, color=COLOURS["red"])
+        text_rect.center = ((GAME_SETTINGS["width"] / 2), 30)
+        self.game_ref.window.blit(text_surface, text_rect)
+
+        text_surface_lives, text_rect_lives = self.text_objects("Lives:", font, color=COLOURS["red"])
+        text_rect_lives.center = ((GAME_SETTINGS["width"] / 5) * 4, 30)
+        self.game_ref.window.blit(text_surface_lives, text_rect_lives)
+
+        text_surface_scores, text_rect_scores = self.text_objects(str(self.score), font, color=COLOURS["red"])
+        text_rect_scores.center = ((GAME_SETTINGS["width"] / 5), 30)
+        self.game_ref.window.blit(text_surface_scores, text_rect_scores)
+
+    @staticmethod
+    def text_objects(text, font, color=COLOURS["white"]):
+        text_surface = font.render(text, True, color)
+        return text_surface, text_surface.get_rect()
 
     def move(self):
         self.collision_handler()
@@ -99,14 +121,22 @@ class Player(MovingEntity):
             self.boosted = True
             self.game_ref.sanitizer_list.remove(sanitizer)
             self.game_ref.all_sprite_list.remove(sanitizer)
+            self.game_ref.create_sanitizer_icon()
+            for thread in self.threads:
+                if thread.is_alive():
+                    thread.cancel()
             t = threading.Timer(PLAYER_SETTINS["boosted_duration"], self.back_to_normal)
-            t.start()
+            self.threads.append(t)
+            self.threads[-1].start()
 
     def check_virus(self):
         item_hit_list = pygame.sprite.spritecollide(self, self.game_ref.virus_list, False)
         if not self.boosted and len(item_hit_list) != 0 and self.vulnerable:
             self.vulnerable = False
             self.loose_life()
+            heart = self.game_ref.heart_list[-1]
+            self.game_ref.all_sprite_list.remove(heart)
+            self.game_ref.heart_list.remove(heart)
             t = threading.Timer(PLAYER_SETTINS["invincible_duration"], self.back_to_vulnerable)
             t.start()
         if self.boosted:
@@ -124,4 +154,8 @@ class Player(MovingEntity):
         self.vulnerable = True
 
     def back_to_normal(self):
+        print("-------------------------")
+        print(f"{self.threads}")
+        print("-------------------------")
+        self.game_ref.all_sprite_list.remove(self.game_ref.sanitizer_icon)
         self.boosted = False

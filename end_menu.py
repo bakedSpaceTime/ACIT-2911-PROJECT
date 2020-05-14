@@ -13,9 +13,9 @@ class EndMenu():
         self.game_ref = game_ref
         self.header_font = pygame.font.Font('freesansbold.ttf', 60)
         self.info_font = pygame.font.Font('freesansbold.ttf', 30)
-        self.name_input = TextBox(500, 500, 200, 50, 12, 20)
-        self.submit_button = Button(550, 550, 100, 50, 'Submit', COLOURS["blue"], COLOURS["white"], 20)
-        self.start_button = Button(550, 650, 100, 50, 'Exit', COLOURS["blue"], COLOURS["white"], 20)
+        self.name_input = TextBox(500, 550, 200, 50, 12, 20)
+        self.submit_button = Button(550, 610, 100, 50, 'Submit', COLOURS["blue"], COLOURS["white"], 20)
+        self.start_button = Button(550, 710, 100, 50, 'Exit', COLOURS["blue"], COLOURS["white"], 20)
 
     def update(self):
         for event in pygame.event.get():
