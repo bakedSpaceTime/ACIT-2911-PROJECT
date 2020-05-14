@@ -21,6 +21,6 @@ virtualenv:
   system_site_packages: true
 deploy:
   provider: releases
-  api_key: a5098673ec342936daf5cb403e1db2a9097bf340
+  api_key: 7dc205af325fe88b123c44a0a7c80a72bb48e62e
   file: build.zip
   skip_cleanup: 'true'
