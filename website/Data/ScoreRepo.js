@@ -5,11 +5,6 @@ class ScoreRepo {
     ScoreRepo() {
     }
 
-    // async addScore(scoreObj) {
-    //     var result = await scoreObj.save();
-    //     return {obj: result, errorMessage: ""}
-    // }
-
     async addScore(scoreObj) {
         try {
             var error = await scoreObj.validateSync();

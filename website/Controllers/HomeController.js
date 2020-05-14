@@ -1,7 +1,6 @@
 const ScoreRepo = require('../Data/ScoreRepo');
 const _scoreRepo = new ScoreRepo();
 
-
 exports.Index = async function(req, res) {
     let scores = await _scoreRepo.getAllScores();
     res.render('home/index', {scores: scores, page: 'home'});

@@ -4,8 +4,6 @@ var http          = require('http');
 var path          = require('path');
 var engine        = require('ejs-locals');
 var bodyParser    = require('body-parser');
-var LocalStrategy = require('passport-local').Strategy;
-// const DB_URI      = 'mongodb://localhost:27017/testdb';
 const DB_URI      = 'mongodb://localhost:27017/testdb';
 
 let options       = { useNewUrlParser: true , useUnifiedTopology: true };
@@ -48,4 +46,5 @@ app.use(express.static(__dirname+'/public'));
 http.createServer(app).listen(process.env.PORT || 3000, function() {
   console.log('Express server listening on port ' + app.get('port'));
 });
+
 module.exports = app
