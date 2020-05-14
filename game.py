@@ -35,7 +35,7 @@ class Game:
         self.clock = pygame.time.Clock()
         pygame.display.set_caption("Pandemic Run")
         self.level = WALL_LIST_1ST_FLOOR
-        # self.level = WALL_LIST_PARKING_LOT
+        #self.level = WALL_LIST_PARKING_LOT
 
         self.player = Player(self)
 
@@ -54,8 +54,7 @@ class Game:
         self.create_virus()
         self.create_status_icons()
 
-        pygame.mixer.music.load('audio/bg.mp3')
-        pygame.mixer.music.play(-1)
+        self._initialize_music()
         
         self.start_menu = StartMenu(self)
         self.pause_menu = PauseMenu(self)
@@ -80,6 +79,11 @@ class Game:
                 self.game_over.update()
                 
             pygame.display.update()
+
+    def _initialize_music(self):
+        pygame.mixer.init()
+        pygame.mixer.music.load('audio/bg.mp3')
+        pygame.mixer.music.play(-1)
 
     def create_loots(self):
         for y, line in enumerate(self.level["loot"]):

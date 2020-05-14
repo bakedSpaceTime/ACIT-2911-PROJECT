@@ -156,6 +156,8 @@ WALL_LIST_1ST_FLOOR = {
 WALL_LIST_PARKING_LOT = {
     "loot":
         [
+            "                                        ",
+            "                                        ",
             "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
             "TC==========R==================HR======T",
             "T============CC===============C=C======T",
@@ -209,6 +211,8 @@ WALL_LIST_PARKING_LOT = {
         ],
     "virus":
         [
+            "                                        ",
+            "                                        ",
             "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
             "TC+l=l+l+ll+R+ll+l=l+l==l+l==l+HR======T",
             "T=ll====l==l=CC=l===l=========C=C======T",
