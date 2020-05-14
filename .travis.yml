@@ -3,8 +3,8 @@ language: sh
 python:
 - '3.8'
 before_install:
-- git config --local user.name "Ming Yen Hsieh"
-- git config --local user.email "mhsieh28@my.bcit.ca"
+- git config --local user.name "bakedSpaceTime"
+- git config --local user.email "tushyais@gmail.com"
 - choco install python3
 - export PATH="/c/Python38:/c/Python38/Scripts:$PATH"
 - python -m pip install --upgrade pip wheel
@@ -15,12 +15,12 @@ install:
 - pip install -r requirements.txt
 script:
 - echo "skipping tests"
+- python setup.py build
+- 7z a build.zip build
 virtualenv:
   system_site_packages: true
 deploy:
   provider: releases
   api_key: 51947a4232afbaf50fd4539530a26751a9a425d7
-  file: ''
-  on:
-    repo: bakedSpaceTime/ACIT-2911-PROJECT
+  file: build.zip
   skip_cleanup: 'true'
