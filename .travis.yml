@@ -1,17 +1,26 @@
 os: windows
 language: sh
 python:
-  - '3.8'
+- '3.8'
 before_install:
-  - choco install python3
-  - export PATH="/c/Python38:/c/Python38/Scripts:$PATH"
-  - python -m pip install --upgrade pip wheel
-  - python -m pip install --extra-index-url https://pypi.org/project/pytest/ pytest
-  - python -m pip install --extra-index-url https://pypi.org/simple/ pygame
-  - python -m pip install --extra-index-url https://pypi.org/project/cx-Freeze/ cx-Freeze
+- git config --local user.name "Ming Yen Hsieh"
+- git config --local user.email "mhsieh28@my.bcit.ca"
+- choco install python3
+- export PATH="/c/Python38:/c/Python38/Scripts:$PATH"
+- python -m pip install --upgrade pip wheel
+- python -m pip install --extra-index-url https://pypi.org/project/pytest/ pytest
+- python -m pip install --extra-index-url https://pypi.org/simple/ pygame
+- python -m pip install --extra-index-url https://pypi.org/project/cx-Freeze/ cx-Freeze
 install:
-  - pip install -r requirements.txt
+- pip install -r requirements.txt
 script:
-  - echo "skipping tests"
+- echo "skipping tests"
 virtualenv:
-  system_site_packages: true  
+  system_site_packages: true
+deploy:
+  provider: releases
+  api_key: 51947a4232afbaf50fd4539530a26751a9a425d7
+  file: ''
+  on:
+    repo: bakedSpaceTime/ACIT-2911-PROJECT
+  skip_cleanup: 'true'
