@@ -78,6 +78,7 @@ class Virus(MovingEntity):
                     if current_node not in self.path:
                         self.path.appendleft(current_node)
                     # print(f"\tafter again\n\t\t{self.path}")
+                    self.force_new_path = False
                     
                 self.snap_to_node(current_node)
                 self.switch_directions() 
