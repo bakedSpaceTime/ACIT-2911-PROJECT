@@ -60,7 +60,7 @@ jobs:
    
         
     - name: Build Executable
-      run: python setup.py build
+      run: .\python setup.py build
       
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2
