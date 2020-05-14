@@ -10,12 +10,33 @@ on:
     branches: [ master ]
 
 jobs:
+  build_windows:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        python-version: [3.7]
+    steps:
+#         - uses: actions/checkout@v2
+#         - name: Install dependencies
+#           run: |
+#             if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      
+        - name: Build Executable
+          run: python .\setup.py build
+      
+        - name: Upload a Build Artifact
+          uses: actions/upload-artifact@v2
+          with:
+            # Artifact name
+            name: Pandemic Run Excecutable
+            # A file, directory or wildcard pattern that describes what to upload
+            path: build/exe.*
   build:
 
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.7, 3.8]
+        python-version: [3.7]
 
     steps:
     
@@ -33,7 +54,7 @@ jobs:
         
         sudo add-apt-repository -y "deb http://archive.ubuntu.com/ubuntu `lsb_release -sc` main universe restricted multiverse"
         sudo apt-get update -y -qq
-        sudo apt-get install libsdl2-dev
+        sudo apt-get install libsdl1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev
         
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
    
@@ -49,6 +70,6 @@ jobs:
         # A file, directory or wildcard pattern that describes what to upload
         path: build/exe.*
 
-    - name: Test with pytest
-      run: |
-        pytest
+#     - name: Test with pytest
+#       run: |
+#         pytest
