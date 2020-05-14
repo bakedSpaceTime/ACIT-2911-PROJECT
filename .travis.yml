@@ -8,13 +8,14 @@ before_install:
 - choco install python3
 - export PATH="/c/Python38:/c/Python38/Scripts:$PATH"
 - python -m pip install --upgrade pip wheel
-- python -m pip install --extra-index-url https://pypi.org/project/pytest/ pytest
+#- python -m pip install --extra-index-url https://pypi.org/project/pytest/ pytest
 - python -m pip install --extra-index-url https://pypi.org/simple/ pygame
 - python -m pip install --extra-index-url https://pypi.org/project/cx-Freeze/ cx-Freeze
 install:
 - pip install -r requirements.txt
 script:
-- echo "skipping tests"
+#- echo "skipping tests"
+- python -m unittest discover
 - python setup.py build
 - 7z a build.zip build
 virtualenv:
