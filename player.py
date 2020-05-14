@@ -134,9 +134,10 @@ class Player(MovingEntity):
         if not self.boosted and len(item_hit_list) != 0 and self.vulnerable:
             self.vulnerable = False
             self.loose_life()
-            heart = self.game_ref.heart_list[-1]
-            self.game_ref.all_sprite_list.remove(heart)
-            self.game_ref.heart_list.remove(heart)
+            if self.lives > 0:
+                heart = self.game_ref.heart_list[-1]
+                self.game_ref.all_sprite_list.remove(heart)
+                self.game_ref.heart_list.remove(heart)
             t = threading.Timer(PLAYER_SETTINS["invincible_duration"], self.back_to_vulnerable)
             t.start()
         if self.boosted:
