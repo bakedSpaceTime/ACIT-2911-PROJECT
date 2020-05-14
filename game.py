@@ -43,9 +43,10 @@ class Game():
         self.create_loots()
         self.create_virus()
 
-        pygame.mixer.init()
-        pygame.mixer.music.load('audio/bg.mp3')
-        pygame.mixer.music.play(-1)
+        self._initialize_music()
+        #pygame.mixer.init()
+        #pygame.mixer.music.load('audio/bg.mp3')
+        #pygame.mixer.music.play(-1)
   
     def main_game(self):
         while True:
@@ -57,6 +58,11 @@ class Game():
             self.all_sprite_list.update()
             self.all_sprite_list.draw(self.window)
             pygame.display.update()
+
+    def _initialize_music(self):
+        pygame.mixer.init()
+        pygame.mixer.music.load('audio/bg.mp3')
+        pygame.mixer.music.play(-1)
 
     def create_loots(self):
         for y, line in enumerate(self.level["loot"]):

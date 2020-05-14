@@ -9,7 +9,7 @@ Authors:
 - Shivar Pillay, A01079978
 - Shivam Patel, A01185250
 """
-
+import sys
 import pygame
 import game
 import threading
@@ -38,6 +38,7 @@ class Player(MovingEntity):
         for e in pygame.event.get():
             if e.type == pygame.QUIT:
                 pygame.quit()
+                sys.exit()
             if e.type == pygame.KEYDOWN:
                 self.switch_directions(e.key)
 

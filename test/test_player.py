@@ -1,4 +1,5 @@
 import unittest
+from unittest import mock
 from game import Game
 from player import Player
 from wall import Obstacle
@@ -7,6 +8,7 @@ from settings import GAME_SETTINGS, PLAYER_SETTINS, PLAYER_SPRITES
 
 
 class TestPlayer(unittest.TestCase):
+    @mock.patch('game.Game._initialize_music')
     def setUp(self):
         self.game1 = Game()
         self.player = Player(self.game1)

@@ -1,8 +1,10 @@
 import unittest
+from unittest import mock
 from game import Game
 
 
 class TestGame(unittest.TestCase):
+    @mock.patch('game.Game._initialize_music')
     def setUp(self):
         self.game1 = Game()
 

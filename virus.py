@@ -68,7 +68,7 @@ class Virus(MovingEntity):
             rect_contains_center = current_node.rect.collidepoint(self.rect.center)
             if rect_contains_center == 1:
                 if current_node == self.end_node:
-                    print("end reached")
+                    #print("end reached")
                     self.update_path()
                 self.snap_to_node(current_node)
                 self.switch_directions() 
@@ -95,15 +95,15 @@ class Virus(MovingEntity):
         while len(self.path) <= 1:
             node_closest_to_me = self.route_map.find_closest_node(self.rect.center)
             rand_index = randint(0, len(self.route_map.node_graph) - 1)
-            print("random i ", rand_index)
+            #print("random i ", rand_index)
             random_node = self.route_map.node_graph[rand_index]
             result = self.route_map.solve(node_closest_to_me, random_node)
             self.path = result[0]
-        print("end random", self.path)
+        #print("end random", self.path)
 
     def snap_to_node(self, node):
         if self.can_snap_to_node():
-            print("snap")
+            #print("snap")
             self.prev_node = node
             self.prev_node_i = self.path.index(node)
             self.rect.center = node.rect.center
@@ -144,7 +144,7 @@ class Virus(MovingEntity):
         
             reference_node = self.prev_node
             
-            print("index", self.prev_node_i + 1)
+            #print("index", self.prev_node_i + 1)
             next_node = self.path[self.prev_node_i + 1]
             dir_int = None
             # print(reference_node.neighbours)

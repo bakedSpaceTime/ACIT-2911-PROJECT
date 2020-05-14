@@ -182,5 +182,5 @@ if __name__ == "__main__":
     # for node in mappy.node_graph:
     #     print(f"node:{node},\nneighbours: {node.neighbours}\n")
     results = mappy.solve(mappy.node_graph[0], mappy.node_graph[-1])
-    print(results)
-    print(list(results[0]))
+    #print(results)
+    #print(list(results[0]))
