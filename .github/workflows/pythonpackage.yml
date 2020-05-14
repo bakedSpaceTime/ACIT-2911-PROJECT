@@ -19,8 +19,6 @@ jobs:
         - uses: actions/checkout@v2
         - name: Install dependencies
           run: |
-            python -m pip install --upgrade pip
-
             if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       
         - name: Build Executable
@@ -72,6 +70,6 @@ jobs:
         # A file, directory or wildcard pattern that describes what to upload
         path: build/exe.*
 
-    - name: Test with pytest
-      run: |
-        pytest
+#     - name: Test with pytest
+#       run: |
+#         pytest
