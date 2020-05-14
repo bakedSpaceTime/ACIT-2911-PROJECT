@@ -21,6 +21,8 @@ virtualenv:
   system_site_packages: true
 deploy:
   provider: releases
-  api_key: 7dc205af325fe88b123c44a0a7c80a72bb48e62e
+  api_key: 3ebb949d3177fdef0b996295db0377bc21bc0771
   file: build.zip
+  on:
+    repo: bakedSpaceTime/ACIT-2911-PROJECT
   skip_cleanup: 'true'
