@@ -43,6 +43,7 @@ class Game():
         self.create_loots()
         self.create_virus()
 
+        pygame.mixer.init()
         pygame.mixer.music.load('audio/bg.mp3')
         pygame.mixer.music.play(-1)
   

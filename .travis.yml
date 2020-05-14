@@ -9,6 +9,7 @@ before_install:
 - export PATH="/c/Python38:/c/Python38/Scripts:$PATH"
 - python -m pip install --upgrade pip wheel
 #- python -m pip install --extra-index-url https://pypi.org/project/pytest/ pytest
+- python -m pip install --extra-index-url https://pypi.org/project/pywin32/ pywin32
 - python -m pip install --extra-index-url https://pypi.org/simple/ pygame
 - python -m pip install --extra-index-url https://pypi.org/project/cx-Freeze/ cx-Freeze
 install:
