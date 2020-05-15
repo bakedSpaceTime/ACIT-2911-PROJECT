@@ -14,6 +14,7 @@ from settings import GAME_SETTINGS
 import pygame
 from math import sqrt
 
+
 class RouteMap():
 
     class RouteNode():

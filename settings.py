@@ -9,7 +9,6 @@ Authors:
 - Shivar Pillay, A01079978
 - Shivam Patel, A01185250
 """
-
 import pygame
 from os.path import join as path_join
 

@@ -29,4 +29,3 @@ def send_score(name, score):
     print(r)
     print(r.text)
     return r
-

@@ -9,7 +9,6 @@ Authors:
 - Shivar Pillay, A01079978
 - Shivam Patel, A01185250
 """
-
 import pygame
 import game
 from settings import GAME_SETTINGS

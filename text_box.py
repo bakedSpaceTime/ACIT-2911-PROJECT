@@ -9,7 +9,6 @@ Authors:
 - Shivar Pillay, A01079978
 - Shivam Patel, A01185250
 """
-
 import pygame
 vec = pygame.math.Vector2
 
@@ -65,4 +64,3 @@ class TextBox:
 
     def return_text(self):
         return self.text
-
