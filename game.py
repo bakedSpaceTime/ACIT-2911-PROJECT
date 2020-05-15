@@ -12,7 +12,7 @@ Authors:
 
 import pygame
 import random
-from settings import GAME_SETTINGS, BACKGROUND, WALL_LIST_1ST_FLOOR, VIRUS_SETTINS, WALL_LIST_PARKING_LOT, PLAYER_SPRITES, OTHER_SPRITES
+from settings import GAME_SETTINGS, BACKGROUND, WALL_LIST_1ST_FLOOR, WALL_LIST_2ND_FLOOR, VIRUS_SETTINS, WALL_LIST_PARKING_LOT, PLAYER_SPRITES, OTHER_SPRITES
 from player import Player
 from virus import Virus
 from wall import Obstacle
@@ -34,8 +34,9 @@ class Game:
         self.window = pygame.display.set_mode((GAME_SETTINGS['width'], GAME_SETTINGS['height']))
         self.clock = pygame.time.Clock()
         pygame.display.set_caption("Pandemic Run")
-        self.level = WALL_LIST_1ST_FLOOR
+        #self.level = WALL_LIST_1ST_FLOOR
         #self.level = WALL_LIST_PARKING_LOT
+        self.level = WALL_LIST_2ND_FLOOR
 
         self.player = Player(self)
 

@@ -165,6 +165,67 @@ WALL_LIST_1ST_FLOOR = {
     ],
 }
 
+WALL_LIST_2ND_FLOOR = {
+    "loot":
+    [
+        "                                        ",
+        "                                        ",
+        "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+        "W==============S==========S====WWWWW===W",
+        "W==WWWWWWW=====S=#S###S#==S============W",
+        "W==WH==========S==S=H=S===S==S===S==S==W",
+        "W==W===========S==S===S===S==S===S==S==W",
+        "W==WWWWW=W=====S==S=S=S===S==S===S==S==W",
+        "W======================================W",
+        "W===========S##====########==##==#####=W",
+        "W#########==S==========================W",
+        "W===========#######===####S============W",
+        "W=============S===========S==###=###=##W",
+        "W==###====S###==########==S============W",
+        "W=========S============================W",
+        "W=========================S==####==###=W",
+        "W=######==#=##S==#######===============W",
+        "W=============S========================W",
+        "W=========##=######=####===###########SW",
+        "W#######==============================SW",
+        "W============S==S==S==S==S============SW",
+        "W==###===S===S==S==S==S==SS==S==S==S==SW",
+        "W===H====S===S==S=====S==SS==S==S==S==SW",
+        "W=#####==S===S==S=W==WS==SS==S==S==S==SW",
+        "W=================W==W===S===========HSW",
+        "WWWWWWWWWWWWWWWWWWW==WWWWWWWWWWWWWWWWWWW",
+    ],
+    "virus":
+    [
+        "                                        ",
+        "                                        ",
+        "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+        "W+l==l+l==l+ll+S+l=l+l==l+S+ll+WWWWW===W",
+        "Wl=WWWWWWW=l==lSl#S###S#=lSl==l=+ll+ll+W",
+        "W==W+l====l+===S==S+l+S+l+S==S==lS=lS=lW",
+        "W==W===========S==Sl=lSl=lS==S===S==S==W",
+        "Wl=WWWWW=W=l==lSl=SlSlSl=lS==Sl=lS=lS=lW",
+        "W+l=======l+ll+l+ll+l+l+l+l==l+l+ll+ll+W",
+        "W==========lS##=l==########l=##=l#####lW",
+        "W#########==S+ll+l=l+l====l+l========l+W",
+        "W+l====l+==l#######=l=####Sl===========W",
+        "Wl====+ll+l+l+S+l==l+l=l+=S==###=###=##W",
+        "W==###l===S###=l########l=Sl====l======W",
+        "Wl====l==lS+l==l========l=l+l==l+l+l+l+W",
+        "W+l==l+ll+l===l+l======l+=Sl=####=l###lW",
+        "Wl######ll#=##Sl=#######l==l======l===lW",
+        "Wl======+l=l+=S+l=l+l==l+ll+l====l+l=l+W",
+        "W+l=====l+##l######l####l==###########SW",
+        "W#######l=+l=l+ll+l+l+ll+ll+ll+ll+l=l+SW",
+        "W+l====l+lll+Sl=Sl=S=lS=lS=l==l==l===lSW",
+        "Wl=###==lS==lS==Sl=S=lS==SS==S==S==S==SW",
+        "W+l====l+S===S==S+l=l+S==SS==S==S==S==SW",
+        "Wl#####=lSl==Sl=SlW==WS=lSSl=Sl=Sl=S=lSW",
+        "W+l===l+ll+l+l+ll+W==W==+S=+ll+ll+l=l+SW",
+        "WWWWWWWWWWWWWWWWWWW==WWWWWWWWWWWWWWWWWWW",
+    ],
+}
+
 WALL_LIST_PARKING_LOT = {
     "loot":
         [
