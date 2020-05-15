@@ -197,9 +197,5 @@ class Player(MovingEntity):
         }
 
         dir_str = convert[self.animation_toggle]
-        # print(f"{dir_str}, {self.animation_toggle}, {frame_count}, {frame_count % 10 == 0}, {frame_count % 20 == 0}, {frame_count % 30 == 0}")
- 
-
+        
         self.image = self.sprite_setting[dir_str]
-        # print(dir_str, frame_count, self.animation_toggle)
-        # print(self.game_ref.clock.get_fps())

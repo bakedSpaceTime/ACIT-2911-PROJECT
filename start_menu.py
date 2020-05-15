@@ -10,7 +10,6 @@ Authors:
 - Shivam Patel, A01185250
 """
 import pygame
-# from text_box import TextBox
 from button import Button
 from settings import GAME_SETTINGS, COLOURS
 import webbrowser
@@ -22,8 +21,6 @@ class StartMenu():
         self.game_ref = game_ref
         self.header_font = pygame.font.Font('freesansbold.ttf', 70)
         self.option_font = pygame.font.Font('freesansbold.ttf', 45)
-        # self.name_input = TextBox(500, 500, 200, 50, 12, 20)
-        # self.submit_button = Button(550, 550, 100, 50, 'Submit', (25,25,166), (255,255,255), 20)
         self.game_button = Button(550, 345, 120, 50, 'Start Game', COLOURS["black"], COLOURS["yellow"], 45)
         self.leaderboard_button = Button(550, 445, 120, 50, 'Leaderboard', COLOURS["black"], COLOURS["yellow"], 45)
         self.exit_button = Button(550, 545, 120, 60, 'Exit', COLOURS["white"], COLOURS["black"], 45)
