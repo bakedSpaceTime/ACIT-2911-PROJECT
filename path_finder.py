@@ -65,7 +65,7 @@ class RouteMap():
          for y, line in enumerate(self.level_map):
             # print(line)
             for x, char in enumerate(line):
-                if char == '+':
+                if char == "a":
                     node = self.RouteNode((x,y), x * GAME_SETTINGS["tile_side_length"], y * GAME_SETTINGS["tile_side_length"])
                     self.all_points[y][x] = node
                     
@@ -79,7 +79,7 @@ class RouteMap():
                     for i, point in enumerate(surroundings):
                         # print(f"node: {node}, surrounding point: {point}")
                         current_char =  self.level_map[point[1]][point[0]]
-                        if current_char == "l" or current_char == "+":
+                        if current_char == "q" or current_char == "a":
                             neighbour = self.determine_neighbour(y, x, i)
                             # print(f"node: ({node}), direction: {i}, neighbour: ({neighbour})")
                             node.neighbours[i] = neighbour
@@ -88,7 +88,7 @@ class RouteMap():
         if direction == 0:
             current = None
             i = 1
-            while current != "+" and row + i < len(self.level_map):
+            while current != "a" and row + i < len(self.level_map):
                 current = self.level_map[row + i][column]
                 i += 1
             # print(f"direction: {direction}, char found: {current}, node at point: {self.all_points[row + i - 1][column]}, i: {i}, row: {row}")
@@ -97,7 +97,7 @@ class RouteMap():
         elif direction == 1:
             current = None
             i = 1
-            while current != "+"  and column + i < len(self.level_map[0]):
+            while current != "a"  and column + i < len(self.level_map[0]):
                 current = self.level_map[row][column + i]
                 i += 1
             return self.all_points[row][column + i - 1]
@@ -105,7 +105,7 @@ class RouteMap():
         elif direction == 2:
             current = None
             i = 1
-            while current != "+"  and row - i >= 0:
+            while current != "a"  and row - i >= 0:
                 current = self.level_map[row - i][column]
                 i += 1
             return self.all_points[row - i + 1][column]
@@ -113,7 +113,7 @@ class RouteMap():
         elif direction == 3:
             current = None
             i = 1
-            while current != "+"  and column - i >= 0:
+            while current != "a"  and column - i >= 0:
                 current = self.level_map[row][column - i]
                 i += 1
             return self.all_points[row][column - i + 1]
