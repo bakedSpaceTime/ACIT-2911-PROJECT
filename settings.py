@@ -36,7 +36,7 @@ PLAYER_SETTINS = {
     "sprite_width": 32,
     "starting_x": 585,
     "starting_y": 690,
-    "velocity": 10,
+    "velocity": 5,
     "lives": 10,
     "boosted_duration": 5,
     "invincible_duration": 2,
