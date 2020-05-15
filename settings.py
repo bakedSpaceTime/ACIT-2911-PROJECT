@@ -54,17 +54,17 @@ VIRUS_SETTINS = [
     {
         "starting_x": 30,
         "starting_y": 180,
-        "velocity": 30#8,
+        "velocity": 8,
     },
     {
         "starting_x": 1270,
         "starting_y": 570,
-        "velocity": 30#12,
+        "velocity": 12,
     },
     {
         "starting_x": 510,
         "starting_y": 360,
-        "velocity": 30#10,
+        "velocity": 10,
     },
 ]
 
