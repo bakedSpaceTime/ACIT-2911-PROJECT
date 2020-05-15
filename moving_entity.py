@@ -38,7 +38,7 @@ class MovingEntity(pygame.sprite.Sprite):
         if default_sprite == None:
             self.image = self.sprite_setting['down']
         elif default_sprite not in sprite_setting:
-            raise ValueError("Invalid default sprite")
+            raise ValueError(f"Invalid default sprite: {default_sprite}")
         else:
             self.image = self.sprite_setting[default_sprite]
         self.rect = self.image.get_rect()
@@ -74,7 +74,7 @@ class MovingEntity(pygame.sprite.Sprite):
             velocity = self.velocity
         
         temp_sprite = pygame.sprite.Sprite()
-        temp_sprite.image = self.sprite_setting['down']
+        temp_sprite.image = self.sprite_setting['down_standing']
         temp_sprite.rect = temp_sprite.image.get_rect()
 
         temp_sprite.rect = self.rect.copy()

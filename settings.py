@@ -43,11 +43,21 @@ PLAYER_SETTINS = {
 }
 
 PLAYER_SPRITES = {
-    "right": pygame.image.load(path_join('images','Character', 'Right', 'Right Running 1.png')),
-    "left": pygame.image.load(path_join('images','Character', 'Left', 'Left Running 1.png')),
-    "up": pygame.image.load(path_join('images','Character', 'Backward', 'Backward Running 1.png')),
-    "down": pygame.image.load(path_join('images','Character', 'Forward', 'Forward Running 1.png')),
-    "standing_down": pygame.image.load(path_join('images','Character', 'Forward', 'Standing Forward.png'))
+    "right_standing": pygame.image.load(path_join('images','Character', 'Right', 'Standing Right.png')),
+    "right_1": pygame.image.load(path_join('images','Character', 'Right', 'Right Running 1.png')),
+    "right_2": pygame.image.load(path_join('images','Character', 'Right', 'Right Running 2.png')),
+
+    "left_standing": pygame.image.load(path_join('images','Character', 'Left', 'Standing Left.png')),
+    "left_1": pygame.image.load(path_join('images','Character', 'Left', 'Left Running 1.png')),
+    "left_2": pygame.image.load(path_join('images','Character', 'Left', 'Left Running 2.png')),
+
+    "up_standing": pygame.image.load(path_join('images','Character', 'Backward', 'Standing Backward.png')),
+    "up_1": pygame.image.load(path_join('images','Character', 'Backward', 'Backward Running 1.png')),
+    "up_2": pygame.image.load(path_join('images','Character', 'Backward', 'Backward Running 2.png')),
+
+    "down_standing": pygame.image.load(path_join('images','Character', 'Forward', 'Standing Forward.png')),
+    "down_1": pygame.image.load(path_join('images','Character', 'Forward', 'Forward Running 1.png')),
+    "down_2": pygame.image.load(path_join('images','Character', 'Forward', 'Forward Running 2.png')),
 }
 
 VIRUS_SETTINS = [
@@ -73,6 +83,7 @@ VIRUS_SPRITES = {
     "left": pygame.image.load(path_join('images','Virus.png')),
     "up": pygame.image.load(path_join('images','Virus.png')),
     "down": pygame.image.load(path_join('images','Virus.png')),
+    "down_standing": pygame.image.load(path_join('images','Virus.png')),
 }
 # car sprite from https://www.pinterest.ca/pin/233624299398167646/
 OTHER_SPRITES = {
