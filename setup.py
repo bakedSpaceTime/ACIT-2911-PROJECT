@@ -7,14 +7,13 @@ build_exe_options = {"packages": ["os"], "excludes": [], "include_files": ["imag
 # GUI applications require a different base on Windows (the default is for a
 # console application).
 base = None
-# if sys.platform == "win32":
-#     base = "Win32GUI"
-
 
 setup(
     name = "Pandemic Run",
-    version = "0.1",
-    description = "My GUI application!",
+    url = "https://github.com/bakedSpaceTime/ACIT-2911-PROJECT",
+    author = "Jaskaran Saini, Jeffery Law, Ming Yen Hsieh, Tushya Iyer, Shivar Pillay, Shivam Patel",
+    version = "0.3",
+    description = "Pandemic Run game developed for ACIT 2911 Winter 2020",
     options = {"build_exe": build_exe_options},
     executables = [Executable("main.py", base=base)]   
 )
