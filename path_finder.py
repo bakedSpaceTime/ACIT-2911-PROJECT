@@ -18,6 +18,7 @@ from math import sqrt
 class RouteMap():
 
     class RouteNode():
+        
         def __init__(self,index_pos:tuple, x_pos = 0, y_pos = 0):
             self.index_pos = index_pos
             self.neighbours = [None, None, None, None]
