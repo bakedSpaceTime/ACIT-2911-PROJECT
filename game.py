@@ -61,6 +61,8 @@ class Game:
         self.game_over = EndMenu(self)
         self.state = "start"
 
+        self.frame_count = 1
+
     def main_game(self):
         while True:
             self.window.fill((0, 0, 0))
@@ -79,6 +81,10 @@ class Game:
                 self.game_over.update()
                 
             pygame.display.update()
+
+            self.frame_count += 1
+            if self.frame_count > 30:
+                self.frame_count = 1
 
     def _initialize_music(self):
         pygame.mixer.init()
@@ -151,7 +157,7 @@ class Icon(pygame.sprite.Sprite):
 class Heart(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
-        self.image = PLAYER_SPRITES["standing_down"]
+        self.image = OTHER_SPRITES["heart"]
         self.rect = self.image.get_rect()
         self.rect.y = y
         self.rect.x = x
