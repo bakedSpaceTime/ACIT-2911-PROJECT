@@ -19,6 +19,7 @@ seed(17)
 
 
 class Virus(MovingEntity):
+
     def __init__(self, game_ref, virus_num, level_map):
 
         if type(game_ref) is not game.Game:

@@ -19,6 +19,7 @@ from moving_entity import MovingEntity
 
 
 class Player(MovingEntity):
+
     def __init__(self, game_ref):
 
         if type(game_ref) is not game.Game:

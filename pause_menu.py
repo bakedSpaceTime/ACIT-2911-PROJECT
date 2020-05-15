@@ -16,6 +16,7 @@ import webbrowser
 
 
 class PauseMenu():
+
     def __init__(self, game_ref):
         self.game_ref = game_ref
         self.header_font = pygame.font.Font('freesansbold.ttf', 70)

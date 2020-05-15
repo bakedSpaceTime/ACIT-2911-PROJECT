@@ -15,6 +15,7 @@ from settings import GAME_SETTINGS
 
 
 class MovingEntity(pygame.sprite.Sprite):
+
     def __init__(self, game_ref, sprite_setting, entity_settings, default_sprite: str = None):
 
         if type(game_ref) is not game.Game:

@@ -28,7 +28,6 @@ class StartMenu():
         self.leaderboard_button = Button(550, 445, 120, 50, 'Leaderboard', COLOURS["black"], COLOURS["yellow"], 45)
         self.exit_button = Button(550, 545, 120, 60, 'Exit', COLOURS["white"], COLOURS["black"], 45)
         
-
     def update(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

@@ -15,6 +15,7 @@ WHITE = (255, 255, 255)
 
 
 class ToiletPaper(pygame.sprite.Sprite):
+
     def __init__(self, x, y):
         super().__init__()
 
@@ -28,6 +29,7 @@ class ToiletPaper(pygame.sprite.Sprite):
 
 
 class HandSanitizer(pygame.sprite.Sprite):
+
     def __init__(self, x, y):
         super().__init__()
 
