@@ -180,7 +180,7 @@ class Player(MovingEntity):
 
         if not self.is_valid_direction(dir_str):
             self.animation_toggle = 2
-        if frame_count % 30 == 0:
+        elif frame_count % 30 == 0:
             self.animation_toggle = 3
         elif frame_count % 20 == 0:
             self.animation_toggle = 2
