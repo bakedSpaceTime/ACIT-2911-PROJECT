@@ -34,7 +34,7 @@ class Player(MovingEntity):
         self.vulnerable = True
         self.threads = []
 
-        self.animation_toggle = False
+        self.animation_toggle = 2
 
     def update(self):
 
@@ -178,16 +178,27 @@ class Player(MovingEntity):
             # print("returning")
             return
 
-        if frame_count % 10 == 0:
-            self.animation_toggle = not self.animation_toggle
-        
-        if self.animation_toggle and self.is_valid_direction(dir_str):
-            dir_str += "_1"
-        elif not self.animation_toggle and self.is_valid_direction(dir_str):
-            dir_str += "_2"
-        elif not self.is_valid_direction(dir_str):
-            dir_str += "_standing"
+        if not self.is_valid_direction(dir_str):
+            self.animation_toggle = 2
+        if frame_count % 30 == 0:
+            self.animation_toggle = 3
+        elif frame_count % 20 == 0:
+            self.animation_toggle = 2
+        elif frame_count % 15 == 0:
+            self.animation_toggle = 1
+        elif frame_count % 5 == 0:
+            self.animation_toggle = 2
+
+        convert = {
+            1: dir_str + "_1",
+            2: dir_str + "_standing",
+            3: dir_str + "_2",
+        }
+
+        dir_str = convert[self.animation_toggle]
+        # print(f"{dir_str}, {self.animation_toggle}, {frame_count}, {frame_count % 10 == 0}, {frame_count % 20 == 0}, {frame_count % 30 == 0}")
+ 
 
         self.image = self.sprite_setting[dir_str]
         # print(dir_str, frame_count, self.animation_toggle)
-        print(self.game_ref.clock.get_fps())
+        # print(self.game_ref.clock.get_fps())
