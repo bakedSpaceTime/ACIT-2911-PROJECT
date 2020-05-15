@@ -9,12 +9,12 @@ Authors:
 - Shivar Pillay, A01079978
 - Shivam Patel, A01185250
 """
-
 import pygame
 vec = pygame.math.Vector2
 
 
 class TextBox:
+
     def __init__(self, x, y, width, height, max_length, font_size=20):
         self.x = x
         self.y = y
@@ -65,4 +65,3 @@ class TextBox:
 
     def return_text(self):
         return self.text
-

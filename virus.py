@@ -9,7 +9,6 @@ Authors:
 - Shivar Pillay, A01079978
 - Shivam Patel, A01185250
 """
-
 import pygame
 import game
 from settings import GAME_SETTINGS, VIRUS_SETTINS, VIRUS_SPRITES
@@ -20,6 +19,7 @@ seed(17)
 
 
 class Virus(MovingEntity):
+
     def __init__(self, game_ref, virus_num, level_map):
 
         if type(game_ref) is not game.Game:
@@ -129,15 +129,6 @@ class Virus(MovingEntity):
             return (delta_x > min_dist or delta_y > min_dist)
 
     def switch_directions(self):
-        # Basic Behavior
-        # Not sure how we want it to behave
-        
-        # if self.will_hit_wall("left"):
-        #     self.directions["left"] = False
-        #     self.directions["right"] = True
-        # elif self.will_hit_wall("right"):
-        #     self.directions["right"] = False
-        #     self.directions["left"] = True
         
         key_str = self.direction_of_next_node()
         

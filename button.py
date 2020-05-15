@@ -15,6 +15,7 @@ vec = pygame.math.Vector2
 
 
 class Button():
+
     def __init__(self, x, y, width, height, text, bg_color, font_color, font_size):
         self.x = x
         self.y = y
