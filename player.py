@@ -34,6 +34,8 @@ class Player(MovingEntity):
         self.vulnerable = True
         self.threads = []
 
+        self.animation_toggle = False
+
     def update(self):
 
         for e in pygame.event.get():
@@ -160,3 +162,32 @@ class Player(MovingEntity):
         print("-------------------------")
         self.game_ref.all_sprite_list.remove(self.game_ref.sanitizer_icon)
         self.boosted = False
+
+    def redraw(self):
+        self.animate()
+        self.game_ref.window.blit(self.image, (self.rect.x, self.rect.y))
+
+    def animate(self):
+        dir_str = ""
+        frame_count = self.game_ref.frame_count
+        for direction in self.directions:
+            if self.directions[direction]:
+                dir_str = direction
+
+        if dir_str == "":
+            # print("returning")
+            return
+
+        if frame_count % 10 == 0:
+            self.animation_toggle = not self.animation_toggle
+        
+        if self.animation_toggle and self.is_valid_direction(dir_str):
+            dir_str += "_1"
+        elif not self.animation_toggle and self.is_valid_direction(dir_str):
+            dir_str += "_2"
+        elif not self.is_valid_direction(dir_str):
+            dir_str += "_standing"
+
+        self.image = self.sprite_setting[dir_str]
+        # print(dir_str, frame_count, self.animation_toggle)
+        print(self.game_ref.clock.get_fps())
