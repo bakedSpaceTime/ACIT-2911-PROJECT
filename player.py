@@ -11,71 +11,77 @@ Authors:
 """
 
 import pygame
-from settings import GAME_SETTINGS, PLAYER_SETTINS
+import game
+import threading
+import time
+from settings import GAME_SETTINGS, PLAYER_SETTINS, PLAYER_SPRITES, COLOURS
+from moving_entity import MovingEntity
 
-class Player():
+
+class Player(MovingEntity):
     def __init__(self, game_ref):
 
-        self.game_ref = game_ref
-        
-        self.x_pos = PLAYER_SETTINS["starting_x"]
-        self.y_pos = PLAYER_SETTINS["starting_y"]
-        self.velocity = PLAYER_SETTINS["velocity"]
-        self.directions = {
-            "left": False,
-            "right": False,
-            "up": False,
-            "down": False
-        }
+        if type(game_ref) is not game.Game:
+            raise TypeError("invalid reference")
 
-        self.width = PLAYER_SETTINS["sprite_width"]
-        self.height = PLAYER_SETTINS["sprite_height"]
+        super().__init__(game_ref, PLAYER_SPRITES, PLAYER_SETTINS, "down_standing")
 
-        self.char = pygame.image.load('images/pac-right.bmp')
-        self.charRight = pygame.image.load('images/pac-right.bmp')
-        self.charLeft = pygame.image.load('images/pac-left.bmp')
-        self.charUp = pygame.image.load('images/pac-up.bmp')
-        self.charDown = pygame.image.load('images/pac-down.bmp')
+        self.lives = PLAYER_SETTINS["lives"]
+        self.score = 0
 
-    def redraw(self):
-        self.game_ref.window.fill((0, 0, 0))
+        # If hand sanitizer is picked up
+        self.boosted = False
+        self.vulnerable = True
+        self.threads = []
 
-        if self.directions["left"]:
-            self.game_ref.window.blit(self.charLeft, (self.x_pos,self.y_pos))
-        elif self.directions["right"]:
-            self.game_ref.window.blit(self.charRight, (self.x_pos,self.y_pos))
-        elif self.directions["up"]:
-            self.game_ref.window.blit(self.charUp, (self.x_pos,self.y_pos))
-        elif self.directions["down"]:
-            self.game_ref.window.blit(self.charDown, (self.x_pos, self.y_pos))
-        else:
-            self.game_ref.window.blit(self.char, (self.x_pos, self.y_pos))
-
-        pygame.display.update()
+        self.animation_toggle = 2
 
     def update(self):
 
         for e in pygame.event.get():
-                if e.type == pygame.QUIT:
-                    pygame.quit()
-                if e.type == pygame.KEYDOWN:
-                    self.switch_directions(e.key)
+            if e.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+            if e.type == pygame.KEYDOWN:
+                self.switch_directions(e.key)
+                if e.key == pygame.K_ESCAPE:
+                    self.game_ref.state = "pause"
 
-        self.move_player()
+        self.update_status()
+        self.move()
         self.redraw()
 
-    def is_in_bounds(self, side: str):
-        boundries = {
-            "left": self.x_pos > 0 + self.velocity,
-            "right": self.x_pos < GAME_SETTINGS['width'] - self.width - self.velocity,
-            "up": self.y_pos > 0 + self.velocity,
-            "down": self.y_pos < GAME_SETTINGS['height'] - self.height - self.velocity,
-        }
+    def update_status(self):
+        font = pygame.font.Font('freesansbold.ttf', 50)
 
-        if side not in boundries.keys():
-            raise ValueError("Valid bountries are 'left', 'right', 'up', 'down'.")
+        text_surface, text_rect = self.text_objects('Pandemic Run', font, color=COLOURS["red"])
+        text_rect.center = ((GAME_SETTINGS["width"] / 2), 30)
+        self.game_ref.window.blit(text_surface, text_rect)
 
-        return boundries[side]
+        text_surface_lives, text_rect_lives = self.text_objects("Lives:", font, color=COLOURS["red"])
+        text_rect_lives.center = ((GAME_SETTINGS["width"] / 5) * 4, 30)
+        self.game_ref.window.blit(text_surface_lives, text_rect_lives)
+
+        text_surface_scores, text_rect_scores = self.text_objects(str(self.score), font, color=COLOURS["red"])
+        text_rect_scores.center = ((GAME_SETTINGS["width"] / 5), 30)
+        self.game_ref.window.blit(text_surface_scores, text_rect_scores)
+
+    @staticmethod
+    def text_objects(text, font, color=COLOURS["white"]):
+        text_surface = font.render(text, True, color)
+        return text_surface, text_surface.get_rect()
+
+    def move(self):
+        self.collision_handler()
+
+        if self.is_valid_direction("left"):
+            self.rect.x -= self.velocity
+        elif self.is_valid_direction("right"):
+            self.rect.x += self.velocity
+        elif self.is_valid_direction("up"):
+            self.rect.y -= self.velocity
+        elif self.is_valid_direction("down"):
+            self.rect.y += self.velocity
 
     def switch_directions(self, key):
         key_str = self.key_to_direction_str(key)
@@ -86,17 +92,6 @@ class Player():
                 else:
                     self.directions[direction] = False
 
-    def move_player(self):
-
-        if self.directions["left"] and self.is_in_bounds("left"):
-            self.x_pos -= self.velocity
-        elif self.directions["right"] and self.is_in_bounds("right"):
-            self.x_pos += self.velocity
-        elif self.directions["up"] and self.is_in_bounds("up"):
-            self.y_pos -= self.velocity
-        elif self.directions["down"] and self.is_in_bounds("down"):
-            self.y_pos += self.velocity
-    
     @staticmethod
     def key_to_direction_str(key):
         out_str = ""
@@ -109,3 +104,101 @@ class Player():
         elif key == pygame.K_DOWN:
             out_str = "down"
         return out_str
+
+    def collision_handler(self):
+        self.collect_toilet_paper()
+        self.collect_hand_sanitizer()
+        self.check_virus()
+
+    def collect_toilet_paper(self):
+        item_hit_list = pygame.sprite.spritecollide(self, self.game_ref.toilet_list, False)
+        for toilet_paper in item_hit_list:
+            self.game_ref.toilet_list.remove(toilet_paper)
+            self.game_ref.all_sprite_list.remove(toilet_paper)
+            self.score += 1
+
+    def collect_hand_sanitizer(self):
+        item_hit_list = pygame.sprite.spritecollide(self, self.game_ref.sanitizer_list, False)
+        for sanitizer in item_hit_list:
+            self.boosted = True
+            self.game_ref.sanitizer_list.remove(sanitizer)
+            self.game_ref.all_sprite_list.remove(sanitizer)
+            self.game_ref.create_sanitizer_icon()
+            for thread in self.threads:
+                if thread.is_alive():
+                    thread.cancel()
+            t = threading.Timer(PLAYER_SETTINS["boosted_duration"], self.back_to_normal)
+            self.threads.append(t)
+            self.threads[-1].start()
+
+    def check_virus(self):
+        item_hit_list = pygame.sprite.spritecollide(self, self.game_ref.virus_list, False)
+        if not self.boosted and len(item_hit_list) != 0 and self.vulnerable:
+            self.vulnerable = False
+            self.loose_life()
+            if self.lives > 0:
+                heart = self.game_ref.heart_list[-1]
+                self.game_ref.all_sprite_list.remove(heart)
+                self.game_ref.heart_list.remove(heart)
+            t = threading.Timer(PLAYER_SETTINS["invincible_duration"], self.back_to_vulnerable)
+            t.start()
+        if self.boosted:
+            for virus in item_hit_list:
+                self.game_ref.virus_list.remove(virus)
+                self.game_ref.all_sprite_list.remove(virus)
+
+    def loose_life(self):
+        if self.lives == 1:
+            self.game_ref.state = "game_over"
+        self.lives -= 1
+        print(f"Lives: {self.lives}")
+
+    def back_to_vulnerable(self):
+        self.vulnerable = True
+
+    def back_to_normal(self):
+        print("-------------------------")
+        print(f"{self.threads}")
+        print("-------------------------")
+        self.game_ref.all_sprite_list.remove(self.game_ref.sanitizer_icon)
+        self.boosted = False
+
+    def redraw(self):
+        self.animate()
+        self.game_ref.window.blit(self.image, (self.rect.x, self.rect.y))
+
+    def animate(self):
+        dir_str = ""
+        frame_count = self.game_ref.frame_count
+        for direction in self.directions:
+            if self.directions[direction]:
+                dir_str = direction
+
+        if dir_str == "":
+            # print("returning")
+            return
+
+        if not self.is_valid_direction(dir_str):
+            self.animation_toggle = 2
+        elif frame_count % 30 == 0:
+            self.animation_toggle = 3
+        elif frame_count % 20 == 0:
+            self.animation_toggle = 2
+        elif frame_count % 15 == 0:
+            self.animation_toggle = 1
+        elif frame_count % 5 == 0:
+            self.animation_toggle = 2
+
+        convert = {
+            1: dir_str + "_1",
+            2: dir_str + "_standing",
+            3: dir_str + "_2",
+        }
+
+        dir_str = convert[self.animation_toggle]
+        # print(f"{dir_str}, {self.animation_toggle}, {frame_count}, {frame_count % 10 == 0}, {frame_count % 20 == 0}, {frame_count % 30 == 0}")
+ 
+
+        self.image = self.sprite_setting[dir_str]
+        # print(dir_str, frame_count, self.animation_toggle)
+        # print(self.game_ref.clock.get_fps())
