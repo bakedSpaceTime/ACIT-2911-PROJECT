@@ -52,15 +52,14 @@ class Player(MovingEntity):
                     self.game_ref.time.reset()
 
         self.update_status()
-        self.score_pentalty()
+        self.score_penalty()
         self.move()
         self.redraw()
 
-    def score_pentalty(self):
+    def score_penalty(self):
         if self.game_ref.state != "pause":
-            # if self.game_ref.frame_count == 5:
-            if int(self.game_ref.time.get_current()) % 3 == 0 and int(
-                    self.game_ref.time.get_current()) != self.game_ref.time.previous:
+            if int(self.game_ref.time.get_current()) % 3 == 0\
+                    and int(self.game_ref.time.get_current()) != self.game_ref.time.previous:
                 self.game_ref.time.previous = int(self.game_ref.time.get_current())
                 print(int(self.game_ref.time.get_current()))
                 # - 1 score every 3 seconds
