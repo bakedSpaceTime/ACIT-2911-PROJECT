@@ -169,6 +169,11 @@ class Player(MovingEntity):
         self.game_ref.window.blit(self.image, (self.rect.x, self.rect.y))
 
     def animate(self):
+
+        standing =  [1,4, 7,10,  13,16, 19,22, 25,28]
+        one =       [2,3, 8,9,   14,15, 20,21, 26,27]
+        two =       [5,6, 11,12, 17,18, 23,24, 29,30]
+
         dir_str = ""
         frame_count = self.game_ref.frame_count
         for direction in self.directions:
@@ -181,14 +186,21 @@ class Player(MovingEntity):
 
         if not self.is_valid_direction(dir_str):
             self.animation_toggle = 2
-        elif frame_count % 30 == 0:
+        elif frame_count in standing:
+            self.animation_toggle = 2
+        elif frame_count in two:
             self.animation_toggle = 3
-        elif frame_count % 20 == 0:
-            self.animation_toggle = 2
-        elif frame_count % 15 == 0:
+        elif frame_count in one:
             self.animation_toggle = 1
-        elif frame_count % 5 == 0:
-            self.animation_toggle = 2
+        
+        #elif frame_count % 30 == 0:
+        #    self.animation_toggle = 3
+        #elif frame_count % 20 == 0:
+        #    self.animation_toggle = 2
+        #elif frame_count % 15 == 0:
+        #    self.animation_toggle = 1
+        #elif frame_count % 5 == 0:
+        #    self.animation_toggle = 2
 
         convert = {
             1: dir_str + "_1",
@@ -197,5 +209,5 @@ class Player(MovingEntity):
         }
 
         dir_str = convert[self.animation_toggle]
-        
-        self.image = self.sprite_setting[dir_str]
+
+        self.image = self.sprite_setting[dir_str].convert_alpha()
