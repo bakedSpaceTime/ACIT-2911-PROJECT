@@ -34,7 +34,8 @@ PLAYER_SETTINS = {
     "sprite_height": 32,
     "sprite_width": 32,
     "starting_x": 585,
-    "starting_y": 690,
+    # start at 740, cuz I increased game window height for character status
+    "starting_y": 740,
     "velocity": 8,
     "lives": 10,
     "boosted_duration": 5,

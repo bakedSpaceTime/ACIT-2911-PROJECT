@@ -34,6 +34,7 @@ class StartMenu():
                 mx, my = pygame.mouse.get_pos()
                 if self.game_button.clicked(mx, my):
                     self.game_ref.state = "game"
+                    self.game_ref.time.start()
                 elif self.leaderboard_button.clicked(mx, my):
                     webbrowser.open('http://rocky-river-43342.herokuapp.com/')  
                 elif self.exit_button.clicked(mx, my):

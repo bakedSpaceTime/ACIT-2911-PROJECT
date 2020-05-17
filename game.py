@@ -25,6 +25,7 @@ import webbrowser
 from start_menu import StartMenu
 from pause_menu import PauseMenu
 from end_menu import EndMenu
+from timer import Timer
 
 
 class Game:
@@ -45,6 +46,7 @@ class Game:
         self.heart_list = None
         self.level = None
         self.run = False
+        self.time = None
         self.new_game()
 
         self.run = False
@@ -55,6 +57,7 @@ class Game:
         self.player = Player(self)
         self.heart_list = []
         self.initialize_map()
+        self.time = Timer()
         self.state = "start"
 
     def initialize_map(self, level=WALL_LIST_1ST_FLOOR):
