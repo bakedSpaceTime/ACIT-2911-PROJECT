@@ -62,7 +62,7 @@ class Game:
         self.game_over = EndMenu(self)
         self.state = "start"
 
-        self.frame_count = 0
+        self.frame_count = 1
 
     def main_game(self):
         while True:
@@ -87,7 +87,7 @@ class Game:
 
             self.frame_count += 1
             if self.frame_count > 30:
-                self.frame_count = 0
+                self.frame_count = 1
 
     def _initialize_music(self):
         pygame.mixer.init()
