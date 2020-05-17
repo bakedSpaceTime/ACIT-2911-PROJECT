@@ -55,7 +55,3 @@ class TestPlayer(unittest.TestCase):
         self.assertFalse(self.player.directions["right"])
         self.assertFalse(self.player.directions["up"])
         self.assertFalse(self.player.directions["down"])
-
-
-
-

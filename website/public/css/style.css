@@ -1,3 +1,7 @@
+body {
+  background-image: url("/images/dust_scratches.png");
+}
+
 .mb-0 {
     position: fixed;
     bottom: 0;
@@ -5,8 +9,8 @@
 }
 
 h1 {
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 form {
@@ -17,13 +21,11 @@ form {
   transform: scale(1.2);
 }
 
-a.menu-link:hover {
-  transform: scale(1.1);
-}
-
 #animation {
-  width: 30px;
-  height: 30px;
+  position: relative;
+  top: 10px;
+  width: 50px;
+  height: 50px;
   background: url('/images/spritesheet.png') left center;
   background-size: cover;
   animation: play 1s steps(6) infinite;
@@ -31,5 +33,31 @@ a.menu-link:hover {
 }
 
 @keyframes play {
-  100% { background-position: -180px;}
+  100% { background-position: -300px;}
+}
+
+.score-table {
+  margin: 5px 400px 70px;
+  box-shadow: 0px 35px 50px rgb(0, 0, 0, 0.2);
+}
+
+.center-flex {
+  display: flex;
+  justify-content: center;
+}
+
+#showcase-carousel {
+  width: 50%;
+}
+
+#showcase-carousel img {
+  border-radius: 10px;
+}
+
+.download-button {
+  margin-top: 15px;
+}
+
+#outer-div {
+  background-color: black;
 }

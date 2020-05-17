@@ -6,7 +6,6 @@ var ScoreRepository = require('../Data/ScoreRepo');
 describe('Testing Score Repository', function() {
     var stubValue = {
         name: 'James',
-        map: 'walmart',
         score: 1000
     }
     describe('create()', function() {

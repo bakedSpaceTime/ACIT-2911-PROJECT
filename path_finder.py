@@ -14,9 +14,11 @@ from settings import GAME_SETTINGS
 import pygame
 from math import sqrt
 
+
 class RouteMap():
 
     class RouteNode():
+        
         def __init__(self,index_pos:tuple, x_pos = 0, y_pos = 0):
             self.index_pos = index_pos
             self.neighbours = [None, None, None, None]
@@ -65,7 +67,7 @@ class RouteMap():
          for y, line in enumerate(self.level_map):
             # print(line)
             for x, char in enumerate(line):
-                if char == '+':
+                if char == "+":
                     node = self.RouteNode((x,y), x * GAME_SETTINGS["tile_side_length"], y * GAME_SETTINGS["tile_side_length"])
                     self.all_points[y][x] = node
                     

@@ -7,16 +7,16 @@ chai.should();
 
 describe("API Scores", () => {
     describe("GET and POST /", () => {
-        // it("Tests all the scores returned by API.", (done) => {
-        //     chai.request(app)
-        //     .get('/Api/Score')
-        //     .end((err, res) => {
-        //         res.should.have.status(200);
-        //         res.body.should.be.a('object');
-        //         // console.log(JSON.stringify(res.body.scores))
-        //         done();
-        //     })
-        // })
+        it("Tests all the scores returned by API.", (done) => {
+            chai.request(app)
+            .get('/Api/Score')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                // console.log(JSON.stringify(res.body.scores))
+                done();
+            })
+        })
 
         it("Tests POST and return response from API.", (done) => {
             chai.request(app)

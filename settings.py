@@ -9,13 +9,12 @@ Authors:
 - Shivar Pillay, A01079978
 - Shivam Patel, A01185250
 """
-
 import pygame
 from os.path import join as path_join
 
 GAME_SETTINGS = {
     # window height
-    "height": 720,
+    "height": 780,
 
     # window width
     "width": 1200,
@@ -23,23 +22,41 @@ GAME_SETTINGS = {
     "tile_side_length": 30,
 }
 
+COLOURS = {
+    "black": (0, 0, 0),
+    "white": (255, 255, 255),
+    "blue": (25, 25, 166),
+    "yellow": (255, 255, 0),
+    "red": (255, 0, 0),
+}
+
 PLAYER_SETTINS = {
     "sprite_height": 32,
     "sprite_width": 32,
     "starting_x": 585,
     "starting_y": 690,
-    "velocity": 10,
+    "velocity": 8,
     "lives": 10,
     "boosted_duration": 5,
     "invincible_duration": 2,
 }
 
 PLAYER_SPRITES = {
-    "right": pygame.image.load(path_join('images','Character', 'Right', 'Right Running 1.png')),
-    "left": pygame.image.load(path_join('images','Character', 'Left', 'Left Running 1.png')),
-    "up": pygame.image.load(path_join('images','Character', 'Backward', 'Backward Running 1.png')),
-    "down": pygame.image.load(path_join('images','Character', 'Forward', 'Forward Running 1.png')),
-    "standing_down": pygame.image.load(path_join('images','Character', 'Forward', 'Standing Forward.png'))
+    "right_standing": pygame.image.load(path_join('images','Character', 'Right', 'Standing Right.png')),
+    "right_1": pygame.image.load(path_join('images','Character', 'Right', 'Right Running 1.png')),
+    "right_2": pygame.image.load(path_join('images','Character', 'Right', 'Right Running 2.png')),
+
+    "left_standing": pygame.image.load(path_join('images','Character', 'Left', 'Standing Left.png')),
+    "left_1": pygame.image.load(path_join('images','Character', 'Left', 'Left Running 1.png')),
+    "left_2": pygame.image.load(path_join('images','Character', 'Left', 'Left Running 2.png')),
+
+    "up_standing": pygame.image.load(path_join('images','Character', 'Backward', 'Standing Backward.png')),
+    "up_1": pygame.image.load(path_join('images','Character', 'Backward', 'Backward Running 1.png')),
+    "up_2": pygame.image.load(path_join('images','Character', 'Backward', 'Backward Running 2.png')),
+
+    "down_standing": pygame.image.load(path_join('images','Character', 'Forward', 'Standing Forward.png')),
+    "down_1": pygame.image.load(path_join('images','Character', 'Forward', 'Forward Running 1.png')),
+    "down_2": pygame.image.load(path_join('images','Character', 'Forward', 'Forward Running 2.png')),
 }
 
 VIRUS_SETTINS = [
@@ -65,6 +82,7 @@ VIRUS_SPRITES = {
     "left": pygame.image.load(path_join('images','Virus.png')),
     "up": pygame.image.load(path_join('images','Virus.png')),
     "down": pygame.image.load(path_join('images','Virus.png')),
+    "down_standing": pygame.image.load(path_join('images','Virus.png')),
 }
 # car sprite from https://www.pinterest.ca/pin/233624299398167646/
 OTHER_SPRITES = {
@@ -79,13 +97,17 @@ OTHER_SPRITES = {
     "car1": pygame.image.load(path_join('images', 'cars', 'car1.png')),
     "car2": pygame.image.load(path_join('images', 'cars', 'car2.png')),
     "car3": pygame.image.load(path_join('images', 'cars', 'car3.png')),
+    "paper_icon": pygame.image.load(path_join('images', 'toilet_big.png')),
+    "sanitizer_icon": pygame.image.load(path_join('images', 'sanitizer_icon.png')),
+    "heart": pygame.image.load(path_join('images', 'heart sprite.png')),
 }
 
 BACKGROUND = pygame.image.load(path_join('images','background.png'))
 
 WALL_LIST_1ST_FLOOR = {
     "loot":
-    [
+    [   "                                        ",
+        "                                        ",
         "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
         "W=================W====================W",
         "W==S===S===S======W=##################=W",
@@ -113,6 +135,8 @@ WALL_LIST_1ST_FLOOR = {
     ],
     "virus":
     [
+        "                                        ",
+        "                                        ",
         "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
         "W+ll+l+l+l+l+l+ll+W+l=======l+l======l+W",
         "Wl=Sl+lSl+lSl+l==lWl##################lW",
@@ -140,9 +164,72 @@ WALL_LIST_1ST_FLOOR = {
     ],
 }
 
+WALL_LIST_2ND_FLOOR = {
+    "loot":
+    [
+        "                                        ",
+        "                                        ",
+        "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+        "W==============S==========S====WWWWW===W",
+        "W==WWWWWWW=====S=#S###S#==S============W",
+        "W==WH==========S==S=H=S===S==S===S==S==W",
+        "W==W===========S==S===S===S==S===S==S==W",
+        "W==WWWWW=W=====S==S=S=S===S==S===S==S==W",
+        "W======================================W",
+        "W===========S##====########==##==#####=W",
+        "W#########==S==========================W",
+        "W===========#######===####S============W",
+        "W=============S===========S==###=###=##W",
+        "W==###====S###==########==S============W",
+        "W=========S============================W",
+        "W=========================S==####==###=W",
+        "W=######==#=##S==#######===============W",
+        "W=============S========================W",
+        "W=========##=######=####===###########SW",
+        "W#######==============================SW",
+        "W============S==S==S==S==S============SW",
+        "W==###===S===S==S==S==S==SS==S==S==S==SW",
+        "W===H====S===S==S=====S==SS==S==S==S==SW",
+        "W=#####==S===S==S=W==WS==SS==S==S==S==SW",
+        "W=================W==W===S===========HSW",
+        "WWWWWWWWWWWWWWWWWWW==WWWWWWWWWWWWWWWWWWW",
+    ],
+    "virus":
+    [
+        "                                        ",
+        "                                        ",
+        "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+        "W+l==l+l==l+ll+S+l=l+l==l+S+ll+WWWWW===W",
+        "Wl=WWWWWWW=l==lSl#S###S#=lSl==l=+ll+ll+W",
+        "W==W+l====l+===S==S+l+S+l+S==S==lS=lS=lW",
+        "W==W===========S==Sl=lSl=lS==S===S==S==W",
+        "Wl=WWWWW=W=l==lSl=SlSlSl=lS==Sl=lS=lS=lW",
+        "W+l=======l+ll+l+ll+l+l+l+l==l+l+ll+ll+W",
+        "W==========lS##=l==########l=##=l#####lW",
+        "W#########==S+ll+l=l+l====l+l========l+W",
+        "W+l====l+==l#######=l=####Sl===========W",
+        "Wl====+ll+l+l+S+l==l+l=l+=S==###=###=##W",
+        "W==###l===S###=l########l=Sl====l======W",
+        "Wl====l==lS+l==l========l=l+l==l+l+l+l+W",
+        "W+l==l+ll+l===l+l======l+=Sl=####=l###lW",
+        "Wl######ll#=##Sl=#######l==l======l===lW",
+        "Wl======+l=l+=S+l=l+l==l+ll+l====l+l=l+W",
+        "W+l=====l+##l######l####l==###########SW",
+        "W#######l=+l=l+ll+l+l+ll+ll+ll+ll+l=l+SW",
+        "W+l====l+lll+Sl=Sl=S=lS=lS=l==l==l===lSW",
+        "Wl=###==lS==lS==Sl=S=lS==SS==S==S==S==SW",
+        "W+l====l+S===S==S+l=l+S==SS==S==S==S==SW",
+        "Wl#####=lSl==Sl=SlW==WS=lSSl=Sl=Sl=S=lSW",
+        "W+l===l+ll+l+l+ll+W==W==+S=+ll+ll+l=l+SW",
+        "WWWWWWWWWWWWWWWWWWW==WWWWWWWWWWWWWWWWWWW",
+    ],
+}
+
 WALL_LIST_PARKING_LOT = {
     "loot":
         [
+            "                                        ",
+            "                                        ",
             "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
             "TC==========R==================HR======T",
             "T============CC===============C=C======T",
@@ -196,6 +283,8 @@ WALL_LIST_PARKING_LOT = {
         ],
     "virus":
         [
+            "                                        ",
+            "                                        ",
             "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
             "TC+l=l+l+ll+R+ll+l=l+l==l+l==l+HR======T",
             "T=ll====l==l=CC=l===l=========C=C======T",

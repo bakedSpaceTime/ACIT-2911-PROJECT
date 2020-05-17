@@ -1,0 +1,7 @@
+/node_modules
+npm-debug.log
+.DS_Store
+/.env
+/tests/node_modules
+/.nyc_output
+/tests/.nyc_output
