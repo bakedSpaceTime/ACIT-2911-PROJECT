@@ -26,9 +26,9 @@ class Virus(MovingEntity):
             raise TypeError("invalid reference")
 
         super().__init__(game_ref, VIRUS_SPRITES, VIRUS_SETTINS[virus_num], default_sprite="right")
-        
+
         #### These lines not needed once proper sprites are used
-        self.image = pygame.transform.scale(self.image, (27,27))
+        self.image = pygame.transform.scale(self.image, (27,27)).convert_alpha()
         self.rect.inflate_ip(-5, -5)
         #################
 
@@ -49,7 +49,7 @@ class Virus(MovingEntity):
                 pygame.quit()
         self.move()
         self.redraw()
-    
+
     def move(self):
         self.path_position()
 
@@ -61,7 +61,7 @@ class Virus(MovingEntity):
             self.rect.y -= self.velocity
         elif self.is_valid_direction("down"):
             self.rect.y += self.velocity
-    
+
     def path_position(self):
         collide_i = self.rect.collidelist(self.route_map.node_graph)
         if collide_i != -1:
@@ -79,9 +79,9 @@ class Virus(MovingEntity):
                         self.path.appendleft(current_node)
                     # print(f"\tafter again\n\t\t{self.path}")
                     self.force_new_path = False
-                    
+
                 self.snap_to_node(current_node)
-                self.switch_directions() 
+                self.switch_directions()
 
     def start_path(self):
         self.update_path()
@@ -129,9 +129,9 @@ class Virus(MovingEntity):
             return (delta_x > min_dist or delta_y > min_dist)
 
     def switch_directions(self):
-        
+
         key_str = self.direction_of_next_node()
-        
+
         if key_str in self.directions.keys():
             for direction in self.directions:
                 if direction == key_str:
@@ -145,9 +145,9 @@ class Virus(MovingEntity):
 
     def direction_of_next_node(self):
         if len(self.path) > 1:
-        
+
             reference_node = self.prev_node
-            
+
             # print("index", self.prev_node_i + 1)
             next_node = self.path[self.prev_node_i + 1]
             dir_int = None

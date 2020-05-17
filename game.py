@@ -62,7 +62,7 @@ class Game:
         self.game_over = EndMenu(self)
         self.state = "start"
 
-        self.frame_count = 1
+        self.frame_count = 0
 
     def main_game(self):
         while True:
@@ -83,9 +83,11 @@ class Game:
                 
             pygame.display.update()
 
+            print(self.clock.get_fps())
+
             self.frame_count += 1
             if self.frame_count > 30:
-                self.frame_count = 1
+                self.frame_count = 0
 
     def _initialize_music(self):
         pygame.mixer.init()
