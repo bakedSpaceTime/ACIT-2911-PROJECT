@@ -26,13 +26,17 @@ from start_menu import StartMenu
 from pause_menu import PauseMenu
 from end_menu import EndMenu
 from timer import Timer
+from statistics import mean
+
 
 
 class Game:
 
     def __init__(self):
+
         pygame.init()
         self.window = pygame.display.set_mode((GAME_SETTINGS['width'], GAME_SETTINGS['height']))
+        BACKGROUND.convert_alpha()
         self.clock = pygame.time.Clock()
         pygame.display.set_caption("Pandemic Run")
         #self.level = WALL_LIST_1ST_FLOOR
@@ -47,27 +51,39 @@ class Game:
         self.level = None
         self.run = False
         self.time = None
-        self.new_game()
+        # self.new_game()
 
         self.run = False
         self.frame_count = 1
-
-    def new_game(self):
         self._initialize_music()
-        self.player = Player(self)
-        self.heart_list = []
-        self.initialize_map()
-        self.time = Timer()
         self.state = "start"
 
-    def initialize_map(self, level=WALL_LIST_1ST_FLOOR):
-        self.level = level
-        self.run = True
         self.all_sprite_list = pygame.sprite.Group()
         self.wall_list = pygame.sprite.Group()
         self.toilet_list = pygame.sprite.Group()
         self.virus_list = pygame.sprite.Group()
         self.sanitizer_list = pygame.sprite.Group()
+
+        self.stats = []
+
+    def begin_new_game(self):
+        self.player = Player(self)
+        self.heart_list = []
+        self.initialize_map()
+        self.fade_in_screen(GAME_SETTINGS["width"], GAME_SETTINGS["height"])
+
+        self.time = Timer()
+        self.time.start()
+        self.state = "game"
+
+    def initialize_map(self, level=WALL_LIST_1ST_FLOOR):
+        self.level = level
+        self.run = True
+        # self.all_sprite_list = pygame.sprite.Group()
+        # self.wall_list = pygame.sprite.Group()
+        # self.toilet_list = pygame.sprite.Group()
+        # self.virus_list = pygame.sprite.Group()
+        # self.sanitizer_list = pygame.sprite.Group()
         self.sanitizer_icon = Icon((GAME_SETTINGS["width"] / 36), 0, "sanitizer_icon")
 
         self.create_walls()
@@ -82,14 +98,17 @@ class Game:
 
             if self.state == "start":
                 self.start_menu.update()
-            elif self.state == "game":
-                self.redraw_screen()
+            if self.state == "game":
+                self.redraw_screen()          
+                
+                self.player.update()
+                self.virus_list.update()      
             elif self.state == "pause":
                 self.pause_menu.update()
             elif self.state == "game_over":
                 self.game_over.update()
             elif self.state == "restart":
-                self.new_game()
+                self.begin_new_game()
             elif self.state == "change_map":
                 self.kill_viruses()
                 self.fade_out_screen(GAME_SETTINGS["width"], GAME_SETTINGS["height"])
@@ -107,9 +126,9 @@ class Game:
                 self.frame_count = 1
 
     def redraw_screen(self):
-        self.window.blit(BACKGROUND.convert_alpha(), (0, 0))
-        self.player.update()
-        self.all_sprite_list.update()
+        # self.window.blit(BACKGROUND.convert_alpha(), (0, 0))
+        # self.player.update()
+        self.window.blit(BACKGROUND, (0, 0))
         self.all_sprite_list.draw(self.window)
 
 
@@ -133,6 +152,8 @@ class Game:
         fade.fill((0, 0, 0))
         for a in range(255, 0, -5):
             fade.set_alpha(a)
+            self.window.blit(BACKGROUND.convert_alpha(), (0, 0))
+
             self.redraw_screen()
             self.window.blit(fade, (0, 0))
             pygame.display.flip()
@@ -182,7 +203,7 @@ class Game:
         for i in range(len(VIRUS_SETTINS)):
             virus = Virus(self, i, self.level["virus"])
             self.virus_list.add(virus)
-            self.all_sprite_list.add(virus)
+            # self.all_sprite_list.add(virus)
 
     def create_sanitizer_icon(self):
         self.all_sprite_list.add(self.sanitizer_icon)
