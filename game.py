@@ -83,7 +83,7 @@ class Game:
                 
             pygame.display.update()
 
-            print(self.clock.get_fps())
+            # print(self.clock.get_fps())
 
             self.frame_count += 1
             if self.frame_count > 30:

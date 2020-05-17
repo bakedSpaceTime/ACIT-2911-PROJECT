@@ -1,0 +1,31 @@
+os: windows
+language: sh
+python:
+- '3.7'
+before_install:
+- git config --local user.name "Ming Yen Hsieh"
+- git config --local user.email "mhsieh28@my.bcit.ca"
+- choco install python3
+- export PATH="/c/Python38:/c/Python38/Scripts:$PATH"
+- python -m pip install --upgrade pip wheel
+#- python -m pip install --extra-index-url https://pypi.org/project/pytest/ pytest
+- python -m pip install --extra-index-url https://pypi.org/project/pywin32/ pywin32
+- python -m pip install --extra-index-url https://pypi.org/simple/ pygame
+- python -m pip install --extra-index-url https://pypi.org/project/cx-Freeze/ cx-Freeze
+install:
+- pip install -r requirements.txt
+script:
+#- echo "skipping tests"
+- python -m unittest discover
+- python setup.py build
+- 7z a build.zip build
+virtualenv:
+  system_site_packages: true
+deploy:
+  provider: releases
+  api_key:
+    secure: odkv621B9zwVtSGC9cQcJB1sgytyy4HJe9nq7HQ4HeTrgb+gXwYs15AGHrXw+tmOi+LqbajqotDfnW/yeWvmIqGdaGFkGvnkw5iEWrHRSAiaKlAeI1paEb5U6FNoLelOm3TBiON/lQDscA1Y1ry9cKk5YmTgRMK7uFX3pk5q643moXgitaatlfxrjPhLAz+FqlkXsIxuNOUW8Uq2RlmvVr1a2kmNAXzxY+42kwmSY/C3BTi8JswH84wMtg8DVG9TQplj+IRFo8xodKGc9bpkfAGTtb8qHesxW1GRumNWpzVOu6EvtdNkveDutPpA0jZhOiBAF66hBwpdFVzBJ+Ab5r5q1/xWhBztl2xgAb1fTTQOGWQdWfsQkvcGtAqHicp1yxwZ32gVksy+MhNbWjTF1u8laU7c0f1hjolo3qYi73va0XIHRUyCEg/pFShYPj6ctjj9mgMZmuwZin4dmUNzJ6MwRtUSlp5QUZBO0pgqAVz4Fx6Md1Qo0Ni1qJxTedWjkaPMOanuszsReuakIoQzb17dTBqZwH5NdZWJgFc4buQpdbwtAiiFnfZUN6/e7tSHOMYdCCN1m5i0IDVLbA4d+PiX+BXXuQqQ/XXFMzdSBZlLrBvsmrlQVgRRXLiI+kEm0UjX2NxzPLxFPD0GOe0z7hyaR3CuzoWkx8TUXJABEqg=
+  file: build.zip
+  on:
+    repo: bakedSpaceTime/ACIT-2911-PROJECT
+  skip_cleanup: 'true'

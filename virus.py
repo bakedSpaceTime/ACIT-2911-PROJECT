@@ -69,7 +69,6 @@ class Virus(MovingEntity):
             rect_contains_center = current_node.rect.collidepoint(self.rect.center)
             if rect_contains_center == 1:
                 # print(f"before!:\n\tcurrent node: {current_node}\n\tnd node:{self.end_node}\n\t{self.path}\n")
-
                 while current_node == self.end_node or self.force_new_path:
                     # print("end reached")
                     self.update_path()
@@ -147,8 +146,8 @@ class Virus(MovingEntity):
         if len(self.path) > 1:
 
             reference_node = self.prev_node
-
             # print("index", self.prev_node_i + 1)
+
             next_node = self.path[self.prev_node_i + 1]
             dir_int = None
             # print(reference_node.neighbours)
