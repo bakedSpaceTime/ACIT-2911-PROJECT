@@ -48,8 +48,7 @@ class Player(MovingEntity):
                     self.game_ref.state = "pause"
                     self.game_ref.time.pause()
                 if e.key == pygame.K_a:
-                    self.game_ref.state = "change_map"
-                    self.game_ref.time.reset()
+                    self.game_ref.increment_level()
 
         self.update_status()
         self.score_penalty()
@@ -61,7 +60,7 @@ class Player(MovingEntity):
             if int(self.game_ref.time.get_current()) % 3 == 0\
                     and int(self.game_ref.time.get_current()) != self.game_ref.time.previous:
                 self.game_ref.time.previous = int(self.game_ref.time.get_current())
-                print(int(self.game_ref.time.get_current()))
+                # print(int(self.game_ref.time.get_current()))
                 # - 1 score every 3 seconds
                 if self.score > 0:
                     self.score -= 1

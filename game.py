@@ -12,7 +12,7 @@ Authors:
 
 import pygame
 import random
-from settings import GAME_SETTINGS, BACKGROUND, WALL_LIST_1ST_FLOOR, WALL_LIST_2ND_FLOOR, VIRUS_SETTINS, WALL_LIST_PARKING_LOT, PLAYER_SPRITES, OTHER_SPRITES
+from settings import GAME_SETTINGS, BACKGROUND, VIRUS_SETTINS, PLAYER_SPRITES, OTHER_SPRITES, LEVEL_LIST
 from player import Player
 from virus import Virus
 from wall import Obstacle
@@ -69,14 +69,15 @@ class Game:
     def begin_new_game(self):
         self.player = Player(self)
         self.heart_list = []
-        self.initialize_map()
+        self.level_index = 0
+        self.initialize_map(level=LEVEL_LIST[self.level_index])
         self.fade_in_screen(GAME_SETTINGS["width"], GAME_SETTINGS["height"])
 
         self.time = Timer()
         self.time.start()
         self.state = "game"
 
-    def initialize_map(self, level=WALL_LIST_1ST_FLOOR):
+    def initialize_map(self, level=LEVEL_LIST[0]):
         self.level = level
         self.run = True
         # self.all_sprite_list = pygame.sprite.Group()
@@ -99,23 +100,13 @@ class Game:
             if self.state == "start":
                 self.start_menu.update()
             if self.state == "game":
-                self.redraw_screen()          
-                
-                self.player.update()
-                self.virus_list.update()      
+               self.game_controller()
             elif self.state == "pause":
                 self.pause_menu.update()
             elif self.state == "game_over":
                 self.game_over.update()
             elif self.state == "restart":
                 self.begin_new_game()
-            elif self.state == "change_map":
-                self.kill_viruses()
-                self.fade_out_screen(GAME_SETTINGS["width"], GAME_SETTINGS["height"])
-                self.initialize_map(WALL_LIST_PARKING_LOT)
-                self.player.restart_position()
-                self.fade_in_screen(GAME_SETTINGS["width"], GAME_SETTINGS["height"])
-                self.state = "game"
 
             pygame.display.update()
 
@@ -131,6 +122,29 @@ class Game:
         self.window.blit(BACKGROUND, (0, 0))
         self.all_sprite_list.draw(self.window)
 
+    def game_controller(self):
+        self.redraw_screen()
+        self.player.update()
+        self.virus_list.update()
+
+        if len(self.toilet_list) == 0:
+            self.increment_level()
+
+    def increment_level(self):
+        self.fade_out_screen(GAME_SETTINGS["width"], GAME_SETTINGS["height"])
+        pygame.time.delay(250)
+        self.all_sprite_list = pygame.sprite.Group()
+        self.wall_list = pygame.sprite.Group()
+        self.toilet_list = pygame.sprite.Group()
+        self.virus_list = pygame.sprite.Group()
+        self.sanitizer_list = pygame.sprite.Group()
+        self.player.restart_position()
+        self.level_index += 1
+        if self.level_index >= len(LEVEL_LIST): 
+            self.state = "game_over"
+        else:
+            self.initialize_map(LEVEL_LIST[self.level_index])
+        self.fade_in_screen(GAME_SETTINGS["width"], GAME_SETTINGS["height"])
 
     def kill_viruses(self):
         for virus in self.virus_list:
