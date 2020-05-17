@@ -36,33 +36,41 @@ class Game:
         pygame.display.set_caption("Pandemic Run")
         #self.level = WALL_LIST_1ST_FLOOR
         #self.level = WALL_LIST_PARKING_LOT
-        self.level = WALL_LIST_2ND_FLOOR
+        # self.level = WALL_LIST_2ND_FLOOR
+        self.start_menu = StartMenu(self)
+        self.pause_menu = PauseMenu(self)
+        self.game_over = EndMenu(self)
+        self.state = None
+        self.player = None
+        self.heart_list = None
+        self.level = None
+        self.run = False
+        self.new_game()
 
+        self.run = False
+        self.frame_count = 1
+
+    def new_game(self):
+        self._initialize_music()
         self.player = Player(self)
+        self.heart_list = []
+        self.initialize_map()
+        self.state = "start"
 
+    def initialize_map(self, level=WALL_LIST_1ST_FLOOR):
+        self.level = level
         self.run = True
-
         self.all_sprite_list = pygame.sprite.Group()
         self.wall_list = pygame.sprite.Group()
         self.toilet_list = pygame.sprite.Group()
         self.virus_list = pygame.sprite.Group()
         self.sanitizer_list = pygame.sprite.Group()
-        self.heart_list = []
         self.sanitizer_icon = Icon((GAME_SETTINGS["width"] / 36), 0, "sanitizer_icon")
 
         self.create_walls()
         self.create_loots()
         self.create_virus()
         self.create_status_icons()
-
-        self._initialize_music()
-        
-        self.start_menu = StartMenu(self)
-        self.pause_menu = PauseMenu(self)
-        self.game_over = EndMenu(self)
-        self.state = "start"
-
-        self.frame_count = 1
 
     def main_game(self):
         while True:
@@ -72,15 +80,21 @@ class Game:
             if self.state == "start":
                 self.start_menu.update()
             elif self.state == "game":
-                self.window.blit(BACKGROUND.convert_alpha(), (0, 0))
-                self.player.update()
-                self.all_sprite_list.update()
-                self.all_sprite_list.draw(self.window)
+                self.redraw_screen()
             elif self.state == "pause":
                 self.pause_menu.update()
             elif self.state == "game_over":
                 self.game_over.update()
-                
+            elif self.state == "restart":
+                self.new_game()
+            elif self.state == "change_map":
+                self.kill_viruses()
+                self.fade_out_screen(GAME_SETTINGS["width"], GAME_SETTINGS["height"])
+                self.initialize_map(WALL_LIST_PARKING_LOT)
+                self.player.restart_position()
+                self.fade_in_screen(GAME_SETTINGS["width"], GAME_SETTINGS["height"])
+                self.state = "game"
+
             pygame.display.update()
 
             # print(self.clock.get_fps())
@@ -88,6 +102,39 @@ class Game:
             self.frame_count += 1
             if self.frame_count > 30:
                 self.frame_count = 1
+
+    def redraw_screen(self):
+        self.window.blit(BACKGROUND.convert_alpha(), (0, 0))
+        self.player.update()
+        self.all_sprite_list.update()
+        self.all_sprite_list.draw(self.window)
+
+
+    def kill_viruses(self):
+        for virus in self.virus_list:
+            self.all_sprite_list.remove(virus)
+            self.virus_list.remove(virus)
+
+    def fade_out_screen(self, width, height):
+        fade = pygame.Surface((width, height))
+        fade.fill((0, 0, 0))
+        for a in range(0, 255, 5):
+            fade.set_alpha(a)
+            self.redraw_screen()
+            self.window.blit(fade, (0, 0))
+            pygame.display.flip()
+            pygame.time.delay(5)
+
+    def fade_in_screen(self, width, height):
+        fade = pygame.Surface((width, height))
+        fade.fill((0, 0, 0))
+        for a in range(255, 0, -5):
+            fade.set_alpha(a)
+            self.redraw_screen()
+            self.window.blit(fade, (0, 0))
+            pygame.display.flip()
+            pygame.time.delay(5)
+
 
     def _initialize_music(self):
         pygame.mixer.init()

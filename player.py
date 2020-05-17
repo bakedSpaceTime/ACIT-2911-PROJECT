@@ -47,10 +47,20 @@ class Player(MovingEntity):
                 self.switch_directions(e.key)
                 if e.key == pygame.K_ESCAPE:
                     self.game_ref.state = "pause"
+                if e.key == pygame.K_a:
+                    self.game_ref.state = "change_map"
 
         self.update_status()
         self.move()
         self.redraw()
+
+    def restart_position(self):
+        for direction, val in self.directions.items():
+            self.directions[direction] = False
+        self.image = self.sprite_setting["down_standing"]
+        self.rect = self.image.get_rect()
+        self.rect.x = self.entity_settings["starting_x"]
+        self.rect.y = self.entity_settings["starting_y"]
 
     def update_status(self):
         font = pygame.font.Font('freesansbold.ttf', 50)

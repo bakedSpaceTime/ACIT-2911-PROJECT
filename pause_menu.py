@@ -38,7 +38,7 @@ class PauseMenu():
                 if self.game_button.clicked(mx, my):
                     self.game_ref.state = "game"
                 elif self.restart_button.clicked(mx, my):
-                    pass
+                    self.game_ref.state = "restart"
                 elif self.exit_button.clicked(mx, my):
                     self.game_ref.state = "game_over"
                     
