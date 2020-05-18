@@ -277,7 +277,7 @@ WALL_LIST_PARKING_LOT = {
             "TllrRRRRRRlCRR++C++++++ll++++rC+++rlRllT",
             "T==rH=r++C+CRR++CllRRllRRlllRRRR++l+CllT",
             "Tllr+=rll=lC++C++++R+++ll++++++l+RR+l++T",
-            "T++r++l++++l++l+l++l+++ll++C+++rRRRRrRRT",
+            "T++r++l++++l++l+l++++++ll++C+++rRRRRrRRT",
             "TllrRRRRRC+l+RRr+++++++RRRRRR++r+l++r++T",
             "Tllr++l=l+++++Crllrqqrr+l++l+l+r+ClHr++T",
             "T+++++RRRlllC++r++r++rrlC++R+l+rR++CrClT",
