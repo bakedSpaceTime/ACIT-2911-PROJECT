@@ -36,11 +36,11 @@ class MovingEntity(pygame.sprite.Sprite):
         }
 
         if default_sprite == None:
-            self.image = self.sprite_setting['down']
+            self.image = self.sprite_setting['down'].convert_alpha()
         elif default_sprite not in sprite_setting:
             raise ValueError(f"Invalid default sprite: {default_sprite}")
         else:
-            self.image = self.sprite_setting[default_sprite]
+            self.image = self.sprite_setting[default_sprite].convert_alpha()
         self.rect = self.image.get_rect()
         self.rect.x = self.entity_settings["starting_x"]
         self.rect.y = self.entity_settings["starting_y"]
@@ -48,7 +48,7 @@ class MovingEntity(pygame.sprite.Sprite):
     def redraw(self):
         for direction in self.directions:
             if self.directions[direction]:
-                self.image = self.sprite_setting[direction]
+                self.image = self.sprite_setting[direction].convert_alpha()
         self.game_ref.window.blit(self.image, (self.rect.x, self.rect.y))
 
     def update(self):
@@ -74,7 +74,7 @@ class MovingEntity(pygame.sprite.Sprite):
             velocity = self.velocity
         
         temp_sprite = pygame.sprite.Sprite()
-        temp_sprite.image = self.sprite_setting['down_standing']
+        temp_sprite.image = self.sprite_setting['down_standing'].convert_alpha()
         temp_sprite.rect = temp_sprite.image.get_rect()
 
         temp_sprite.rect = self.rect.copy()

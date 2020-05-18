@@ -35,8 +35,8 @@ class Game:
         self.clock = pygame.time.Clock()
         pygame.display.set_caption("Pandemic Run")
         #self.level = WALL_LIST_1ST_FLOOR
-        #self.level = WALL_LIST_PARKING_LOT
-        self.level = WALL_LIST_2ND_FLOOR
+        self.level = WALL_LIST_PARKING_LOT
+        #self.level = WALL_LIST_2ND_FLOOR
 
         self.player = Player(self)
 
@@ -83,7 +83,7 @@ class Game:
                 
             pygame.display.update()
 
-            # print(self.clock.get_fps())
+            print(self.clock.get_fps())
 
             self.frame_count += 1
             if self.frame_count > 30:
@@ -152,7 +152,7 @@ class Game:
 class Icon(pygame.sprite.Sprite):
     def __init__(self, x, y, type):
         super().__init__()
-        self.image = OTHER_SPRITES[type]
+        self.image = OTHER_SPRITES[type].convert_alpha()
         self.rect = self.image.get_rect()
         self.rect.y = y
         self.rect.x = x
@@ -160,7 +160,7 @@ class Icon(pygame.sprite.Sprite):
 class Heart(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
-        self.image = OTHER_SPRITES["heart"]
+        self.image = OTHER_SPRITES["heart"].convert_alpha()
         self.rect = self.image.get_rect()
         self.rect.y = y
         self.rect.x = x
