@@ -31,8 +31,10 @@ from statistics import mean
 
 
 class Game:
+    """ Game class """
 
     def __init__(self):
+        """ Initialize Game class """
 
         pygame.init()
         self.window = pygame.display.set_mode((GAME_SETTINGS['width'], GAME_SETTINGS['height']))
@@ -67,6 +69,7 @@ class Game:
         self.stats = []
 
     def begin_new_game(self):
+        """ Starting up """
         self.player = Player(self)
         self.heart_list = []
         self.level_index = 0
@@ -78,6 +81,7 @@ class Game:
         self.state = "game"
 
     def initialize_map(self, level=LEVEL_LIST[0]):
+        """ Load map and required elements """
         self.level = level
         self.run = True
         self.all_sprite_list = pygame.sprite.Group()
@@ -93,6 +97,7 @@ class Game:
         self.create_status_icons()
 
     def main_game(self):
+        """ Keep the game running """
         while True:
             self.window.fill((0, 0, 0))
             self.clock.tick(30)
@@ -117,12 +122,14 @@ class Game:
                 self.frame_count = 1
 
     def redraw_screen(self):
+        """ Update screen """
         # self.window.blit(BACKGROUND.convert_alpha(), (0, 0))
         # self.player.update()
         self.window.blit(BACKGROUND.convert_alpha(), (0, 0))
         self.all_sprite_list.draw(self.window)
 
     def game_controller(self):
+        """ Keep updating the screen, and increment a level if all toilet papers are collected"""
         self.redraw_screen()
         self.player.update()
         self.virus_list.update()
@@ -131,6 +138,7 @@ class Game:
             self.increment_level()
 
     def increment_level(self):
+        """ Increment a level, end the game if no level remain """
         self.time.pause()
         self.fade_out_screen(GAME_SETTINGS["width"], GAME_SETTINGS["height"])
         pygame.time.delay(250)
@@ -144,11 +152,13 @@ class Game:
             self.time.resume()
 
     def kill_viruses(self):
+        """ Destroy all virus """
         for virus in self.virus_list:
             self.all_sprite_list.remove(virus)
             self.virus_list.remove(virus)
 
     def fade_out_screen(self, width, height):
+        """ Fade out the screen """
         fade = pygame.Surface((width, height))
         fade.fill((0, 0, 0))
         for a in range(0, 255, 5):
@@ -159,6 +169,7 @@ class Game:
             pygame.time.delay(5)
 
     def fade_in_screen(self, width, height):
+        """ Fade in the screen """
         fade = pygame.Surface((width, height))
         fade.fill((0, 0, 0))
         for a in range(255, 0, -5):
@@ -172,11 +183,13 @@ class Game:
 
 
     def _initialize_music(self):
+        """ Load background music and replay """
         pygame.mixer.init()
         pygame.mixer.music.load('audio/bg.mp3')
         pygame.mixer.music.play(-1)
 
     def create_loots(self):
+        """ Create toilet papers and hand sanitizers """
         for y, line in enumerate(self.level["loot"]):
             for x, char in enumerate(line):
                 if char == '=':
@@ -189,6 +202,7 @@ class Game:
                     self.all_sprite_list.add(sanitizer)
 
     def create_walls(self):
+        """ Add walls """
         for y, line in enumerate(self.level["loot"]):
             if y <= 1:
                 continue
@@ -211,15 +225,18 @@ class Game:
                 self.all_sprite_list.add(obstacle)
 
     def create_virus(self):
+        """ Create Virus """
         for i in range(len(VIRUS_SETTINS)):
             virus = Virus(self, i, self.level["virus"])
             self.virus_list.add(virus)
             # self.all_sprite_list.add(virus)
 
     def create_sanitizer_icon(self):
+        """ Create hand sanitizer icon for character status """
         self.all_sprite_list.add(self.sanitizer_icon)
 
     def create_status_icons(self):
+        """ Create character status """
         paper = Icon((GAME_SETTINGS["width"] / 9), 5, "paper_icon")
         self.all_sprite_list.add(paper)
 
@@ -232,7 +249,9 @@ class Game:
             self.all_sprite_list.add(heart)
 
 class Icon(pygame.sprite.Sprite):
+    """ Icon Class """
     def __init__(self, x, y, type):
+        """ Initialize Icon class """
         super().__init__()
         self.image = OTHER_SPRITES[type].convert_alpha()
         self.rect = self.image.get_rect()
@@ -240,7 +259,9 @@ class Icon(pygame.sprite.Sprite):
         self.rect.x = x
 
 class Heart(pygame.sprite.Sprite):
+    """ Heart Class """
     def __init__(self, x, y):
+        """ Initialize Heart class """
         super().__init__()
         self.image = OTHER_SPRITES["heart"].convert_alpha()
         self.rect = self.image.get_rect()

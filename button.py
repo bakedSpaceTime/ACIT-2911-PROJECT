@@ -15,8 +15,9 @@ vec = pygame.math.Vector2
 
 
 class Button():
-
+    """ Button class """
     def __init__(self, x, y, width, height, text, bg_color, font_color, font_size):
+        """ Initialize Button class """
         self.x = x
         self.y = y
         self.width = width
@@ -27,11 +28,13 @@ class Button():
         self.font = pygame.font.Font('freesansbold.ttf', font_size)
 
     def draw(self, window):
+        """ Draw a button with text"""
         button = pygame.draw.rect(window, self.bg_color, (self.x, self.y, self.width, self.height))
         text = self.font.render(self.text, True, self.font_color)
         window.blit(text, (self.x + (self.width / 2 - text.get_width() / 2), self.y + (self.height / 2 - text.get_height() / 2)))
 
     def clicked(self, mx, my):
+        """ Return true if clicked, false otherwise """
         if self.x < mx < self.x + self.width:
             if self.y < my < self.y + self.height:
                 return True

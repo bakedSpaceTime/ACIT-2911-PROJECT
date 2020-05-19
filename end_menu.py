@@ -19,8 +19,10 @@ from send_score import send_score
 
 
 class EndMenu():
+    """ EndMenu class """
 
     def __init__(self, game_ref):
+        """ Initialize EndMenu class """
         self.game_ref = game_ref
         self.header_font = pygame.font.Font('freesansbold.ttf', 60)
         self.info_font = pygame.font.Font('freesansbold.ttf', 30)
@@ -29,6 +31,7 @@ class EndMenu():
         self.start_button = Button(550, 710, 100, 50, 'Exit', COLOURS["blue"], COLOURS["white"], 20)
 
     def update(self):
+        """ Keep the game running """
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -45,6 +48,7 @@ class EndMenu():
         self.draw()
 
     def draw(self):
+        """ Output score, input for name, submit, and exit button"""
         score = self.game_ref.player.score
         text_surface, text_rect = self.text_objects(f'Your score is {score}', self.info_font, color=COLOURS["yellow"])
         text_rect.center = ((GAME_SETTINGS["width"] / 2), (GAME_SETTINGS["height"] / 2))
@@ -67,6 +71,7 @@ class EndMenu():
         return text_surface, text_surface.get_rect()
 
     def submit_score(self):
+        """ Post score and name to the website """
         try:
             score = self.game_ref.player.score
             r = send_score(self.name_input.return_text(), score)

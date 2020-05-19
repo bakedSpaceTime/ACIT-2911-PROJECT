@@ -18,8 +18,10 @@ from moving_entity import MovingEntity
 
 
 class Player(MovingEntity):
+    """ Player class """
 
     def __init__(self, game_ref):
+        """ Initialize Player class """
 
         if type(game_ref) is not game.Game:
             raise TypeError("invalid reference")
@@ -37,7 +39,7 @@ class Player(MovingEntity):
         self.animation_toggle = 2
 
     def update(self):
-
+        """ Keep the game running """
         for e in pygame.event.get():
             if e.type == pygame.QUIT:
                 pygame.quit()
@@ -56,6 +58,7 @@ class Player(MovingEntity):
         self.redraw()
 
     def score_penalty(self):
+        """ Minus 1 score every 3 seconds """
         if self.game_ref.state != "pause":
             if int(self.game_ref.time.get_current()) % 3 == 0\
                     and int(self.game_ref.time.get_current()) != self.game_ref.time.previous:
@@ -66,6 +69,7 @@ class Player(MovingEntity):
                     self.score -= 1
 
     def restart_position(self):
+        """ Reset the the starting position """
         for direction, val in self.directions.items():
             self.directions[direction] = False
         self.image = self.sprite_setting["down_standing"]
@@ -74,6 +78,7 @@ class Player(MovingEntity):
         self.rect.y = self.entity_settings["starting_y"]
 
     def update_status(self):
+        """ Update the character status """
         font = pygame.font.Font('freesansbold.ttf', 50)
 
         text_surface, text_rect = self.text_objects('Pandemic Run', font, color=COLOURS["red"])
@@ -94,6 +99,7 @@ class Player(MovingEntity):
         return text_surface, text_surface.get_rect()
 
     def move(self):
+        """ Move the player """
         self.collision_handler()
 
         if self.is_valid_direction("left"):
@@ -106,6 +112,7 @@ class Player(MovingEntity):
             self.rect.y += self.velocity
 
     def switch_directions(self, key):
+        """ Determine where the player sprite will be facing """
         key_str = self.key_to_direction_str(key)
         if key_str in self.directions.keys():
             for direction in self.directions:
@@ -128,11 +135,13 @@ class Player(MovingEntity):
         return out_str
 
     def collision_handler(self):
+        """ Check if there is collision between player and toilet paper, hand sanitizer and virus"""
         self.collect_toilet_paper()
         self.collect_hand_sanitizer()
         self.check_virus()
 
     def collect_toilet_paper(self):
+        """ Check if there is collision between player and toilet paper, +1 score if contact one """
         item_hit_list = pygame.sprite.spritecollide(self, self.game_ref.toilet_list, False)
         for toilet_paper in item_hit_list:
             self.game_ref.toilet_list.remove(toilet_paper)
@@ -140,6 +149,7 @@ class Player(MovingEntity):
             self.score += 1
 
     def collect_hand_sanitizer(self):
+        """ Check if there is collision between player and hand sanitizer, 5 second able to kill virus if contact one """
         item_hit_list = pygame.sprite.spritecollide(self, self.game_ref.sanitizer_list, False)
         for sanitizer in item_hit_list:
             self.boosted = True
@@ -154,6 +164,7 @@ class Player(MovingEntity):
             self.threads[-1].start()
 
     def check_virus(self):
+        """ Check if there is collision between player and virus, kills virus of collected hand sanitizer, -1 life if no """
         item_hit_list = pygame.sprite.spritecollide(self, self.game_ref.virus_list, False)
         if not self.boosted and len(item_hit_list) != 0 and self.vulnerable:
             self.vulnerable = False
@@ -170,15 +181,18 @@ class Player(MovingEntity):
                 self.game_ref.all_sprite_list.remove(virus)
 
     def loose_life(self):
+        """ If life is reduced to 0, game over"""
         if self.lives == 1:
             self.game_ref.state = "game_over"
         self.lives -= 1
         print(f"Lives: {self.lives}")
 
     def back_to_vulnerable(self):
+        """ Return back to vulnerable mode (normal mode) """
         self.vulnerable = True
 
     def back_to_normal(self):
+        """ No longer can kill virus """
         print("-------------------------")
         print(f"{self.threads}")
         print("-------------------------")
@@ -186,11 +200,12 @@ class Player(MovingEntity):
         self.boosted = False
 
     def redraw(self):
+        """ Redraw """
         self.animate()
         self.game_ref.window.blit(self.image, (self.rect.x, self.rect.y))
 
     def animate(self):
-
+        """ Animate the character sprite movement """
         standing = [1, 4, 7, 10, 13, 16, 19, 22, 25, 28]
         one = [2, 3, 8, 9, 14, 15, 20, 21, 26, 27]
         two = [5, 6, 11, 12, 17, 18, 23, 24, 29, 30]
