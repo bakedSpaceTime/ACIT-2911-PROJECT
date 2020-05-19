@@ -144,7 +144,7 @@ class Game:
             self.state = "game_over"
         else:
             self.initialize_map(LEVEL_LIST[self.level_index])
-        self.fade_in_screen(GAME_SETTINGS["width"], GAME_SETTINGS["height"])
+            self.fade_in_screen(GAME_SETTINGS["width"], GAME_SETTINGS["height"])
 
     def kill_viruses(self):
         for virus in self.virus_list:

@@ -48,7 +48,7 @@ class Player(MovingEntity):
                     self.game_ref.state = "pause"
                     self.game_ref.time.pause()
                 if e.key == pygame.K_a:
-                    self.game_ref.increment_level()
+                    self.game_ref.toilet_list = pygame.sprite.Group()
 
         self.update_status()
         self.score_penalty()
