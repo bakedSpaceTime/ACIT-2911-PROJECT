@@ -36,7 +36,7 @@ class Game:
 
         pygame.init()
         self.window = pygame.display.set_mode((GAME_SETTINGS['width'], GAME_SETTINGS['height']))
-        BACKGROUND.convert_alpha()
+        #BACKGROUND.convert_alpha()
         self.clock = pygame.time.Clock()
         pygame.display.set_caption("Pandemic Run")
         #self.level = WALL_LIST_1ST_FLOOR
@@ -80,11 +80,11 @@ class Game:
     def initialize_map(self, level=LEVEL_LIST[0]):
         self.level = level
         self.run = True
-        # self.all_sprite_list = pygame.sprite.Group()
-        # self.wall_list = pygame.sprite.Group()
-        # self.toilet_list = pygame.sprite.Group()
-        # self.virus_list = pygame.sprite.Group()
-        # self.sanitizer_list = pygame.sprite.Group()
+        self.all_sprite_list = pygame.sprite.Group()
+        self.wall_list = pygame.sprite.Group()
+        self.toilet_list = pygame.sprite.Group()
+        self.virus_list = pygame.sprite.Group()
+        self.sanitizer_list = pygame.sprite.Group()
         self.sanitizer_icon = Icon((GAME_SETTINGS["width"] / 36), 0, "sanitizer_icon")
 
         self.create_walls()
@@ -119,7 +119,7 @@ class Game:
     def redraw_screen(self):
         # self.window.blit(BACKGROUND.convert_alpha(), (0, 0))
         # self.player.update()
-        self.window.blit(BACKGROUND, (0, 0))
+        self.window.blit(BACKGROUND.convert_alpha(), (0, 0))
         self.all_sprite_list.draw(self.window)
 
     def game_controller(self):
@@ -237,7 +237,7 @@ class Game:
 class Icon(pygame.sprite.Sprite):
     def __init__(self, x, y, type):
         super().__init__()
-        self.image = OTHER_SPRITES[type]
+        self.image = OTHER_SPRITES[type].convert_alpha()
         self.rect = self.image.get_rect()
         self.rect.y = y
         self.rect.x = x
@@ -245,7 +245,7 @@ class Icon(pygame.sprite.Sprite):
 class Heart(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
-        self.image = OTHER_SPRITES["heart"]
+        self.image = OTHER_SPRITES["heart"].convert_alpha()
         self.rect = self.image.get_rect()
         self.rect.y = y
         self.rect.x = x

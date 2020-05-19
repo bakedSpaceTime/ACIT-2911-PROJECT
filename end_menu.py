@@ -39,9 +39,9 @@ class EndMenu():
                 mx, my = pygame.mouse.get_pos()
                 if self.submit_button.clicked(mx, my) and self.name_input.return_text():
                         self.submit_score()
-                        self.game_ref.state = "restart"
+                        self.game_ref.state = "start"
                 elif self.start_button.clicked(mx, my):
-                    self.game_ref.state = "restart"
+                    self.game_ref.state = "start"
         self.draw()
 
     def draw(self):

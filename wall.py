@@ -19,7 +19,7 @@ class Obstacle(pygame.sprite.Sprite):
 
     def __init__(self, x, y, type = 'wall'):
         super().__init__()
-        self.image = OTHER_SPRITES[type]
+        self.image = OTHER_SPRITES[type].convert_alpha()
         self.rect = self.image.get_rect()
         self.rect.y = y
         self.rect.x = x
