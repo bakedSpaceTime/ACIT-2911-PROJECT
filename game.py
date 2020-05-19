@@ -35,8 +35,8 @@ class Game:
         self.clock = pygame.time.Clock()
         pygame.display.set_caption("Pandemic Run")
         #self.level = WALL_LIST_1ST_FLOOR
-        #self.level = WALL_LIST_PARKING_LOT
-        self.level = WALL_LIST_2ND_FLOOR
+        self.level = WALL_LIST_PARKING_LOT
+        #self.level = WALL_LIST_2ND_FLOOR
 
         self.player = Player(self)
 
