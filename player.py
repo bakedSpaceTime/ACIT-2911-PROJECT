@@ -13,7 +13,6 @@ import sys
 import pygame
 import game
 import threading
-import time
 from settings import GAME_SETTINGS, PLAYER_SETTINS, PLAYER_SPRITES, COLOURS
 from moving_entity import MovingEntity
 
@@ -47,10 +46,32 @@ class Player(MovingEntity):
                 self.switch_directions(e.key)
                 if e.key == pygame.K_ESCAPE:
                     self.game_ref.state = "pause"
+                    self.game_ref.time.pause()
+                if e.key == pygame.K_a:
+                    self.game_ref.toilet_list = pygame.sprite.Group()
 
         self.update_status()
+        self.score_penalty()
         self.move()
         self.redraw()
+
+    def score_penalty(self):
+        if self.game_ref.state != "pause":
+            if int(self.game_ref.time.get_current()) % 3 == 0\
+                    and int(self.game_ref.time.get_current()) != self.game_ref.time.previous:
+                self.game_ref.time.previous = int(self.game_ref.time.get_current())
+                # print(int(self.game_ref.time.get_current()))
+                # - 1 score every 3 seconds
+                if self.score > 0:
+                    self.score -= 1
+
+    def restart_position(self):
+        for direction, val in self.directions.items():
+            self.directions[direction] = False
+        self.image = self.sprite_setting["down_standing"]
+        self.rect = self.image.get_rect()
+        self.rect.x = self.entity_settings["starting_x"]
+        self.rect.y = self.entity_settings["starting_y"]
 
     def update_status(self):
         font = pygame.font.Font('freesansbold.ttf', 50)
@@ -170,9 +191,9 @@ class Player(MovingEntity):
 
     def animate(self):
 
-        standing =  [1,4, 7,10,  13,16, 19,22, 25,28]
-        one =       [2,3, 8,9,   14,15, 20,21, 26,27]
-        two =       [5,6, 11,12, 17,18, 23,24, 29,30]
+        standing = [1, 4, 7, 10, 13, 16, 19, 22, 25, 28]
+        one = [2, 3, 8, 9, 14, 15, 20, 21, 26, 27]
+        two = [5, 6, 11, 12, 17, 18, 23, 24, 29, 30]
 
         dir_str = ""
         frame_count = self.game_ref.frame_count
@@ -192,14 +213,14 @@ class Player(MovingEntity):
             self.animation_toggle = 3
         elif frame_count in one:
             self.animation_toggle = 1
-        
-        #elif frame_count % 30 == 0:
+
+        # elif frame_count % 30 == 0:
         #    self.animation_toggle = 3
-        #elif frame_count % 20 == 0:
+        # elif frame_count % 20 == 0:
         #    self.animation_toggle = 2
-        #elif frame_count % 15 == 0:
+        # elif frame_count % 15 == 0:
         #    self.animation_toggle = 1
-        #elif frame_count % 5 == 0:
+        # elif frame_count % 5 == 0:
         #    self.animation_toggle = 2
 
         convert = {

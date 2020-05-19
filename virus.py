@@ -101,7 +101,7 @@ class Virus(MovingEntity):
         self.node_count = 0
 
     def random_path(self):
-        while len(self.path) <= 1:
+        while len(self.path) <= 1 or len(self.path) >= 15:
             node_closest_to_me = self.route_map.find_closest_node(self.rect.center)
             rand_index = randint(0, len(self.route_map.node_graph) - 1)
             # print("random i ", rand_index)

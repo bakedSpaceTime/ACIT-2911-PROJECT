@@ -32,13 +32,16 @@ class PauseMenu():
                 exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
+                    self.game_ref.time.resume()
                     self.game_ref.state = "game"
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mx, my = pygame.mouse.get_pos()
                 if self.game_button.clicked(mx, my):
+                    self.game_ref.time.resume()
                     self.game_ref.state = "game"
                 elif self.restart_button.clicked(mx, my):
-                    pass
+                    self.game_ref.time.reset()
+                    self.game_ref.state = "restart"
                 elif self.exit_button.clicked(mx, my):
                     self.game_ref.state = "game_over"
                     
