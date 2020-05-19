@@ -19,7 +19,7 @@ BASE_URL = 'http://rocky-river-43342.herokuapp.com/Api/Score/AddScore'
 
 
 def send_score(name, score):
-    """ Sends a score and name to our API to add to the leaderboard """
+    """ Sends a score and name to our API to add to the leader board """
     data_obj = {
         'name': name,
         'score': score

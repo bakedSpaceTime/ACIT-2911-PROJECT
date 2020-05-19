@@ -52,7 +52,7 @@ class Virus(MovingEntity):
         self.redraw()
 
     def move(self):
-        """ Moves the virus in the directrion determined by its path """
+        """ Moves the virus in the direction determined by its path """
         self.path_position()
 
         if self.is_valid_direction("left"):
@@ -137,7 +137,7 @@ class Virus(MovingEntity):
             return (delta_x > min_dist or delta_y > min_dist)
 
     def switch_directions(self):
-        """ Assignes the direction the virus should go """
+        """ Assigns the direction the virus should go """
         key_str = self.direction_of_next_node()
 
         if key_str in self.directions.keys():
