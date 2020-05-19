@@ -133,11 +133,6 @@ class Game:
     def increment_level(self):
         self.fade_out_screen(GAME_SETTINGS["width"], GAME_SETTINGS["height"])
         pygame.time.delay(250)
-        self.all_sprite_list = pygame.sprite.Group()
-        self.wall_list = pygame.sprite.Group()
-        self.toilet_list = pygame.sprite.Group()
-        self.virus_list = pygame.sprite.Group()
-        self.sanitizer_list = pygame.sprite.Group()
         self.player.restart_position()
         self.level_index += 1
         if self.level_index >= len(LEVEL_LIST): 
