@@ -16,10 +16,12 @@ from math import sqrt
 
 
 class RouteMap():
-
+    """ Route Map Class
+        Used for determined the path between two points """
     class RouteNode():
-        
+        """ Route Node Subclass """
         def __init__(self,index_pos:tuple, x_pos = 0, y_pos = 0):
+            """ Route Node Constructor """
             self.index_pos = index_pos
             self.neighbours = [None, None, None, None]
             
@@ -38,7 +40,7 @@ class RouteMap():
                 return self.index_pos == other.index_pos
 
     def __init__(self, level_map):
-
+        """ Route Map Constructor """
         self.level_map = level_map
         self.width = len(self.level_map[0]) + 1
         self.height = len(self.level_map) + 1
@@ -53,17 +55,20 @@ class RouteMap():
         self.load_map()
 
     def load_map(self):
+        """ Loads a Level Map into a node graph """
         self.get_all_nodes()
         self.find_neighbours()
         self.create_node_graph()
     
     def create_node_graph(self):
+        """ Reduces all possible points to just points which are nodes """
         for row in self.all_points:
             for node in row:
                 if isinstance(node, self.RouteNode):
                     self.node_graph.append(node)
 
     def get_all_nodes(self):
+        """ Creates a node for each point specified but the Level Map """
          for y, line in enumerate(self.level_map):
             # print(line)
             for x, char in enumerate(line):
@@ -72,6 +77,7 @@ class RouteMap():
                     self.all_points[y][x] = node
                     
     def find_neighbours(self):
+        """ Probes Level Map for an expected Link """
         for row in self.all_points:
             for node in row:
                 if node != None:
@@ -87,6 +93,7 @@ class RouteMap():
                             node.neighbours[i] = neighbour
     
     def determine_neighbour(self, row, column, direction):
+        """ Creates Links between Nodes on the Map """
         if direction == 0:
             current = None
             i = 1
@@ -121,6 +128,7 @@ class RouteMap():
             return self.all_points[row][column - i + 1]
 
     def solve(self, start, end):
+        """ Uses a Depth-First brute force approach to finding a path betwen two given Nodes """
         # Credit: https://github.com/mikepound/mazesolving/blob/master/depthfirst.py
         # With edits made by us
         
@@ -159,6 +167,7 @@ class RouteMap():
         return [path, [count, len(path), completed]]
 
     def find_closest_node(self, position_to_check: tuple):
+        """ Finds the node whose absolute distance is closest to the given coordinate """
         x_pos = position_to_check[0]
         y_pos = position_to_check[1]
 

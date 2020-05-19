@@ -16,7 +16,7 @@ import webbrowser
 
 
 class PauseMenu():
-
+    """ Pause Menu Class """
     def __init__(self, game_ref):
         self.game_ref = game_ref
         self.header_font = pygame.font.Font('freesansbold.ttf', 70)
@@ -26,6 +26,7 @@ class PauseMenu():
         self.exit_button = Button(450, 545, 330, 60, 'End Game', COLOURS["white"], COLOURS["black"], 45)
 
     def update(self):
+        """ Checks for events on event queue """
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -48,6 +49,7 @@ class PauseMenu():
         self.draw()
 
     def draw(self):
+        """ Displays itself on the window """
         text_surface, text_rect = self.text_objects('Paused', self.header_font, color=COLOURS["red"])
         text_rect.center = ((GAME_SETTINGS["width"] / 2), (GAME_SETTINGS["height"] / 4))
         self.game_ref.window.blit(text_surface, text_rect)
@@ -57,5 +59,6 @@ class PauseMenu():
         self.exit_button.draw(self.game_ref.window)
 
     def text_objects(self, text, font, color=COLOURS["white"]):
+        """ Creates text on the screen """
         text_surface = font.render(text, True, color)
         return text_surface, text_surface.get_rect()

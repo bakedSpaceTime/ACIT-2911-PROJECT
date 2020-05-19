@@ -1,11 +1,21 @@
+"""
+Pandemic Run
+Course: ACIT 2911, Agile Development
+Authors:
+- Jaskaran Saini, A01055847
+- Jeffery Law, A00864331
+- Ming Yen Hsieh, A01170219
+- Tushya Iyer, A01023434
+- Shivar Pillay, A01079978
+- Shivam Patel, A01185250
+"""
+
+""" Script to convert our python modules into an executable file for Windows """
 import sys
 from cx_Freeze import setup, Executable
 
-# Dependencies are automatically detected, but it might need fine tuning.
 build_exe_options = {"packages": ["os"], "excludes": [], "include_files": ["images", "audio"]}
 
-# GUI applications require a different base on Windows (the default is for a
-# console application).
 base = None
 
 setup(

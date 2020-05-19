@@ -14,8 +14,9 @@ vec = pygame.math.Vector2
 
 
 class TextBox:
-
+    """ Input Textbox Class """
     def __init__(self, x, y, width, height, max_length, font_size=20):
+        """ Textbox Class """
         self.x = x
         self.y = y
         self.width = width
@@ -31,6 +32,7 @@ class TextBox:
         self.max_length = max_length
 
     def draw(self, window):
+        """ Displays itself on the window """
         self.image.fill(self.bg_color)
         text = self.font.render(self.text, True, (255, 255, 255))
         font_height = text.get_height()
@@ -39,6 +41,7 @@ class TextBox:
         window.blit(self.image, self.position)
 
     def add_text(self, key):
+        """ Converts keys to characters and adds it to the text """
         try:
             if self.within_length() and ((65 <= key <= 90) or (97 <= key <= 122)):
                 text = list(self.text)
@@ -59,9 +62,11 @@ class TextBox:
             print(key)
 
     def within_length(self):
+        """ Checks if there is room for more text """
         if len(self.text) < self.max_length:
             return True
         return False
 
     def return_text(self):
+        """ Returns the text in the Textbox """
         return self.text

@@ -19,9 +19,11 @@ GAME_SETTINGS = {
     # window width
     "width": 1200,
 
+    # Lenght of a standard tile
     "tile_side_length": 30,
 }
 
+""" RGB Colour Constants """
 COLOURS = {
     "black": (0, 0, 0),
     "white": (255, 255, 255),
@@ -30,11 +32,11 @@ COLOURS = {
     "red": (255, 0, 0),
 }
 
+""" Player settings to control attributes rather than hard coding in the constructor """
 PLAYER_SETTINS = {
     "sprite_height": 32,
     "sprite_width": 32,
     "starting_x": 585,
-    # start at 740, cuz I increased game window height for character status
     "starting_y": 740,
     "velocity": 8,
     "lives": 10,
@@ -42,6 +44,7 @@ PLAYER_SETTINS = {
     "invincible_duration": 2,
 }
 
+""" Player sprites for easy access to each sprite """
 PLAYER_SPRITES = {
     "right_standing": pygame.image.load(path_join('images','Character', 'Right', 'Standing Right.png')),
     "right_1": pygame.image.load(path_join('images','Character', 'Right', 'Right Running 1.png')),
@@ -60,6 +63,7 @@ PLAYER_SPRITES = {
     "down_2": pygame.image.load(path_join('images','Character', 'Forward', 'Forward Running 2.png')),
 }
 
+""" A List to set how many viruses their attributes """
 VIRUS_SETTINS = [
     {
         "starting_x": 30,
@@ -78,6 +82,7 @@ VIRUS_SETTINS = [
     },
 ]
 
+""" Virus sprites for easy access to each sprite """
 VIRUS_SPRITES = {
     "right": pygame.image.load(path_join('images','Virus.png')),
     "left": pygame.image.load(path_join('images','Virus.png')),
@@ -86,6 +91,9 @@ VIRUS_SPRITES = {
     "down_standing": pygame.image.load(path_join('images','Virus.png')),
 }
 # car sprite from https://www.pinterest.ca/pin/233624299398167646/
+
+""" Sprites for easy access to each sprite.
+    Includes Obstacles and Loot """
 OTHER_SPRITES = {
     "toilet_paper": pygame.image.load(path_join('images','Toilet Paper.png')),
     "shelf_front": pygame.image.load(path_join('images','Shelf', 'Front.png')),
@@ -103,8 +111,10 @@ OTHER_SPRITES = {
     "heart": pygame.image.load(path_join('images', 'heart sprite.png')),
 }
 
+""" Background sprite """
 BACKGROUND = pygame.image.load(path_join('images','background.png'))
 
+""" Layered Level map for the 1st Floor """
 WALL_LIST_1ST_FLOOR = {
     "loot":
     [   "                                        ",
@@ -165,6 +175,7 @@ WALL_LIST_1ST_FLOOR = {
     ],
 }
 
+""" Layered Level map for the 2nd Floor """
 WALL_LIST_2ND_FLOOR = {
     "loot":
     [
@@ -226,6 +237,7 @@ WALL_LIST_2ND_FLOOR = {
     ],
 }
 
+""" Layered Level map for the Parking Lot """
 WALL_LIST_PARKING_LOT = {
     "loot":
         [
@@ -313,4 +325,5 @@ WALL_LIST_PARKING_LOT = {
         ],
 }
 
+""" A list containing all the levels maps """
 LEVEL_LIST = [WALL_LIST_PARKING_LOT, WALL_LIST_1ST_FLOOR, WALL_LIST_2ND_FLOOR]

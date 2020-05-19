@@ -16,8 +16,9 @@ from settings import OTHER_SPRITES
 
 
 class Obstacle(pygame.sprite.Sprite):
-
+    """ Obstacle Class """
     def __init__(self, x, y, type = 'wall'):
+        """ Obstacle Constructor """
         super().__init__()
         self.image = OTHER_SPRITES[type].convert_alpha()
         self.rect = self.image.get_rect()

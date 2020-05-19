@@ -95,6 +95,7 @@ class Player(MovingEntity):
 
     @staticmethod
     def text_objects(text, font, color=COLOURS["white"]):
+        """ Creates text on the screen """
         text_surface = font.render(text, True, color)
         return text_surface, text_surface.get_rect()
 
@@ -123,6 +124,7 @@ class Player(MovingEntity):
 
     @staticmethod
     def key_to_direction_str(key):
+        """ Converts a key press to a direction on the screen """
         out_str = ""
         if key == pygame.K_LEFT:
             out_str = "left"

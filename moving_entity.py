@@ -15,9 +15,9 @@ from settings import GAME_SETTINGS
 
 
 class MovingEntity(pygame.sprite.Sprite):
-
+    """ Moving Entity Class """
     def __init__(self, game_ref, sprite_setting, entity_settings, default_sprite: str = None):
-
+        """ Moving Entity Constructor """
         if type(game_ref) is not game.Game:
             raise TypeError("invalid reference")
 
@@ -46,15 +46,18 @@ class MovingEntity(pygame.sprite.Sprite):
         self.rect.y = self.entity_settings["starting_y"]
 
     def redraw(self):
+        """ Displays itself on the window """
         for direction in self.directions:
             if self.directions[direction]:
                 self.image = self.sprite_setting[direction].convert_alpha()
         self.game_ref.window.blit(self.image, (self.rect.x, self.rect.y))
 
     def update(self):
+        """ Abstract Method """
         pass
 
     def is_in_bounds(self, side: str):
+        """ Checks if the Entities next move towards a side will take it out of the window """
         boundries = {
             "left": self.rect.x > 0 + self.velocity,
             "right": self.rect.x < GAME_SETTINGS['width'] - self.rect.width - self.velocity,
@@ -68,6 +71,7 @@ class MovingEntity(pygame.sprite.Sprite):
         return boundries[side]
 
     def will_hit_wall(self, side: str):
+        """ Checks if the Entities next move towards a side will make it collide with an obstacle """
         if side in ["left", "up"]:
             velocity = -self.velocity
         else:
@@ -97,9 +101,11 @@ class MovingEntity(pygame.sprite.Sprite):
                 return True
 
     def is_valid_direction(self, move_direction):
+        """ Checks if the Entity can move in a certain direction """
         return self.directions[move_direction] and self.is_in_bounds(move_direction) and not self.will_hit_wall(move_direction)
 
     def align_with_wall(self, side, wall):
+        """ Aligns one edge of the Entity with an edge of the Wall """
         if side == "left":
             self.rect.left = wall.rect.right
         elif side == "right":
@@ -110,7 +116,9 @@ class MovingEntity(pygame.sprite.Sprite):
             self.rect.bottom = wall.rect.top
 
     def move(self):
+        """ Abstract Method """
         pass
     
     def switch_directions(self, key):
+        """ Abstract Method """
         pass
