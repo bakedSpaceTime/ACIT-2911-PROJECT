@@ -184,14 +184,3 @@ class RouteMap():
                 closest_node = node
 
         return closest_node
-
-if __name__ == "__main__":
-
-    mappy = RouteMap(WALL_LIST)
-    # print(mappy.node_graph, len(mappy.node_graph))
-    # print()
-    # for node in mappy.node_graph:
-    #     print(f"node:{node},\nneighbours: {node.neighbours}\n")
-    results = mappy.solve(mappy.node_graph[0], mappy.node_graph[-1])
-    #print(results)
-    #print(list(results[0]))
