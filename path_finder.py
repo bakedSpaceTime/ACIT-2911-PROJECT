@@ -69,7 +69,7 @@ class RouteMap():
 
     def get_all_nodes(self):
         """ Creates a node for each point specified but the Level Map """
-         for y, line in enumerate(self.level_map):
+        for y, line in enumerate(self.level_map):
             # print(line)
             for x, char in enumerate(line):
                 if char == "+":
