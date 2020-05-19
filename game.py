@@ -47,7 +47,6 @@ class Game:
         self.game_over = EndMenu(self)
         self.state = None
         self.player = None
-        self.total_score = 0
         self.heart_list = None
         self.level = None
         self.run = False
@@ -69,7 +68,6 @@ class Game:
 
     def begin_new_game(self):
         self.player = Player(self)
-        self.total_score = 0
         self.heart_list = []
         self.level_index = 0
         self.initialize_map(level=LEVEL_LIST[self.level_index])
@@ -138,12 +136,9 @@ class Game:
         pygame.time.delay(250)
         self.player.restart_position()
         self.level_index += 1
-        self.total_score += self.player.score
         if self.level_index >= len(LEVEL_LIST): 
             self.state = "game_over"
-            self.player.score = self.total_score
         else:
-            self.player.score = 0
             self.initialize_map(LEVEL_LIST[self.level_index])
             self.fade_in_screen(GAME_SETTINGS["width"], GAME_SETTINGS["height"])
             self.time.resume()
