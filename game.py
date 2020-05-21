@@ -12,7 +12,7 @@ Authors:
 
 import pygame
 import random
-from settings import GAME_SETTINGS, BACKGROUND, VIRUS_SETTINS, PLAYER_SPRITES, OTHER_SPRITES, LEVEL_LIST
+from settings import GAME_SETTINGS, BACKGROUND, VIRUS_SETTINS, PLAYER_SPRITES, OTHER_SPRITES, LEVEL_LIST, ICON
 from player import Player
 from virus import Virus
 from wall import Obstacle
@@ -27,6 +27,7 @@ from pause_menu import PauseMenu
 from end_menu import EndMenu
 from timer import Timer
 from statistics import mean
+from os.path import join as path_join
 
 
 
@@ -38,6 +39,7 @@ class Game:
 
         pygame.init()
         self.window = pygame.display.set_mode((GAME_SETTINGS['width'], GAME_SETTINGS['height']))
+        pygame.display.set_icon(ICON)
         #BACKGROUND.convert_alpha()
         self.clock = pygame.time.Clock()
         pygame.display.set_caption("Pandemic Run")

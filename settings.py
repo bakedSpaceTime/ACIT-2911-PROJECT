@@ -114,6 +114,9 @@ OTHER_SPRITES = {
 """ Background sprite """
 BACKGROUND = pygame.image.load(path_join('images','background.png'))
 
+""" Icon sprite """
+ICON = pygame.image.load(path_join('images','chase2.png'))
+
 """ Layered Level map for the 1st Floor """
 WALL_LIST_1ST_FLOOR = {
     "loot":

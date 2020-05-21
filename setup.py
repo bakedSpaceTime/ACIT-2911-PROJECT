@@ -13,6 +13,7 @@ Authors:
 """ Script to convert our python modules into an executable file for Windows """
 import sys
 from cx_Freeze import setup, Executable
+from os.path import join as path_join
 
 build_exe_options = {"packages": ["os"], "excludes": [], "include_files": ["images", "audio"]}
 
@@ -25,5 +26,5 @@ setup(
     version = "0.3",
     description = "Pandemic Run game developed for ACIT 2911 Winter 2020",
     options = {"build_exe": build_exe_options},
-    executables = [Executable("main.py", base=base)]   
+    executables = [Executable("main.py", base=base, icon=path_join("images", "chase2.ico"))]   
 )
