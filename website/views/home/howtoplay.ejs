@@ -1,3 +1,106 @@
 <% layout('../layouts/mainlayout.ejs') -%>
-<h1 class="text-center"><div id="animation"></div> How To Play</h1>
 
+<h1 class="text-center">
+    <div id="animation"></div> How To Play
+  </h1>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h5>Description</h5>
+      </div>
+      <div class="col-6">
+        <p>You play as Johnny, an intrepid Gentleman who is collecting toilet papers to help his community during a
+          global pandemic. Johnny must learn to collect toilet paper while defeating COVID-19 viruses in order to survive.
+          <br>Make your way through the different stages and hope that you don’t come in contact with these deadly
+          viruses.</p>
+      </div>
+      <figure class="col">
+        <img src="/images/Character/Standing Left.png" alt="Johnny" width="15%">
+        <img src="/images/Character/Standing Backward.png" alt="Johnny" width="15%">
+        <img src="/images/Character/Standing Right.png" alt="Johnny" width="15%">
+        <img src="/images/Character/Standing Forward.png" alt="Johnny" width="15%">
+      </figure>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h5>Controls</h5>
+      </div>
+      <div class="col-6">
+        <p>Use arrow keys to move around the map and collect toilet papers.</p>
+      </div>
+      <figure class="col">
+        <svg class="bi bi-arrow-left" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+          xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd"
+            d="M5.854 4.646a.5.5 0 010 .708L3.207 8l2.647 2.646a.5.5 0 01-.708.708l-3-3a.5.5 0 010-.708l3-3a.5.5 0 01.708 0z"
+            clip-rule="evenodd" />
+          <path fill-rule="evenodd" d="M2.5 8a.5.5 0 01.5-.5h10.5a.5.5 0 010 1H3a.5.5 0 01-.5-.5z"
+            clip-rule="evenodd" /></svg>
+        <svg class="bi bi-arrow-up" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+          xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v9a.5.5 0 01-1 0V4a.5.5 0 01.5-.5z" clip-rule="evenodd" />
+          <path fill-rule="evenodd"
+            d="M7.646 2.646a.5.5 0 01.708 0l3 3a.5.5 0 01-.708.708L8 3.707 5.354 6.354a.5.5 0 11-.708-.708l3-3z"
+            clip-rule="evenodd" />
+        </svg>
+        <svg class="bi bi-arrow-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+          xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd"
+            d="M10.146 4.646a.5.5 0 01.708 0l3 3a.5.5 0 010 .708l-3 3a.5.5 0 01-.708-.708L12.793 8l-2.647-2.646a.5.5 0 010-.708z"
+            clip-rule="evenodd" />
+          <path fill-rule="evenodd" d="M2 8a.5.5 0 01.5-.5H13a.5.5 0 010 1H2.5A.5.5 0 012 8z" clip-rule="evenodd" />
+        </svg>
+        <svg class="bi bi-arrow-down" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+          xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd"
+            d="M4.646 9.646a.5.5 0 01.708 0L8 12.293l2.646-2.647a.5.5 0 01.708.708l-3 3a.5.5 0 01-.708 0l-3-3a.5.5 0 010-.708z"
+            clip-rule="evenodd" />
+          <path fill-rule="evenodd" d="M8 2.5a.5.5 0 01.5.5v9a.5.5 0 01-1 0V3a.5.5 0 01.5-.5z" clip-rule="evenodd" />
+        </svg>
+      </figure>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h5>Score system</h5>
+      </div>
+      <div class="col-6">
+        <p>1 point is gained for each toilet paper collected.<br>1 point is lost every three seconds.</p>
+      </div>
+      <figure class="col">
+        <img src="/images/Toilet Paper.png" alt="Toilet Paper" width="15%"> +1
+        <svg class="bi bi-clock" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm8-7A8 8 0 110 8a8 8 0 0116 0z" clip-rule="evenodd"/>
+          <path fill-rule="evenodd" d="M7.5 3a.5.5 0 01.5.5v5.21l3.248 1.856a.5.5 0 01-.496.868l-3.5-2A.5.5 0 017 9V3.5a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+        </svg> -1
+      </figure>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h5>Fight Back</h5>
+      </div>
+      <div class="col-6">
+        <p>Fight back aganist the virus by collecting the hand sanitizer placed around the map.
+          <br>Each bottle grants you a <strong>5 second</strong> power up to kill the viruses.
+          <br>Simply pick up the bottle and come into contact with the virus.
+        </p>
+      </div>
+      <figure class="col">
+        <img src="/images/sanitizer-sprite.png" alt="Hand Sanitizer">
+      </figure>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h5>Game Over</h5>
+      </div>
+      <div class="col-6">
+        <p>Once you come into contact with the virus you lose 1 heart.
+          <br>After each hit you get 2 seconds of invincibility to get away from the virus.
+          <br>But be careful after losing 10 hearts, its <strong>GAME OVER.</strong>
+        </p>
+      </div>
+      <figure class="col">
+        <img src="/images/Virus.png" alt="Virus">
+        <img src="/images/heart_sprite.png" alt="Heart">
+      </figure>
+    </div>
+  </main>

@@ -19,9 +19,9 @@ seed(17)
 
 
 class Virus(MovingEntity):
-
+    """ Virus Class """
     def __init__(self, game_ref, virus_num, level_map):
-
+        """ Virus Constructor """
         if type(game_ref) is not game.Game:
             raise TypeError("invalid reference")
 
@@ -44,6 +44,7 @@ class Virus(MovingEntity):
         self.start_path()
 
     def update(self):
+        """ Checks for events on event queue """
         for e in pygame.event.get():
             if e.type == pygame.QUIT:
                 pygame.quit()
@@ -51,6 +52,7 @@ class Virus(MovingEntity):
         self.redraw()
 
     def move(self):
+        """ Moves the virus in the direction determined by its path """
         self.path_position()
 
         if self.is_valid_direction("left"):
@@ -63,6 +65,8 @@ class Virus(MovingEntity):
             self.rect.y += self.velocity
 
     def path_position(self):
+        """ Updates which nodes have been traversed in the current path
+            Creates a new path when needed """
         collide_i = self.rect.collidelist(self.route_map.node_graph)
         if collide_i != -1:
             current_node = self.route_map.node_graph[collide_i]
@@ -83,11 +87,13 @@ class Virus(MovingEntity):
                 self.switch_directions()
 
     def start_path(self):
+        """ Puts a node on a path if it wasn't on one before """
         self.update_path()
         node_closest_to_me = self.route_map.find_closest_node(self.rect.center)
         self.snap_to_node(node_closest_to_me)
 
     def update_path(self):
+        """ Creates a path to the players position or a random path """
         node_closest_to_player = self.route_map.find_closest_node(self.game_ref.player.rect.center)
         node_closest_to_me = self.route_map.find_closest_node(self.rect.center)
 
@@ -101,7 +107,8 @@ class Virus(MovingEntity):
         self.node_count = 0
 
     def random_path(self):
-        while len(self.path) <= 1:
+        """ Creates a path to a randomly selected node on the map """
+        while len(self.path) <= 1 or len(self.path) >= 15:
             node_closest_to_me = self.route_map.find_closest_node(self.rect.center)
             rand_index = randint(0, len(self.route_map.node_graph) - 1)
             # print("random i ", rand_index)
@@ -111,6 +118,7 @@ class Virus(MovingEntity):
         # print("end random")
 
     def snap_to_node(self, node):
+        """ Moves the virus center to the node center """
         if self.can_snap_to_node():
             self.prev_node = node
             self.prev_node_i = self.path.index(node)
@@ -118,6 +126,7 @@ class Virus(MovingEntity):
             self.node_count += 1
 
     def can_snap_to_node(self):
+        """ Determines if a virus can snap to a node """
         if self.prev_node == None:
             return True
         else:
@@ -128,7 +137,7 @@ class Virus(MovingEntity):
             return (delta_x > min_dist or delta_y > min_dist)
 
     def switch_directions(self):
-
+        """ Assigns the direction the virus should go """
         key_str = self.direction_of_next_node()
 
         if key_str in self.directions.keys():
@@ -143,6 +152,8 @@ class Virus(MovingEntity):
                 self.directions[direction] = False
 
     def direction_of_next_node(self):
+        """ Determines the direction the virus should go
+            based on its position in its path """
         if len(self.path) > 1:
 
             reference_node = self.prev_node

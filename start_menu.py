@@ -16,8 +16,9 @@ import webbrowser
 
 
 class StartMenu():
-
+    """ Start Menu Class """
     def __init__(self, game_ref):
+        """ Start Menu Constructor """
         self.game_ref = game_ref
         self.header_font = pygame.font.Font('freesansbold.ttf', 70)
         self.option_font = pygame.font.Font('freesansbold.ttf', 45)
@@ -26,6 +27,7 @@ class StartMenu():
         self.exit_button = Button(550, 545, 120, 60, 'Exit', COLOURS["white"], COLOURS["black"], 45)
         
     def update(self):
+        """ Checks for events on event queue """
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -33,7 +35,9 @@ class StartMenu():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mx, my = pygame.mouse.get_pos()
                 if self.game_button.clicked(mx, my):
-                    self.game_ref.state = "game"
+                    # self.game_ref.state = "game"
+                    # self.game_ref.time.start()
+                    self.game_ref.begin_new_game()
                 elif self.leaderboard_button.clicked(mx, my):
                     webbrowser.open('http://rocky-river-43342.herokuapp.com/')  
                 elif self.exit_button.clicked(mx, my):
@@ -43,6 +47,7 @@ class StartMenu():
         self.draw()
 
     def draw(self):
+        """ Displays itself on the window """
         text_surface, text_rect = self.text_objects('Pandemic Run', self.header_font, color=COLOURS["red"])
         text_rect.center = ((GAME_SETTINGS["width"] / 2), (GAME_SETTINGS["height"] / 4))
         self.game_ref.window.blit(text_surface, text_rect)
@@ -52,5 +57,6 @@ class StartMenu():
         self.exit_button.draw(self.game_ref.window)
 
     def text_objects(self, text, font, color=COLOURS["white"]):
+        """ Creates text on the screen """
         text_surface = font.render(text, True, color)
         return text_surface, text_surface.get_rect()
