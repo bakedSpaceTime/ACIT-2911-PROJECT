@@ -11,7 +11,9 @@ Authors:
 """
 from game import Game
 
-
+""" Main script for Pandemic Run 
+    Used when running Python source code and
+    For creating an excecutable file """
 if __name__ == "__main__":
     game = Game()
     game.main_game()

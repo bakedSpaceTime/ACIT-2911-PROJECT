@@ -13,11 +13,13 @@ Authors:
 import json
 import requests
 
+""" URL of our API """
 BASE_URL = 'http://rocky-river-43342.herokuapp.com/Api/Score/AddScore'
 # BASE_URL = 'http://localhost:1337/Api/Score/AddScore'
 
 
 def send_score(name, score):
+    """ Sends a score and name to our API to add to the leader board """
     data_obj = {
         'name': name,
         'score': score

@@ -4,3 +4,4 @@ __pycache__/
 .coveragec
 htmlcov/
 .build.zip
+.idea/
