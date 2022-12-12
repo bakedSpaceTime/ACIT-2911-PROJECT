@@ -15,7 +15,7 @@
     "dotenv": "^8.2.0",
     "ejs": "^3.0.1",
     "ejs-locals": "^1.0.2",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-session": "^1.17.0",
     "express-sessions": "^1.0.6",
     "mongoose": "^5.8.7",
